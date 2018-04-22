@@ -2,6 +2,8 @@ package application;
 
 import java.util.Scanner;
 
+import game.Game;
+
 public class ConsoleUI {
 
 	private Scanner scan = new Scanner(System.in);
