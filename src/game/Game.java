@@ -3,6 +3,8 @@ package game;
 import java.util.ArrayList;
 import java.util.List;
 
+import replay.*;
+
 public class Game {
 
 	private List<Player> players;
@@ -10,6 +12,10 @@ public class Game {
 	private Board board;
 	private boolean ended;
 	private int currentPlayerIndex;
+
+	// replay part
+	private boolean isReplayMode = false;
+	private List<Action> replay = new ArrayList<>();
 
 	public Game() {
 		die = new Die();
@@ -29,6 +35,12 @@ public class Game {
 		die = new Die();
 		board = new Board();
 		players = new ArrayList<>();
+		if (!isReplayMode)
+			replay = new ArrayList<>();
+	}
+
+	public void setReplayMode(boolean isReplayMode) {
+		this.isReplayMode = isReplayMode;
 	}
 
 	public void addPlayer(String name) {
@@ -64,7 +76,16 @@ public class Game {
 	}
 
 	public int currentPlayerRollDice() {
-		return currentPlayer().roll(die);
+		if (!isReplayMode) {
+			RollAction action = new RollAction(currentPlayer(), die);
+			action.Execute();
+			replay.add(action);
+			return action.getDieFace();
+		} else {
+			RollAction action = (RollAction) replay.get(0);
+			replay.remove(0);
+			return action.getDieFace();
+		}
 	}
 
 	public boolean currentPlayerWin() {

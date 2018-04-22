@@ -34,6 +34,10 @@ public class ConsoleUI {
 	}
 
 	public static void main(String[] args) {
-		new ConsoleUI().start(new Game());
+		Game game = new Game();
+		new ConsoleUI().start(game);
+		game.setReplayMode(true);
+		game.restart();
+		new ConsoleUI().start(game);
 	}
 }
