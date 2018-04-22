@@ -16,7 +16,7 @@ We have worked with Snake and Ladder game before in our class. At that time, the
 
 ## Platform
 
-[x] JAVA 
+- [x] JAVA 
 
 You can develop the project for either desktop or android application. 
 The project must be developed in Java.
