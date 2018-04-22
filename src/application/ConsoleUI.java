@@ -9,6 +9,9 @@ public class ConsoleUI {
 	private Scanner scan = new Scanner(System.in);
 
 	public void start(Game game) {
+		game.addPlayer("P1");
+		game.addPlayer("P2");
+		game.start();
 		while (!game.isEnd()) {
 			System.out.println("-----------------");
 			System.out.println(game.currentPlayerName());

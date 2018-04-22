@@ -1,25 +1,38 @@
 package game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Game {
 
-	private Player[] players;
+	private List<Player> players;
 	private Die die;
 	private Board board;
 	private boolean ended;
 	private int currentPlayerIndex;
 
 	public Game() {
-		players = new Player[2];
-		players[0] = new Player("P1");
-		players[1] = new Player("P2");
-		ended = false;
 		die = new Die();
 		board = new Board();
-		currentPlayerIndex = 0;
-		
-		for(Player player : players) {
+		players = new ArrayList<>();
+	}
+
+	public void start() {
+		for (Player player : players) {
 			board.addPiece(player.getPiece(), 0);
 		}
+		currentPlayerIndex = 0;
+		ended = false;
+	}
+
+	public void restart() {
+		die = new Die();
+		board = new Board();
+		players = new ArrayList<>();
+	}
+
+	public void addPlayer(String name) {
+		players.add(new Player(name));
 	}
 
 	public boolean isEnd() {
@@ -31,11 +44,11 @@ public class Game {
 	}
 
 	public Player currentPlayer() {
-		return players[currentPlayerIndex];
+		return players.get(currentPlayerIndex);
 	}
 
 	public void switchPlayer() {
-		currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+		currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 	}
 
 	public void currentPlayerMove(int steps) {
