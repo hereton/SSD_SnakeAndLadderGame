@@ -9,8 +9,19 @@ public class ConsoleUI {
 	private Scanner scan = new Scanner(System.in);
 
 	public void start(Game game) {
-		game.addPlayer("P1");
-		game.addPlayer("P2");
+		System.out.print("How many players ? (2) : ");
+		int nPlayers;
+		try {
+			nPlayers = Integer.parseInt(scan.nextLine());
+		} catch (NumberFormatException nfe) {
+			nPlayers = 2;
+		}
+		for (int i = 1; i <= nPlayers; i++) {
+			System.out.printf("Enter Player %d name? (Player %d) : ", i, i);
+			String name = scan.nextLine();
+			name = name.equals("") ? "Player " + i : name;
+			game.addPlayer(name);
+		}
 		game.start();
 		while (!game.isEnd()) {
 			System.out.println("-----------------");
