@@ -1,5 +1,9 @@
 package game;
 
+import tile.Freeze;
+import tile.Square;
+import tile.TileType;
+
 public class Board {
 
 	public static final int SIZE = 64;
@@ -18,15 +22,39 @@ public class Board {
 	}
 
 	public void movePiece(Piece piece, int steps) {
-		int pos = getPiecePosition(piece);
-		squares[pos].removePiece(piece);
-		int next_pos = pos + steps;
-		if (next_pos > SIZE - 1) {
-			next_pos = SIZE - 1;
+		int currentPosition = getPiecePosition(piece);
+		TileType currentTileType = squares[currentPosition].getTileType();
+
+		if (currentTileType == TileType.FREEZE) {
+			Freeze fs = (Freeze) squares[currentPosition];
+			fs.move(piece);
+			if (fs.getTurnLeft(piece) > 0) {
+				System.out.println("You are freezed : " + fs.getTurnLeft(piece) + " turn left");
+				return;
+			}
 		}
-		addPiece(piece, next_pos);
-		if (next_pos == SIZE - 1) {
-			squares[next_pos].setGoal(true);
+
+		int nextPosition = squares[currentPosition].nextMove(steps) + currentPosition;
+		squares[currentPosition].removePiece(piece);
+
+		// CHECK POSITION OVERLAP
+		if (nextPosition > SIZE - 1) {
+			int overlap = nextPosition % (SIZE - 1);
+			nextPosition = (SIZE - 1) - overlap;
+			System.out.println(nextPosition);
+		}
+
+		Square nextSquare = squares[nextPosition];
+		if (nextSquare.isSpecialEffect()) {
+			System.out.println("You move in " + nextSquare.getTileType().toString() + " Tile");
+			System.out.println("Move to " + nextSquare.moveAccordingToSpecialEffect() + " Position");
+			nextPosition += nextSquare.moveAccordingToSpecialEffect();
+		}
+
+		squares[nextPosition].addPiece(piece);
+
+		if (nextPosition == SIZE - 1) {
+			squares[nextPosition].setGoal(true);
 		}
 	}
 
