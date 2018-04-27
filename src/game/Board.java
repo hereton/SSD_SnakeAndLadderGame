@@ -17,6 +17,10 @@ public class Board {
 		}
 	}
 
+	public void addSpecialTile(TileType tileType, int square) {
+		
+	}
+
 	public void addPiece(Piece piece, int position) {
 		squares[position].addPiece(piece);
 	}
