@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import replay.*;
+import tile.TileType;
 
 public class Game {
 
@@ -21,6 +22,7 @@ public class Game {
 		die = new Die();
 		board = new Board();
 		players = new ArrayList<>();
+		initSpecialTile(board);
 	}
 
 	public void start() {
@@ -29,6 +31,29 @@ public class Game {
 		}
 		currentPlayerIndex = 0;
 		ended = false;
+	}
+
+	private void initSpecialTile(Board board) {
+		int[][] ladders = new int[][] { { 2, 38 }, { 4, 14 }, { 9, 31 }, { 33, 85 }, { 52, 88 }, { 80, 99 } };
+		int[][] snakes = new int[][] { { 51, 11 }, { 56, 15 }, { 62, 57 }, { 92, 53 }, { 98, 8 } };
+		int[] stops = new int[] { 7, 26, 41, 64, 78, 90 };
+		int[] backwards = new int[] { 17, 39, 86, 94 };
+
+		for (int[] ladder : ladders) {
+			board.addSpecialTile(TileType.LADDER, ladder[0], ladder[1]);
+		}
+
+		for (int[] snake : snakes) {
+			board.addSpecialTile(TileType.SNAKE, snake[0], snake[1]);
+		}
+
+		for (int stop : stops) {
+			board.addSpecialTile(TileType.FREEZE, stop, 1);
+		}
+
+		for (int backward : backwards) {
+			board.addSpecialTile(TileType.BACKWARD, backward, 0);
+		}
 	}
 
 	public void restart() {

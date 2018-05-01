@@ -3,9 +3,7 @@ package application;
 import java.util.ArrayList;
 import java.util.List;
 
-import game.Die;
 import game.Game;
-import game.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -33,7 +31,6 @@ public class BoardUIController {
 	private AnchorPane boardAndPiece;
 
 	private Game game;
-	private Die die;
 	private List<AnchorPane> playersUI;
 	private int playersIndexUI = 0;
 	private boolean goRight = true;
@@ -41,7 +38,6 @@ public class BoardUIController {
 
 	public BoardUIController() {
 		this.game = new Game();
-		this.die = new Die();
 		playersUI = new ArrayList<>();
 		directionPlayers = new ArrayList<>();
 	}
