@@ -91,4 +91,8 @@ public class Game {
 	public boolean currentPlayerWin() {
 		return board.pieceIsAtGoal(currentPlayer().getPiece());
 	}
+
+	public int getPlayerSize() {
+		return this.players.size();
+	}
 }
