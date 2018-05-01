@@ -2,26 +2,65 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-	prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="application.BoardUIController">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<Button fx:id="rollButton" layoutX="389.0" layoutY="289.0"
-			mnemonicParsing="false" onAction="#handleRollButton" text="ROLL">
+		<Button fx:id="rollButton" layoutX="603.0" layoutY="689.0" mnemonicParsing="false" onAction="#handleRollButton" prefHeight="97.0" prefWidth="247.0" text="ROLL">
 			<font>
 				<Font size="50.0" />
 			</font>
 		</Button>
-		<Label fx:id="rolledNumLabel" layoutX="74.0" layoutY="314.0"
-			text="Player x walk: ">
+		<Label fx:id="rolledNumLabel" layoutX="319.0" layoutY="630.0" text="Player x walk: ">
 			<font>
 				<Font size="39.0" />
 			</font>
 		</Label>
+		<ImageView fitHeight="600.0" fitWidth="800.0" layoutX="50.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@../snakeLadder.jpg" />
+			</image>
+		</ImageView>
+		<AnchorPane layoutX="50.0" layoutY="630.0">
+			<children>
+      				<ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../trump.jpg" />
+               </image>
+            </ImageView>
+				<Label layoutY="50.0" text="player 1" />
+			</children>
+		</AnchorPane>
+		<AnchorPane layoutX="100.0" layoutY="630.0">
+			<children>
+				<ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../jackma.jpg" />
+               </image></ImageView>
+				<Label layoutY="50.0" text="player2" />
+			</children>
+		</AnchorPane>
+		<AnchorPane layoutX="150.0" layoutY="630.0">
+			<children>
+				<ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../taksin.jpg" />
+               </image></ImageView>
+				<Label layoutY="50.0" text="player3" />
+			</children>
+		</AnchorPane>
+		<AnchorPane layoutX="200.0" layoutY="630.0">
+			<children>
+				<ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../prayuth.jpg" />
+               </image></ImageView>
+				<Label layoutY="50.0" text="player4" />
+			</children>
+		</AnchorPane>
 	</children>
 </Pane>

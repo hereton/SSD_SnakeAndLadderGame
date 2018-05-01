@@ -27,11 +27,15 @@ public class GameUIController {
 
 	public void handlePlay(ActionEvent e) {
 		int numberPlayer = choiseBox.getValue();
-		System.out.println(numberPlayer);
 		Stage newStage = new Stage();
 		try {
-			Parent root = (Parent) FXMLLoader.load(getClass().getResource("BoardUI.fxml"));
+			BoardUIController bCon = new BoardUIController();
+			bCon.setPlayer(numberPlayer);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("BoardUI.fxml"));
+			loader.setController(bCon);
+			Parent root = (Parent) loader.load();
 			Scene scene = new Scene(root);
+
 			newStage.setScene(scene);
 			newStage.sizeToScene();
 			newStage.setTitle("Snake and Ladder !");

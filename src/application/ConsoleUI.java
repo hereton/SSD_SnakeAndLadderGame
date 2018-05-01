@@ -37,6 +37,7 @@ public class ConsoleUI {
 			System.out.println("Position : " + game.currentPlayerPosition());
 			if (game.currentPlayerWin()) {
 				System.out.println(game.currentPlayerName() + " win");
+				System.out.println("Game win");
 				game.end();
 			} else {
 				game.switchPlayer();
@@ -48,6 +49,7 @@ public class ConsoleUI {
 		Game game = new Game();
 		new ConsoleUI().start(game);
 		game.setReplayMode(true);
+		System.out.println("This is replay");
 		game.restart();
 		new ConsoleUI().start(game);
 	}

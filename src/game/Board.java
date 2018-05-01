@@ -6,7 +6,7 @@ import tile.TileType;
 
 public class Board {
 
-	public static final int SIZE = 64;
+	public static final int SIZE = 100;
 
 	private Square[] squares;
 
