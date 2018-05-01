@@ -13,7 +13,10 @@ import tile.TileType;
 public class Board {
 
 	public static final int SIZE = 100;
-
+	public int[][] LADDER = new int[][] { { 2, 38 }, { 4, 14 }, { 9, 31 }, { 33, 85 }, { 52, 88 }, { 80, 99 } };
+	public int[][] SNAKE = new int[][] { { 51, 11 }, { 56, 15 }, { 62, 57 }, { 92, 53 }, { 98, 8 } };
+	public int[] STOP = new int[] { 7, 26, 41, 64, 78, 90 };
+	public int[] BACKWARD = new int[] { 17, 39, 86, 94 };
 	private Square[] squares;
 
 	public Board() {

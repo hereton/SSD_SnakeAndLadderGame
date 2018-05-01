@@ -27,6 +27,8 @@ public class BoardUIController {
 	private AnchorPane player3;
 	@FXML
 	private AnchorPane player4;
+	@FXML
+	private AnchorPane boardAndPiece;
 
 	private Game game;
 	private List<AnchorPane> playersUI;
