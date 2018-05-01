@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import game.Game;
+import javafx.animation.PathTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Polyline;
+import javafx.util.Duration;
 
 public class BoardUIController {
 
@@ -33,13 +36,18 @@ public class BoardUIController {
 	private Game game;
 	private List<AnchorPane> playersUI;
 	private int playersIndexUI = 0;
-	private boolean goRight = true;
 	private List<Boolean> directionPlayers;
+	private List<Boolean> reachTheGoalButFaceNotRight;
+	PathTransition t;
 
 	public BoardUIController() {
 		this.game = new Game();
 		playersUI = new ArrayList<>();
 		directionPlayers = new ArrayList<>();
+		reachTheGoalButFaceNotRight = new ArrayList<>();
+
+		t = new PathTransition();
+
 	}
 
 	@FXML
@@ -60,6 +68,7 @@ public class BoardUIController {
 		}
 		for (int i = 0; i < playersUI.size(); i++) {
 			directionPlayers.add(true);
+			reachTheGoalButFaceNotRight.add(false);
 			playersUI.get(i).setVisible(true);
 			boardAndPiece.getChildren().get(i + 1).setLayoutX(0);
 			boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
@@ -85,15 +94,11 @@ public class BoardUIController {
 		System.out.println("Die face = " + face);
 
 		game.currentPlayerMove(face);
-
-		System.out.println(getPlayerX(playersIndexUI));
-		System.out.println(getPlayerY(playersIndexUI));
-
 		System.out.println("Position : " + game.currentPlayerPosition());
 		playUIMove(face);
 		if (game.currentPlayerWin()) {
-			// System.out.println(game.currentPlayerName() + " win");
-			// System.out.println("Game win");
+			System.out.println(game.currentPlayerName() + " win");
+			System.out.println("Game win");
 			game.end();
 			rollButton.setDisable(true);
 		} else {
@@ -108,6 +113,8 @@ public class BoardUIController {
 	}
 
 	private void playUIMove(int face) {
+		if (reachTheGoalButFaceNotRight.get(playersIndexUI))
+			directionPlayers.set(playersIndexUI, false);
 		for (int i = 1; i <= face; i++) {
 			// direction right
 			if (directionPlayers.get(playersIndexUI)) {
@@ -124,6 +131,10 @@ public class BoardUIController {
 					playerGoRight(playersIndexUI);
 					directionPlayers.set(playersIndexUI, true); // change direction to right.
 				}
+			}
+			if (getPlayerX(playersIndexUI) < 80 && getPlayerY(playersIndexUI) < 60) {
+				directionPlayers.set(playersIndexUI, true);
+				reachTheGoalButFaceNotRight.set(playersIndexUI, true);
 			}
 		}
 	}

@@ -20,7 +20,6 @@ public class Board {
 		for (int i = 0; i < squares.length; i++) {
 			squares[i] = new Square(i);
 		}
-		squares[5] = new Freeze(0, 2);
 	}
 
 	/**
