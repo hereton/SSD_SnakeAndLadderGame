@@ -1,7 +1,11 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import game.Die;
 import game.Game;
+import game.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -28,15 +32,33 @@ public class BoardUIController {
 
 	private Game game;
 	private Die die;
+	private List<AnchorPane> playersUI;
 
 	public BoardUIController() {
 		this.game = new Game();
 		this.die = new Die();
+		playersUI = new ArrayList<>();
 	}
 
 	@FXML
 	public void initialize() {
 		game.start();
+		if (game.getPlayerSize() == 2) {
+			playersUI.add(player1);
+			playersUI.add(player2);
+		} else if (game.getPlayerSize() == 3) {
+			playersUI.add(player1);
+			playersUI.add(player2);
+			playersUI.add(player3);
+		} else {
+			playersUI.add(player1);
+			playersUI.add(player2);
+			playersUI.add(player3);
+			playersUI.add(player4);
+		}
+		for (AnchorPane player : playersUI) {
+			player.setVisible(true);
+		}
 		// GridPane gp = new GridPane();
 		// for (int row = 0; row < 10; row++) {
 		// for (int col = 0; col < 10; col++) {
@@ -80,7 +102,7 @@ public class BoardUIController {
 		} else {
 			game.switchPlayer();
 		}
-		
+
 	}
 
 	public void setPlayer(int numberPlayer) {
