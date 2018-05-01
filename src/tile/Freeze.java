@@ -1,11 +1,12 @@
 package tile;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import game.Piece;
 
 public class Freeze extends Square {
-	private Map<Piece, Integer> freezes;
+	private Map<Piece, Integer> freezes = new HashMap<>();
 	private int turn;
 
 	public Freeze(int number, int turn) {
