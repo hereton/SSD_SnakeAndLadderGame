@@ -36,7 +36,7 @@ public class Board {
 		Square square;
 		switch (tileType) {
 		case SNAKE:
-			square = new Snake(position, position - desination);
+			square = new Snake(position, (position - desination) * -1);
 			break;
 		case FREEZE:
 			square = new Freeze(position, desination);

@@ -24,7 +24,7 @@ public class Freeze extends Square {
 	public void move(Piece piece) {
 		int currentTurnLeft = freezes.get(piece);
 		currentTurnLeft -= 1;
-		if (currentTurnLeft > 0)
+		if (currentTurnLeft >= 0)
 			freezes.put(piece, currentTurnLeft);
 	}
 
