@@ -24,20 +24,28 @@ public class Board {
 		squares[5] = new Freeze(0, 2);
 	}
 
-	public void addSpecialTile(TileType tileType, int position) {
+	/**
+	 * 
+	 * @param tileType
+	 * @param position
+	 * @param desination
+	 *            if backward , put any number , if freeze , put number of turn
+	 *            freeze
+	 */
+	public void addSpecialTile(TileType tileType, int position, int desination) {
 		Square square;
 		switch (tileType) {
 		case SNAKE:
-			square = new Snake(position, 5);
+			square = new Snake(position, position - desination);
 			break;
 		case FREEZE:
-			square = new Freeze(position, 2);
+			square = new Freeze(position, desination);
 			break;
 		case BACKWARD:
 			square = new Backward(position);
 			break;
 		case LADDER:
-			square = new Ladder(position, 5);
+			square = new Ladder(position, desination - position);
 			break;
 		default:
 			square = new Square(position);
