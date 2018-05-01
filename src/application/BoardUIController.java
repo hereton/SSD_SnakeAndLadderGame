@@ -29,13 +29,13 @@ public class BoardUIController {
 	
 	private Game game;
 	
+	public BoardUIController() {
+		this.game = new Game();
+	}
+	
 
 	@FXML
 	public void initialize() {
-		
-		this.game = new Game();
-		
-		
 
 //		GridPane gp = new GridPane();
 //		for (int row = 0; row < 10; row++) {
