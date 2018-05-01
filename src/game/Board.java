@@ -1,6 +1,12 @@
 package game;
 
+import java.util.InputMismatchException;
+import java.util.List;
+
+import tile.Backward;
 import tile.Freeze;
+import tile.Ladder;
+import tile.Snake;
 import tile.Square;
 import tile.TileType;
 
@@ -15,10 +21,37 @@ public class Board {
 		for (int i = 0; i < squares.length; i++) {
 			squares[i] = new Square(i);
 		}
+		squares[5] = new Freeze(0, 2);
 	}
 
-	public void addSpecialTile(TileType tileType, int square) {
-		
+	public void addSpecialTile(TileType tileType, int position) {
+		Square square;
+		switch (tileType) {
+		case SNAKE:
+			square = new Snake(position, 5);
+			break;
+		case FREEZE:
+			square = new Freeze(position, 2);
+			break;
+		case BACKWARD:
+			square = new Backward(position);
+			break;
+		case LADDER:
+			square = new Ladder(position, 5);
+			break;
+		default:
+			square = new Square(position);
+		}
+		squares[position] = square;
+	}
+
+	public void addSpecialTile(List<Square> squares, int... positions) {
+		if (squares.size() != positions.length) {
+			throw new InputMismatchException("size of squares must be the same as size of positions");
+		}
+		for (int i = 0; i < squares.size(); i++) {
+			this.squares[positions[i]] = squares.get(i);
+		}
 	}
 
 	public void addPiece(Piece piece, int position) {
