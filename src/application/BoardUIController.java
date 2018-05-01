@@ -1,6 +1,6 @@
 package application;
 
-
+import game.Die;
 import game.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-
 
 public class BoardUIController {
 
@@ -26,51 +25,67 @@ public class BoardUIController {
 	private AnchorPane player3;
 	@FXML
 	private AnchorPane player4;
-	
+
 	private Game game;
-	
+	private Die die;
+
 	public BoardUIController() {
 		this.game = new Game();
+		this.die = new Die();
 	}
-	
 
 	@FXML
 	public void initialize() {
+		game.start();
+		// GridPane gp = new GridPane();
+		// for (int row = 0; row < 10; row++) {
+		// for (int col = 0; col < 10; col++) {
+		//
+		// VBox hBox = new VBox();
+		// hBox.setStyle("-fx-border-style: solid inside;" + "-fx-border-width: 2;" +
+		// "-fx-border-radius:2,2,2,2;"
+		// + "-fx-border-color: blue;");
+		//
+		// if (row == 0 && col == 0) {
+		// for (int n = 0; n < players.length; n++) {
+		// player = new Label("player " + (n + 1));
+		// hBox.getChildren().add(player);
+		// }
+		//
+		// } else {
+		// hBox.getChildren().add(new Label(row + "-" + col));
+		// hBox.getChildren().add(new Label((row + 1) + "-" + col));
+		// }
+		//
+		// gp.add(hBox, col, row);
+		// }
+		// }
+		//
+		// pane.getChildren().add(gp);
 
-//		GridPane gp = new GridPane();
-//		for (int row = 0; row < 10; row++) {
-//			for (int col = 0; col < 10; col++) {
-//
-//				VBox hBox = new VBox();
-//				hBox.setStyle("-fx-border-style: solid inside;" + "-fx-border-width: 2;" + "-fx-border-radius:2,2,2,2;"
-//						+ "-fx-border-color: blue;");
-//
-//				if (row == 0 && col == 0) {
-//					for (int n = 0; n < players.length; n++) {
-//						player = new Label("player " + (n + 1));
-//						hBox.getChildren().add(player);
-//					}
-//
-//				} else {
-//					hBox.getChildren().add(new Label(row + "-" + col));
-//					hBox.getChildren().add(new Label((row + 1) + "-" + col));
-//				}
-//
-//				gp.add(hBox, col, row);
-//			}
-//		}
-//
-//		pane.getChildren().add(gp);
-		
 	}
 
 	public void handleRollButton(ActionEvent e) {
+		System.out.println("-----------------");
+		System.out.println(game.currentPlayerName());
+		System.out.println("Position : " + game.currentPlayerPosition());
+		int face = game.currentPlayerRollDice();
+		System.out.println("Die face = " + face);
+		game.currentPlayerMove(face);
+		System.out.println("Position : " + game.currentPlayerPosition());
+		if (game.currentPlayerWin()) {
+			System.out.println(game.currentPlayerName() + " win");
+			System.out.println("Game win");
+			game.end();
+		} else {
+			game.switchPlayer();
+		}
 		
 	}
 
 	public void setPlayer(int numberPlayer) {
-		for(int i = 0 ; i < numberPlayer; i++) {
-			game.addPlayer("player"+(i+1));
+		for (int i = 0; i < numberPlayer; i++) {
+			game.addPlayer("player" + (i + 1));
 		}
 	}
 }
