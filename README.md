@@ -17,12 +17,12 @@ We have worked with Snake and Ladder game before in our class. At that time, the
 ## Logic Features
 
 - [x] The game can play with maximum 4 players.
-- [ ] The game follows the rules in this Gameplay section: https://en.wikipedia.org/wiki/Snakes_and_Ladders.
+- [x] The game follows the rules in this Gameplay section: https://en.wikipedia.org/wiki/Snakes_and_Ladders.
 - [x] restart
 - [x] watch-replay
-- [ ] Apart from Snake and Ladder, please add 2 special types of squares.
-  - [ ] Freeze Square : If a player lands on this square, he/she skips one turn.
-  - [ ] Backward Square : If a player lands on this square, he/she rolls a die and move backward according to the die's face. 
+- [x] Apart from Snake and Ladder, please add 2 special types of squares.
+  - [x] Freeze Square : If a player lands on this square, he/she skips one turn.
+  - [x] Backward Square : If a player lands on this square, he/she rolls a die and move backward according to the die's face. 
   
 ## Platform
 

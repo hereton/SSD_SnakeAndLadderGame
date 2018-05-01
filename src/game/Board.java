@@ -100,6 +100,9 @@ public class Board {
 		}
 
 		squares[nextPosition].addPiece(piece);
+		if (squares[nextPosition].getTileType() != TileType.SQUARE) {
+			System.out.println("You fall in " + squares[nextPosition].getTileType() + " Block");
+		}
 
 		if (nextPosition == SIZE - 1) {
 			squares[nextPosition].setGoal(true);
