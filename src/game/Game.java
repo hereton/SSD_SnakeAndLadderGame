@@ -59,8 +59,8 @@ public class Game {
 		return players.get(currentPlayerIndex);
 	}
 
-	public void switchPlayer() {
-		currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+	public int switchPlayer() {
+		return currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 	}
 
 	public void currentPlayerMove(int steps) {

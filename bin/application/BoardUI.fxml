@@ -26,58 +26,63 @@
 				<Font size="39.0" />
 			</font>
 		</Label>
-		<ImageView fitHeight="600.0" fitWidth="800.0" layoutX="50.0"
-			layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-			<image>
-				<Image url="@../board.jpg" />
-			</image>
-		</ImageView>
-		<AnchorPane fx:id="player1" layoutX="50.0" layoutY="630.0"
-			visible="false">
+		<AnchorPane fx:id="boardAndPiece" layoutX="50.0"
+			layoutY="20.0">
 			<children>
-				<ImageView fitHeight="50.0" fitWidth="50.0"
+				<ImageView fitHeight="600.0" fitWidth="800.0"
 					pickOnBounds="true" preserveRatio="true">
 					<image>
-						<Image url="@../trump.jpg" />
+						<Image url="@../board.jpg" />
 					</image>
 				</ImageView>
-				<Label layoutY="50.0" text="player 1" />
-			</children>
-		</AnchorPane>
-		<AnchorPane fx:id="player2" layoutX="100.0" layoutY="630.0"
-			visible="false">
-			<children>
-				<ImageView fitHeight="50.0" fitWidth="50.0"
-					pickOnBounds="true" preserveRatio="true">
-					<image>
-						<Image url="@../jackma.jpg" />
-					</image>
-				</ImageView>
-				<Label layoutY="50.0" text="player2" />
-			</children>
-		</AnchorPane>
-		<AnchorPane fx:id="player3" layoutX="150.0" layoutY="630.0"
-			visible="false">
-			<children>
-				<ImageView fitHeight="50.0" fitWidth="50.0"
-					pickOnBounds="true" preserveRatio="true">
-					<image>
-						<Image url="@../taksin.jpg" />
-					</image>
-				</ImageView>
-				<Label layoutY="50.0" text="player3" />
-			</children>
-		</AnchorPane>
-		<AnchorPane fx:id="player4" layoutX="200.0" layoutY="630.0"
-			visible="false">
-			<children>
-				<ImageView fitHeight="50.0" fitWidth="50.0"
-					pickOnBounds="true" preserveRatio="true">
-					<image>
-						<Image url="@../prayuth.jpg" />
-					</image>
-				</ImageView>
-				<Label layoutY="50.0" text="player4" />
+				<AnchorPane fx:id="player1" layoutY="610.0"
+					visible="false">
+					<children>
+						<ImageView fitHeight="40.0" fitWidth="30.0"
+							pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@../trump.jpg" />
+							</image>
+						</ImageView>
+						<Label layoutY="50.0" text="player 1" />
+					</children>
+				</AnchorPane>
+				<AnchorPane fx:id="player2" layoutX="50.0"
+					layoutY="610.0" visible="false">
+					<children>
+						<ImageView fitHeight="40.0" fitWidth="30.0"
+							pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@../jackma.jpg" />
+							</image>
+						</ImageView>
+						<Label layoutY="50.0" text="player2" />
+					</children>
+				</AnchorPane>
+				<AnchorPane fx:id="player3" layoutX="100.0"
+					layoutY="610.0" visible="false">
+					<children>
+						<ImageView fitHeight="40.0" fitWidth="30.0"
+							pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@../taksin.jpg" />
+							</image>
+						</ImageView>
+						<Label layoutY="50.0" text="player3" />
+					</children>
+				</AnchorPane>
+				<AnchorPane fx:id="player4" layoutX="150.0"
+					layoutY="610.0" visible="false">
+					<children>
+						<ImageView fitHeight="40.0" fitWidth="30.0"
+							pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@../prayuth.jpg" />
+							</image>
+						</ImageView>
+						<Label layoutY="50.0" text="player4" />
+					</children>
+				</AnchorPane>
 			</children>
 		</AnchorPane>
 	</children>

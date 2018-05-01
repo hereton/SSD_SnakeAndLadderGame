@@ -35,11 +35,15 @@ public class BoardUIController {
 	private Game game;
 	private Die die;
 	private List<AnchorPane> playersUI;
+	private int playersIndexUI = 0;
+	private boolean goRight = true;
+	private List<Boolean> directionPlayers;
 
 	public BoardUIController() {
 		this.game = new Game();
 		this.die = new Die();
 		playersUI = new ArrayList<>();
+		directionPlayers = new ArrayList<>();
 	}
 
 	@FXML
@@ -58,53 +62,47 @@ public class BoardUIController {
 			playersUI.add(player3);
 			playersUI.add(player4);
 		}
-		for (AnchorPane player : playersUI) {
-			player.setVisible(true);
+		for (int i = 0; i < playersUI.size(); i++) {
+			directionPlayers.add(true);
+			playersUI.get(i).setVisible(true);
+			boardAndPiece.getChildren().get(i + 1).setLayoutX(0);
+			boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
+			if (boardAndPiece.getChildren().get(i + 1).getId().equals("player2")) {
+				boardAndPiece.getChildren().get(i + 1).setLayoutX(20);
+			}
+			if (boardAndPiece.getChildren().get(i + 1).getId().equals("player3")) {
+				boardAndPiece.getChildren().get(i + 1).setLayoutX(40);
+			}
+			if (boardAndPiece.getChildren().get(i + 1).getId().equals("player4")) {
+				boardAndPiece.getChildren().get(i + 1).setLayoutX(60);
+			}
 		}
-		// GridPane gp = new GridPane();
-		// for (int row = 0; row < 10; row++) {
-		// for (int col = 0; col < 10; col++) {
-		//
-		// VBox hBox = new VBox();
-		// hBox.setStyle("-fx-border-style: solid inside;" + "-fx-border-width: 2;" +
-		// "-fx-border-radius:2,2,2,2;"
-		// + "-fx-border-color: blue;");
-		//
-		// if (row == 0 && col == 0) {
-		// for (int n = 0; n < players.length; n++) {
-		// player = new Label("player " + (n + 1));
-		// hBox.getChildren().add(player);
-		// }
-		//
-		// } else {
-		// hBox.getChildren().add(new Label(row + "-" + col));
-		// hBox.getChildren().add(new Label((row + 1) + "-" + col));
-		// }
-		//
-		// gp.add(hBox, col, row);
-		// }
-		// }
-		//
-		// pane.getChildren().add(gp);
-
 	}
 
 	public void handleRollButton(ActionEvent e) {
 		System.out.println("-----------------");
 		System.out.println(game.currentPlayerName());
 		System.out.println("Position : " + game.currentPlayerPosition());
-		int face = game.currentPlayerRollDice();
-		System.out.println("Die face = " + face);
-		game.currentPlayerMove(face);
-		System.out.println("Position : " + game.currentPlayerPosition());
-		if (game.currentPlayerWin()) {
-			System.out.println(game.currentPlayerName() + " win");
-			System.out.println("Game win");
-			game.end();
-		} else {
-			game.switchPlayer();
-		}
 
+		int face = game.currentPlayerRollDice();
+
+		System.out.println("Die face = " + face);
+
+		game.currentPlayerMove(face);
+
+		System.out.println(getPlayerX(playersIndexUI));
+		System.out.println(getPlayerY(playersIndexUI));
+
+		System.out.println("Position : " + game.currentPlayerPosition());
+		playUIMove(face);
+		if (game.currentPlayerWin()) {
+			// System.out.println(game.currentPlayerName() + " win");
+			// System.out.println("Game win");
+			game.end();
+			rollButton.setDisable(true);
+		} else {
+			playersIndexUI = game.switchPlayer();
+		}
 	}
 
 	public void setPlayer(int numberPlayer) {
@@ -112,4 +110,46 @@ public class BoardUIController {
 			game.addPlayer("player" + (i + 1));
 		}
 	}
+
+	private void playUIMove(int face) {
+		for (int i = 1; i <= face; i++) {
+			// direction right
+			if (directionPlayers.get(playersIndexUI)) {
+				playerGoRight(playersIndexUI);
+				if (getPlayerX(playersIndexUI) > 799) {
+					setPlayerUp(playersIndexUI);
+					playerGoLeft(playersIndexUI);
+					directionPlayers.set(playersIndexUI, false); // change direction to left.
+				}
+			} else if (!directionPlayers.get(playersIndexUI)) {
+				playerGoLeft(playersIndexUI);
+				if (getPlayerX(playersIndexUI) < 0) {
+					setPlayerUp(playersIndexUI);
+					playerGoRight(playersIndexUI);
+					directionPlayers.set(playersIndexUI, true); // change direction to right.
+				}
+			}
+		}
+	}
+
+	private double getPlayerX(int playerIndex) {
+		return boardAndPiece.getChildren().get(playerIndex + 1).getLayoutX();
+	}
+
+	private double getPlayerY(int playerIndex) {
+		return boardAndPiece.getChildren().get(playerIndex + 1).getLayoutY();
+	}
+
+	private void playerGoRight(int playersIndexUI) {
+		boardAndPiece.getChildren().get(playersIndexUI + 1).setLayoutX(getPlayerX(playersIndexUI) + 80);
+	}
+
+	private void playerGoLeft(int playersIndexUI) {
+		boardAndPiece.getChildren().get(playersIndexUI + 1).setLayoutX(getPlayerX(playersIndexUI) - 80);
+	}
+
+	private void setPlayerUp(int playersIndexUI) {
+		boardAndPiece.getChildren().get(playersIndexUI + 1).setLayoutY(getPlayerY(playersIndexUI) - 60);
+	}
+
 }
