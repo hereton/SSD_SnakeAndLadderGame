@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import replay.*;
-import tile.TileType;
 
 public class Game {
 
