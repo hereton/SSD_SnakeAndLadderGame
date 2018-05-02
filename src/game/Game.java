@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observer;
 
 import replay.*;
 import tile.TileType;
@@ -31,6 +32,10 @@ public class Game {
 		}
 		currentPlayerIndex = 0;
 		ended = false;
+	}
+
+	public void addObserver(Observer o) {
+		this.board.addObserver(o);
 	}
 
 	private void initSpecialTile(Board board) {

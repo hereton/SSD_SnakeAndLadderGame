@@ -2,6 +2,7 @@ package game;
 
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Observable;
 
 import tile.Backward;
 import tile.Freeze;
@@ -10,7 +11,7 @@ import tile.Snake;
 import tile.Square;
 import tile.TileType;
 
-public class Board {
+public class Board extends Observable {
 
 	public static final int SIZE = 100;
 	private Square[] squares;
@@ -72,6 +73,8 @@ public class Board {
 			Freeze fs = (Freeze) squares[currentPosition];
 			fs.move(piece);
 			if (fs.getTurnLeft(piece) > 0) {
+				setChanged();
+				notifyObservers("You are still freezed");
 				System.out.println("You are freezed : " + fs.getTurnLeft(piece) + " turn left");
 				return;
 			}
@@ -88,6 +91,14 @@ public class Board {
 		}
 
 		Square nextSquare = squares[nextPosition];
+
+		setChanged();
+		if (nextSquare.getTileType() != TileType.SQUARE) {
+			notifyObservers("You move on to " + nextSquare.getTileType());
+		} else {
+			notifyObservers("");
+		}
+		
 		if (nextSquare.isSpecialEffect()) {
 			System.out.println("You move in " + nextSquare.getTileType().toString() + " Tile");
 			System.out.println("Move to " + nextSquare.moveAccordingToSpecialEffect() + " Position");

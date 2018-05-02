@@ -26,6 +26,13 @@
 				<Font size="24" />
 			</font>
 		</Label>
+		
+		<Label fx:id="status" layoutX="100.0" layoutY="680.0"
+			text="Roll dice to start">
+			<font>
+				<Font size="16" />
+			</font>
+		</Label>
 		<AnchorPane fx:id="boardAndPiece" layoutX="50.0" layoutY="20.0">
 			<children>
 				<ImageView fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true">

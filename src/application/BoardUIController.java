@@ -2,6 +2,8 @@ package application;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import game.Game;
 import javafx.event.ActionEvent;
@@ -11,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-public class BoardUIController {
+public class BoardUIController implements Observer {
 
 	@FXML
 	private Pane pane;
@@ -21,6 +23,8 @@ public class BoardUIController {
 	private Label rolledNumLabel;
 	@FXML
 	private Label dieFace;
+	@FXML
+	private Label status;
 	@FXML
 	private AnchorPane player1;
 	@FXML
@@ -41,6 +45,7 @@ public class BoardUIController {
 
 	public BoardUIController() {
 		this.game = new Game();
+		game.addObserver(this);
 		playersUI = new ArrayList<>();
 		directionPlayers = new ArrayList<>();
 		reachTheGoalButFaceNotRight = new ArrayList<>();
@@ -86,7 +91,7 @@ public class BoardUIController {
 	public void handleRollButton(ActionEvent e) {
 		int nextMove = game.currentPlayerPosition();
 		int face = game.currentPlayerRollDice();
-		dieFace.setText(face + "");
+		dieFace.setText("roll : " + face);
 		game.currentPlayerMove(face);
 		nextMove = game.currentPlayerPosition() - nextMove;
 		if (playersBackward.get(playersIndexUI)) {
@@ -177,6 +182,11 @@ public class BoardUIController {
 	private void setPlayerDown(int playersIndexUI) {
 		boardAndPiece.getChildren().get(playersIndexUI + 1).setLayoutY(getPlayerY(playersIndexUI) + 60);
 
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		status.setText(arg.toString());
 	}
 
 }
