@@ -14,10 +14,4 @@ public class Snake extends Square {
 	public int moveAccordingToSpecialEffect() {
 		return nextMove(stepbacks);
 	}
-
-	@Override
-	public int nextMove(int steps) {
-		return super.nextMove(steps);
-	}
-
 }
