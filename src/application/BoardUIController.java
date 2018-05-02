@@ -130,7 +130,6 @@ public class BoardUIController {
 			directionPlayers.set(playersIndexUI, false);
 		for (int i = 1; i <= face; i++) {
 			// direction right
-			System.out.println("player position: " + directionPlayers.get(playersIndexUI));
 			if (directionPlayers.get(playersIndexUI)) {
 				playerGoRight(playersIndexUI);
 				if (getPlayerX(playersIndexUI) > 799) {
