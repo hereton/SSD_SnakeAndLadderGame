@@ -26,6 +26,12 @@
 				<Font size="39.0" />
 			</font>
 		</Label>
+		<Label fx:id="dieFace" layoutX="319.0" layoutY="680.0"
+			text="Roll dice to start">
+			<font>
+				<Font size="39.0" />
+			</font>
+		</Label>
 		<AnchorPane fx:id="boardAndPiece" layoutX="50.0"
 			layoutY="20.0">
 			<children>

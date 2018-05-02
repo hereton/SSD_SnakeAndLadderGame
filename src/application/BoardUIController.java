@@ -23,6 +23,8 @@ public class BoardUIController {
 	@FXML
 	private Label rolledNumLabel;
 	@FXML
+	private Label dieFace;
+	@FXML
 	private AnchorPane player1;
 	@FXML
 	private AnchorPane player2;
@@ -53,6 +55,7 @@ public class BoardUIController {
 	@FXML
 	public void initialize() {
 		game.start();
+		rolledNumLabel.setText(game.currentPlayerName() + " Turn");
 		if (game.getPlayerSize() == 2) {
 			playersUI.add(player1);
 			playersUI.add(player2);
@@ -85,34 +88,23 @@ public class BoardUIController {
 	}
 
 	public void handleRollButton(ActionEvent e) {
-		System.out.println("-----------------");
-		System.out.println(game.currentPlayerName());
-		System.out.println("Position : " + game.currentPlayerPosition());
-
 		int nextMove = game.currentPlayerPosition();
-		System.out.println("Old move : " + nextMove);
 		int face = game.currentPlayerRollDice();
-
-		System.out.println("Die face = " + face);
-
 		game.currentPlayerMove(face);
-		System.out.println("Position : " + game.currentPlayerPosition());
 		nextMove = game.currentPlayerPosition() - nextMove;
-		System.out.println("Next Move : " + nextMove);
 		playUIMove(nextMove);
 		if (game.currentPlayerWin()) {
-			System.out.println(game.currentPlayerName() + " win");
-			System.out.println("Game win");
 			game.end();
 			rollButton.setDisable(true);
 		} else {
 			playersIndexUI = game.switchPlayer();
+			rolledNumLabel.setText(game.currentPlayerName() + " Turn");
 		}
 	}
 
 	public void setPlayer(int numberPlayer) {
 		for (int i = 0; i < numberPlayer; i++) {
-			game.addPlayer("player" + (i + 1));
+			game.addPlayer("Player" + (i + 1));
 		}
 	}
 
