@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import game.Game;
-import javafx.animation.PathTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Polyline;
-import javafx.util.Duration;
 
 public class BoardUIController {
 
@@ -40,16 +37,14 @@ public class BoardUIController {
 	private int playersIndexUI = 0;
 	private List<Boolean> directionPlayers;
 	private List<Boolean> reachTheGoalButFaceNotRight;
-	PathTransition t;
+	private List<Boolean> playersBackward;
 
 	public BoardUIController() {
 		this.game = new Game();
 		playersUI = new ArrayList<>();
 		directionPlayers = new ArrayList<>();
 		reachTheGoalButFaceNotRight = new ArrayList<>();
-
-		t = new PathTransition();
-
+		playersBackward = new ArrayList<>();
 	}
 
 	@FXML
@@ -72,6 +67,7 @@ public class BoardUIController {
 		for (int i = 0; i < playersUI.size(); i++) {
 			directionPlayers.add(true);
 			reachTheGoalButFaceNotRight.add(false);
+			playersBackward.add(false);
 			playersUI.get(i).setVisible(true);
 			boardAndPiece.getChildren().get(i + 1).setLayoutX(0);
 			boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
@@ -90,8 +86,21 @@ public class BoardUIController {
 	public void handleRollButton(ActionEvent e) {
 		int nextMove = game.currentPlayerPosition();
 		int face = game.currentPlayerRollDice();
+		dieFace.setText(face + "");
 		game.currentPlayerMove(face);
 		nextMove = game.currentPlayerPosition() - nextMove;
+		if (playersBackward.get(playersIndexUI)) {
+			playersBackward.set(playersIndexUI, false);
+			directionPlayers.set(playersIndexUI, !directionPlayers.get(playersIndexUI));
+			System.out.println("change to nomal direction after hit speacial tile");
+		}
+		if (nextMove < 0) {
+			System.out.println("next move less that zero " + nextMove);
+			directionPlayers.set(playersIndexUI, !directionPlayers.get(playersIndexUI));
+			playersBackward.set(playersIndexUI, true);
+			nextMove = nextMove - (2 * nextMove);
+			System.out.println("this is going back ward " + nextMove);
+		}
 		playUIMove(nextMove);
 		if (game.currentPlayerWin()) {
 			game.end();
@@ -109,22 +118,31 @@ public class BoardUIController {
 	}
 
 	private void playUIMove(int face) {
+		System.out.println(face);
 		if (reachTheGoalButFaceNotRight.get(playersIndexUI))
 			directionPlayers.set(playersIndexUI, false);
-		System.out.println(face);
 		for (int i = 1; i <= face; i++) {
 			// direction right
 			if (directionPlayers.get(playersIndexUI)) {
 				playerGoRight(playersIndexUI);
 				if (getPlayerX(playersIndexUI) > 799) {
-					setPlayerUp(playersIndexUI);
+					if (playersBackward.get(playersIndexUI)) {
+						setPlayerDown(playersIndexUI); // after move on to snake
+					} else {
+						setPlayerUp(playersIndexUI); // normal move
+					}
 					playerGoLeft(playersIndexUI);
 					directionPlayers.set(playersIndexUI, false); // change direction to left.
+
 				}
 			} else if (!directionPlayers.get(playersIndexUI)) {
 				playerGoLeft(playersIndexUI);
 				if (getPlayerX(playersIndexUI) < 0) {
-					setPlayerUp(playersIndexUI);
+					if (playersBackward.get(playersIndexUI)) {
+						setPlayerDown(playersIndexUI);
+					} else {
+						setPlayerUp(playersIndexUI);
+					}
 					playerGoRight(playersIndexUI);
 					directionPlayers.set(playersIndexUI, true); // change direction to right.
 				}
@@ -154,6 +172,11 @@ public class BoardUIController {
 
 	private void setPlayerUp(int playersIndexUI) {
 		boardAndPiece.getChildren().get(playersIndexUI + 1).setLayoutY(getPlayerY(playersIndexUI) - 60);
+	}
+
+	private void setPlayerDown(int playersIndexUI) {
+		boardAndPiece.getChildren().get(playersIndexUI + 1).setLayoutY(getPlayerY(playersIndexUI) + 60);
+
 	}
 
 }
