@@ -89,13 +89,15 @@ public class BoardUIController {
 		System.out.println(game.currentPlayerName());
 		System.out.println("Position : " + game.currentPlayerPosition());
 
+		int nextMove = game.currentPlayerPosition();
 		int face = game.currentPlayerRollDice();
 
 		System.out.println("Die face = " + face);
 
 		game.currentPlayerMove(face);
 		System.out.println("Position : " + game.currentPlayerPosition());
-		playUIMove(face);
+		nextMove = game.currentPlayerPosition() - nextMove;
+		playUIMove(nextMove);
 		if (game.currentPlayerWin()) {
 			System.out.println(game.currentPlayerName() + " win");
 			System.out.println("Game win");
@@ -115,6 +117,7 @@ public class BoardUIController {
 	private void playUIMove(int face) {
 		if (reachTheGoalButFaceNotRight.get(playersIndexUI))
 			directionPlayers.set(playersIndexUI, false);
+		System.out.println(face);
 		for (int i = 1; i <= face; i++) {
 			// direction right
 			if (directionPlayers.get(playersIndexUI)) {
