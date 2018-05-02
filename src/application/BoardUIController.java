@@ -86,6 +86,7 @@ public class BoardUIController {
 		System.out.println("Position : " + game.currentPlayerPosition());
 
 		int nextMove = game.currentPlayerPosition();
+		System.out.println("Old move : " + nextMove);
 		int face = game.currentPlayerRollDice();
 
 		System.out.println("Die face = " + face);
@@ -106,7 +107,6 @@ public class BoardUIController {
 			nextMove = nextMove - (2 * nextMove);
 			System.out.println("this is going back ward " + nextMove);
 		}
-
 		playUIMove(nextMove);
 		if (game.currentPlayerWin()) {
 			System.out.println(game.currentPlayerName() + " win");

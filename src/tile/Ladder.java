@@ -14,10 +14,4 @@ public class Ladder extends Square {
 	public int moveAccordingToSpecialEffect() {
 		return nextMove(stepforwards);
 	}
-
-	@Override
-	public int nextMove(int steps) {
-		return super.nextMove(steps);
-	}
-
 }

@@ -18,7 +18,7 @@ public class Freeze extends Square {
 	@Override
 	public void addPiece(Piece piece) {
 		super.addPiece(piece);
-		this.freezes.put(piece, this.turn);
+		this.freezes.put(piece, this.turn + 1);
 	}
 
 	public void move(Piece piece) {
