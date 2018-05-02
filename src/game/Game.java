@@ -36,8 +36,8 @@ public class Game {
 	private void initSpecialTile(Board board) {
 		int[][] ladders = new int[][] { { 1, 37 }, { 3, 13 }, { 8, 30 }, { 32, 84 }, { 51, 87 }, { 79, 98 } };
 		int[][] snakes = new int[][] { { 50, 10 }, { 55, 14 }, { 61, 56 }, { 91, 52 }, { 97, 7 } };
-		int[] stops = new int[] { 6, 25, 40, 63, 77, 89 };
-		int[] backwards = new int[] { 16, 38, 87, 93 };
+		int[] stops = new int[] { 6, 27, 40, 63, 77, 89 };
+		int[] backwards = new int[] { 16, 38, 85, 93 };
 
 		for (int[] ladder : ladders) {
 			board.addSpecialTile(TileType.LADDER, ladder[0], ladder[1]);
