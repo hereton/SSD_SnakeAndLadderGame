@@ -39,7 +39,6 @@ public class BoardUIController implements Observer {
 	private List<Boolean> playersBackward = new ArrayList<>();
 	private int playersIndexUI = 0;
 	private List<Image> diceImages;
-	private Game newGame;
 
 	public BoardUIController(Game game) {
 		this.game = game;
@@ -147,7 +146,6 @@ public class BoardUIController implements Observer {
 		this.reachTheGoalButFaceNotRight.clear();
 		this.playersUI.clear();
 		this.playersBackward.clear();
-		System.out.println(game.getPlayerSize());
 		switch (game.getPlayerSize()) {
 		case 4:
 			playersUI.add(player4);
@@ -170,7 +168,6 @@ public class BoardUIController implements Observer {
 			playersUI.get(i).setVisible(true);
 			boardAndPiece.getChildren().get(i + 1).setLayoutX((i) * 20);
 			boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
-			System.out.println("dadas");
 		}
 		diceImages = new ArrayList<>();
 		for (int i = 1; i <= 6; i++) {
@@ -206,18 +203,18 @@ public class BoardUIController implements Observer {
 	public void update(Observable o, Object arg) {
 		statusPlayer_label.setText(arg.toString());
 		if (arg.equals("restart")) {
-			System.out.println("re");
-			List<String> playerName = new ArrayList<>();
-			for (int i = 0; i < game.getPlayerSize() - 1; i++) {
-				playerName.add(game.getPlayersName(i));
+			List<String> playersName = new ArrayList<>();
+			for (int i = 0; i < game.getPlayerSize(); i++) {
+				playersName.add(game.getPlayersName(i));
 			}
 			game.restart();
-			for (String name : playerName) {
+			for (String name : playersName) {
 				this.game.addPlayer(name);
 			}
-
+			System.out.println(game.getPlayerSize());
+			System.out.println(game.currentPlayerPosition() + "position");
+			turnPlayer_label.setText(game.currentPlayerName());
 			setPlayersToStartPoint();
-			System.out.println("set");
 		}
 		if (arg.equals("new game")) {
 			System.out.println("new game");

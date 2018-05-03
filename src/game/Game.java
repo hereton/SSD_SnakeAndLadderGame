@@ -66,6 +66,7 @@ public class Game {
 		board = new Board();
 		players = new ArrayList<>();
 		replay = new ArrayList<>();
+		initSpecialTile(board);
 	}
 
 	public void addPlayer(String name) {
