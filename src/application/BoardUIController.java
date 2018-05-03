@@ -39,11 +39,10 @@ public class BoardUIController implements Observer {
 	private List<Boolean> playersBackward = new ArrayList<>();
 	private int playersIndexUI = 0;
 	private List<Image> diceImages;
-	private int numberPlayers;
+	private Game newGame;
 
 	public BoardUIController(Game game) {
 		this.game = game;
-		this.numberPlayers = game.getPlayerSize();
 		game.addObserver(this);
 		openWinUI();
 
@@ -149,7 +148,7 @@ public class BoardUIController implements Observer {
 		this.playersUI.clear();
 		this.playersBackward.clear();
 		System.out.println(game.getPlayerSize());
-		switch (numberPlayers) {
+		switch (game.getPlayerSize()) {
 		case 4:
 			playersUI.add(player4);
 			player4_label.setText(game.getPlayersName(3));
@@ -208,9 +207,15 @@ public class BoardUIController implements Observer {
 		statusPlayer_label.setText(arg.toString());
 		if (arg.equals("restart")) {
 			System.out.println("re");
-			
+			List<String> playerName = new ArrayList<>();
+			for (int i = 0; i < game.getPlayerSize() - 1; i++) {
+				playerName.add(game.getPlayersName(i));
+			}
 			game.restart();
-			
+			for (String name : playerName) {
+				this.game.addPlayer(name);
+			}
+
 			setPlayersToStartPoint();
 			System.out.println("set");
 		}
