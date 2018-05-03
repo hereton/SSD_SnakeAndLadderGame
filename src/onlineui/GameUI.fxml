@@ -7,25 +7,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
-	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-	prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="application.GameUIController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="onlineui.onlineGameControllerUI">
 	<children>
-		<Button fx:id="joinButton" layoutX="177.0" layoutY="298.0"
-			mnemonicParsing="false" onAction="#handlePlay" prefHeight="72.0"
-			prefWidth="247.0"
-			style="-fx-background-color: royalblue; -fx-border-color: grey;"
-			text="JOIN" textFill="WHITE">
+		<Button fx:id="joinButton" layoutX="177.0" layoutY="298.0" mnemonicParsing="false" onAction="#handlePlay" prefHeight="72.0" prefWidth="247.0" style="-fx-background-color: royalblue; -fx-border-color: grey;" text="JOIN" textFill="WHITE">
 			<font>
 				<Font size="29.0" />
 			</font>
 		</Button>
-		<Label alignment="CENTER" layoutX="15.0" layoutY="14.0"
-			prefHeight="92.0" prefWidth="571.0"
-			style="-fx-background-color: orange; -fx-border-color: black;"
-			text="Snake and Ladder" textFill="WHITE">
+		<Label alignment="CENTER" layoutX="15.0" layoutY="14.0" prefHeight="92.0" prefWidth="571.0" style="-fx-background-color: orange; -fx-border-color: black;" text="Snake and Ladder" textFill="WHITE">
 			<font>
 				<Font name="Avenir Black" size="48.0" />
 			</font>
@@ -33,10 +22,7 @@
 				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 			</padding>
 		</Label>
-		<Label fx:id="status_label" alignment="CENTER" layoutX="113.0"
-			layoutY="128.0" prefHeight="57.0" prefWidth="375.0"
-			style="-fx-background-color: Turquoise; -fx-border-color: black;"
-			text="Status : waiting (1/4)" textFill="WHITE">
+		<Label fx:id="status_label" alignment="CENTER" layoutX="113.0" layoutY="128.0" prefHeight="57.0" prefWidth="375.0" style="-fx-background-color: Turquoise; -fx-border-color: black;" text="Status : waiting (1/4)" textFill="WHITE">
 			<font>
 				<Font size="18.0" />
 			</font>
@@ -44,10 +30,7 @@
 				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 			</padding>
 		</Label>
-		<TextField fx:id="playerName_textField" alignment="CENTER"
-			layoutX="113.0" layoutY="205.0" prefHeight="57.0" prefWidth="375.0"
-			promptText="Enter player name :"
-			style="-fx-background-color: royalblue; -fx-border-color: black;">
+		<TextField fx:id="playerName_textField" alignment="CENTER" layoutX="113.0" layoutY="205.0" prefHeight="57.0" prefWidth="375.0" promptText="Enter player name :" style="-fx-background-color: royalblue; -fx-border-color: black;">
 			<font>
 				<Font size="22.0" />
 			</font>
