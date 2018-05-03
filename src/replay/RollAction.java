@@ -18,6 +18,11 @@ public class RollAction extends Action {
 	}
 
 	@Override
+	public String getPlayerName() {
+		return currentPlayer.getName();
+	}
+
+	@Override
 	public void Execute() {
 		dieFace = currentPlayer.roll(die);
 	}

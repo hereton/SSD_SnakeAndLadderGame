@@ -48,9 +48,5 @@ public class ConsoleUI {
 	public static void main(String[] args) {
 		Game game = new Game();
 		new ConsoleUI().start(game);
-		game.setReplayMode(true);
-		System.out.println("This is replay");
-		game.restart();
-		new ConsoleUI().start(game);
 	}
 }

@@ -1,6 +1,7 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Observer;
 
@@ -15,9 +16,8 @@ public class Game {
 	private boolean isPlaying;
 	private int currentPlayerIndex;
 
-	// replay part
-	private boolean isReplayMode = false;
 	private List<Action> replay = new ArrayList<>();
+	private List<Action> lastReplay;
 
 	public Game() {
 		die = new Die();
@@ -65,12 +65,7 @@ public class Game {
 		die = new Die();
 		board = new Board();
 		players = new ArrayList<>();
-		if (!isReplayMode)
-			replay = new ArrayList<>();
-	}
-
-	public void setReplayMode(boolean isReplayMode) {
-		this.isReplayMode = isReplayMode;
+		replay = new ArrayList<>();
 	}
 
 	public void addPlayer(String name) {
@@ -83,6 +78,10 @@ public class Game {
 
 	public void end() {
 		isPlaying = false;
+		lastReplay = new ArrayList<>();
+		for (Action c : replay) {
+			lastReplay.add(c);
+		}
 	}
 
 	public Player currentPlayer() {
@@ -106,16 +105,28 @@ public class Game {
 	}
 
 	public int currentPlayerRollDice() {
-		if (!isReplayMode) {
-			RollAction action = new RollAction(currentPlayer(), die);
-			action.Execute();
-			replay.add(action);
-			return action.getDieFace();
-		} else {
-			RollAction action = (RollAction) replay.get(0);
-			replay.remove(0);
-			return action.getDieFace();
-		}
+		RollAction action = new RollAction(currentPlayer(), die);
+		action.Execute();
+		replay.add(action);
+		return action.getDieFace();
+	}
+
+	public Iterator<Action> getLastReplay() {
+		return new Iterator<Action>() {
+			private int pointer = 0;
+
+			@Override
+			public boolean hasNext() {
+				return pointer != (lastReplay.size() - 1);
+			}
+
+			@Override
+			public Action next() {
+				Action ac = lastReplay.get(pointer);
+				pointer++;
+				return ac;
+			}
+		};
 	}
 
 	public boolean currentPlayerWin() {
