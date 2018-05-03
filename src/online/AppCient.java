@@ -23,7 +23,7 @@ public class AppCient extends Application {
 			stage.setResizable(false);
 		} catch (Exception e) {
 			System.out.println("Exception creating scene: " + e.getMessage());
-			// e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 }
