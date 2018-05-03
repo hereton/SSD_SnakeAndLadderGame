@@ -16,6 +16,7 @@ public class Main extends Application {
 			stage.sizeToScene();
 			stage.setTitle("Snake and Ladder !");
 			stage.show();
+			stage.setResizable(false);
 		} catch (Exception e) {
 			System.out.println("Exception creating scene: " + e.getMessage());
 		}

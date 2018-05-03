@@ -48,6 +48,7 @@ public class GameUIController {
 			newStage.sizeToScene();
 			newStage.setTitle("Snake and Ladder !");
 			newStage.show();
+			newStage.setResizable(false);
 
 			Node source = (Node) e.getSource();
 			Stage thisStage = (Stage) source.getScene().getWindow();
