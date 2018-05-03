@@ -22,8 +22,8 @@ public class AppCient extends Application {
 			stage.show();
 			stage.setResizable(false);
 		} catch (Exception e) {
-//			System.out.println("Exception creating scene: " + e.getMessage());
-			e.printStackTrace();
+			System.out.println("Exception creating scene: " + e.getMessage());
+			// e.printStackTrace();
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package onlineui;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 import com.esotericsoftware.kryonet.Client;
@@ -39,7 +40,7 @@ public class onlineGameControllerUI {
 			client.connect(5000, SERVER_IP, SERVER_PORT);
 		} catch (IOException e) {
 			System.out.println("Cannot connect to : " + SERVER_IP + ":" + SERVER_PORT);
-			e.printStackTrace();
+			// e.printStackTrace();
 		} finally {
 			System.out.println("Connected to " + SERVER_IP + ":" + SERVER_PORT);
 		}

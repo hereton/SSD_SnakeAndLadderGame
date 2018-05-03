@@ -25,6 +25,8 @@ public class AppServer extends Game {
 		server.getKryo().register(RoomData.class);
 		server.getKryo().register(PlayerJoin.class);
 		server.getKryo().register(RollDice.class);
+		server.getKryo().register(PlayerTurn.class);
+		server.getKryo().register(RollData.class);
 
 		server.start();
 		try {
@@ -38,7 +40,6 @@ public class AppServer extends Game {
 
 		this.game = new Game();
 		roomStatus.isPlaying = game.isPlaying();
-		roomStatus.numberOfPlayer = game.getPlayerSize();
 	}
 
 	private class ServerListener extends Listener {
@@ -62,11 +63,37 @@ public class AppServer extends Game {
 			if (o instanceof PlayerJoin) {
 				PlayerJoin player = (PlayerJoin) o;
 				game.addPlayer(player.name);
-				roomStatus.numberOfPlayer = game.getPlayerSize();
+				roomStatus.players.add(player.name);
+				sendCurrentPlayerTurn();
 			}
 			if (o instanceof RollDice) {
-				game.currentPlayerRollDice();
+				if (arg0.equals(connections.get(0))) {
+					if (!game.isPlaying())
+						game.start();
+				}
+				int face = game.currentPlayerRollDice();
+				game.currentPlayerMove(face);
+				sendPositionData();
+				if (game.currentPlayerWin()) {
+					game.end();
+				} else {
+					game.switchPlayer();
+					sendCurrentPlayerTurn();
+				}
 			}
+		}
+	}
+
+	private void sendCurrentPlayerTurn() {
+		PlayerTurn pt = new PlayerTurn();
+		pt.currentPlayerTurn = game.currentPlayerName();
+	}
+
+	private void sendPositionData() {
+		RollData datas = new RollData();
+		datas.data.put(game.currentPlayerName(), game.currentPlayerPosition());
+		for (Connection c : connections) {
+			c.sendTCP(datas);
 		}
 	}
 
