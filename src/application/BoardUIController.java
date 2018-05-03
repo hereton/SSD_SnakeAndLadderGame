@@ -43,32 +43,7 @@ public class BoardUIController implements Observer {
 	public void initialize() {
 		game.start();
 		turnPlayer_label.setText("Turn : " + game.currentPlayerName());
-		switch (game.getPlayerSize()) {
-		case 4:
-			playersUI.add(player4);
-		case 3:
-			playersUI.add(player3);
-		case 2:
-			playersUI.add(player1);
-			playersUI.add(player2);
-		}
-		for (int i = 0; i < playersUI.size(); i++) {
-			directionPlayers.add(true);
-			reachTheGoalButFaceNotRight.add(false);
-			playersBackward.add(false);
-			playersUI.get(i).setVisible(true);
-			boardAndPiece.getChildren().get(i + 1).setLayoutX(0);
-			boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
-			if (boardAndPiece.getChildren().get(i + 1).getId().equals("player2")) {
-				boardAndPiece.getChildren().get(i + 1).setLayoutX(20);
-			}
-			if (boardAndPiece.getChildren().get(i + 1).getId().equals("player3")) {
-				boardAndPiece.getChildren().get(i + 1).setLayoutX(40);
-			}
-			if (boardAndPiece.getChildren().get(i + 1).getId().equals("player4")) {
-				boardAndPiece.getChildren().get(i + 1).setLayoutX(60);
-			}
-		}
+		setPlayersToStartPoint();
 	}
 
 	public void handleRollButton(ActionEvent e) {
@@ -89,6 +64,7 @@ public class BoardUIController implements Observer {
 		if (game.currentPlayerWin()) {
 			game.end();
 			rollButton.setDisable(true);
+			
 		} else {
 			playersIndexUI = game.switchPlayer();
 			turnPlayer_label.setText(game.currentPlayerName() + " Turn");
@@ -160,6 +136,35 @@ public class BoardUIController implements Observer {
 	private void setPlayerDown(int playersIndexUI) {
 		boardAndPiece.getChildren().get(playersIndexUI + 1).setLayoutY(getPlayerY(playersIndexUI) + 60);
 
+	}
+
+	private void setPlayersToStartPoint() {
+		switch (game.getPlayerSize()) {
+		case 4:
+			playersUI.add(player4);
+		case 3:
+			playersUI.add(player3);
+		case 2:
+			playersUI.add(player1);
+			playersUI.add(player2);
+		}
+		for (int i = 0; i < playersUI.size(); i++) {
+			directionPlayers.add(true);
+			reachTheGoalButFaceNotRight.add(false);
+			playersBackward.add(false);
+			playersUI.get(i).setVisible(true);
+			boardAndPiece.getChildren().get(i + 1).setLayoutX(0);
+			boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
+			if (boardAndPiece.getChildren().get(i + 1).getId().equals("player2")) {
+				boardAndPiece.getChildren().get(i + 1).setLayoutX(20);
+			}
+			if (boardAndPiece.getChildren().get(i + 1).getId().equals("player3")) {
+				boardAndPiece.getChildren().get(i + 1).setLayoutX(40);
+			}
+			if (boardAndPiece.getChildren().get(i + 1).getId().equals("player4")) {
+				boardAndPiece.getChildren().get(i + 1).setLayoutX(60);
+			}
+		}
 	}
 
 	@Override
