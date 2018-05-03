@@ -94,17 +94,17 @@ public class Board extends Observable {
 		switch (nextSquare.getTileType()) {
 		case LADDER:
 			Ladder ld = (Ladder) nextSquare;
-			status = "You fall in ladder from " + (nextSquare.getNumber() + 1) + " to " + (ld.desination() + 1);
+			status = "You fall in ladder \nfrom " + (nextSquare.getNumber() + 1) + " to " + (ld.desination() + 1);
 			break;
 		case BACKWARD:
-			status = "You fall in backward, you will move backward next turn";
+			status = "You fall in backward, \nyou will move backward next turn";
 			break;
 		case FREEZE:
-			status = "You fall in skip, you will be skipped next turn";
+			status = "You fall in skip, \nyou will be skipped next turn";
 			break;
 		case SNAKE:
 			Snake s = (Snake) nextSquare;
-			status = "You fall in snake from " + (nextSquare.getNumber() + 1) + " to " + (s.desination() + 1);
+			status = "You fall in snake \nfrom " + (nextSquare.getNumber() + 1) + " to " + (s.desination() + 1);
 			break;
 		default:
 		}
@@ -116,10 +116,6 @@ public class Board extends Observable {
 		}
 
 		squares[nextPosition].addPiece(piece);
-		if (squares[nextPosition].getTileType() != TileType.SQUARE) {
-			// System.out.println("You fall in " + squares[nextPosition].getTileType() + "
-			// Block");
-		}
 
 		if (nextPosition == SIZE - 1) {
 			squares[nextPosition].setGoal(true);

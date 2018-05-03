@@ -64,16 +64,10 @@ public class BoardUIController implements Observer {
 		if (game.currentPlayerWin()) {
 			game.end();
 			rollButton.setDisable(true);
-			
+
 		} else {
 			playersIndexUI = game.switchPlayer();
 			turnPlayer_label.setText(game.currentPlayerName() + " Turn");
-		}
-	}
-
-	public void setPlayer(int numberPlayer) {
-		for (int i = 0; i < numberPlayer; i++) {
-			game.addPlayer("Player " + (i + 1));
 		}
 	}
 
@@ -153,17 +147,8 @@ public class BoardUIController implements Observer {
 			reachTheGoalButFaceNotRight.add(false);
 			playersBackward.add(false);
 			playersUI.get(i).setVisible(true);
-			boardAndPiece.getChildren().get(i + 1).setLayoutX(0);
+			boardAndPiece.getChildren().get(i + 1).setLayoutX((i) * 20);
 			boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
-			if (boardAndPiece.getChildren().get(i + 1).getId().equals("player2")) {
-				boardAndPiece.getChildren().get(i + 1).setLayoutX(20);
-			}
-			if (boardAndPiece.getChildren().get(i + 1).getId().equals("player3")) {
-				boardAndPiece.getChildren().get(i + 1).setLayoutX(40);
-			}
-			if (boardAndPiece.getChildren().get(i + 1).getId().equals("player4")) {
-				boardAndPiece.getChildren().get(i + 1).setLayoutX(60);
-			}
 		}
 	}
 
