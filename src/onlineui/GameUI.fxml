@@ -13,15 +13,6 @@
 	xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="onlineui.onlineGameControllerUI">
 	<children>
-		<Button fx:id="joinButton" layoutX="177.0" layoutY="298.0"
-			mnemonicParsing="false" onAction="#handlePlay" prefHeight="72.0"
-			prefWidth="247.0"
-			style="-fx-background-color: royalblue; -fx-border-color: grey;"
-			text="JOIN" textFill="WHITE">
-			<font>
-				<Font size="29.0" />
-			</font>
-		</Button>
 		<Label alignment="CENTER" layoutX="15.0" layoutY="14.0"
 			prefHeight="92.0" prefWidth="571.0"
 			style="-fx-background-color: orange; -fx-border-color: black;"
@@ -52,5 +43,14 @@
 				<Font size="22.0" />
 			</font>
 		</TextField>
+		<Button fx:id="joinButton" layoutX="177.0" layoutY="292.0"
+			mnemonicParsing="false" onAction="#handlePlayButton"
+			prefHeight="72.0" prefWidth="247.0"
+			style="-fx-background-color: royalblue; -fx-border-color: grey;"
+			text="JOIN" textFill="WHITE">
+			<font>
+				<Font size="29.0" />
+			</font>
+		</Button>
 	</children>
 </AnchorPane>

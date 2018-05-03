@@ -62,7 +62,8 @@ public class onlineGameControllerUI {
 		}
 	}
 
-	public void handlePlay(ActionEvent e) {
+	@FXML
+	public void handlePlayButton() {
 		System.out.println("clicked");
 	}
 }
