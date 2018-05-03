@@ -15,24 +15,31 @@ public class WinControllerUI extends Observable {
 	@FXML
 	private Button replay_button, restart_button, newGame_button;
 
+	private String winPlayer;
+
 	public WinControllerUI(String winPlayer) {
+		this.winPlayer = winPlayer;
+	}
+
+	@FXML
+	public void initialize() {
 		playerWin_label.setText(winPlayer);
 	}
 
 	public void handleReplayButton(ActionEvent e) {
 
 		updateObserver("replay");
-		closeWinUI(e);
+		// closeWinUI(e);
 	}
 
 	public void handleRestartButton(ActionEvent e) {
 		updateObserver("restart");
-		closeWinUI(e);
+		// closeWinUI(e);
 	}
 
 	public void handleNewGameButton(ActionEvent e) {
 		updateObserver("new game");
-		closeWinUI(e);
+		// closeWinUI(e);
 	}
 
 	private void closeWinUI(ActionEvent e) {

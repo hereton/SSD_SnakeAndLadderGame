@@ -1,6 +1,5 @@
 package onlineui;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 import com.esotericsoftware.kryonet.Client;

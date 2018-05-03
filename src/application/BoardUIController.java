@@ -1,6 +1,5 @@
 package application;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -18,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class BoardUIController implements Observer {
 
@@ -39,10 +39,14 @@ public class BoardUIController implements Observer {
 	private List<Boolean> playersBackward = new ArrayList<>();
 	private int playersIndexUI = 0;
 	private List<Image> diceImages;
+	private int numberPlayers;
 
 	public BoardUIController(Game game) {
 		this.game = game;
+		this.numberPlayers = game.getPlayerSize();
 		game.addObserver(this);
+		openWinUI();
+
 	}
 
 	@FXML
@@ -140,7 +144,12 @@ public class BoardUIController implements Observer {
 	}
 
 	private void setPlayersToStartPoint() {
-		switch (game.getPlayerSize()) {
+		this.directionPlayers.clear();
+		this.reachTheGoalButFaceNotRight.clear();
+		this.playersUI.clear();
+		this.playersBackward.clear();
+		System.out.println(game.getPlayerSize());
+		switch (numberPlayers) {
 		case 4:
 			playersUI.add(player4);
 			player4_label.setText(game.getPlayersName(3));
@@ -162,6 +171,7 @@ public class BoardUIController implements Observer {
 			playersUI.get(i).setVisible(true);
 			boardAndPiece.getChildren().get(i + 1).setLayoutX((i) * 20);
 			boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
+			System.out.println("dadas");
 		}
 		diceImages = new ArrayList<>();
 		for (int i = 1; i <= 6; i++) {
@@ -174,22 +184,42 @@ public class BoardUIController implements Observer {
 	}
 
 	private void openWinUI() {
-		WinControllerUI winCon = new WinControllerUI(game.currentPlayerName());
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("WinUI.fxml"));
-		loader.setController(winCon);
-		Parent root = null;
-		Scene scene = new Scene(root);
+		Stage newStage = new Stage();
 		try {
-			root = (Parent) loader.load();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			WinControllerUI winCon = new WinControllerUI(game.currentPlayerName());
+			winCon.addObserver(this);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("WinUI.fxml"));
+			loader.setController(winCon);
+			Parent root = (Parent) loader.load();
+			Scene scene = new Scene(root);
+
+			newStage.setScene(scene);
+			newStage.sizeToScene();
+			newStage.setTitle("Snake and Ladder !");
+			newStage.show();
+			newStage.setResizable(false);
+		} catch (Exception ex) {
+			System.out.println("Exception creating scene: " + ex.getMessage());
 		}
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
 		statusPlayer_label.setText(arg.toString());
+		if (arg.equals("restart")) {
+			System.out.println("re");
+			
+			game.restart();
+			
+			setPlayersToStartPoint();
+			System.out.println("set");
+		}
+		if (arg.equals("new game")) {
+			System.out.println("new game");
+		}
+		if (arg.equals("replay")) {
+			System.out.println("replay");
+		}
 	}
 
 }
