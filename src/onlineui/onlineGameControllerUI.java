@@ -57,8 +57,12 @@ public class onlineGameControllerUI {
 			if (o instanceof RoomData) {
 				RoomData roomStatus = (RoomData) o;
 				System.out.println(roomStatus.isPlaying);
-				System.out.println(roomStatus.numberOfPlayer);
+				// System.out.println(roomStatus.numberOfPlayer);
 			}
 		}
+	}
+
+	public void handlePlay(ActionEvent e) {
+		System.out.println("clicked");
 	}
 }
