@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -8,6 +9,9 @@ import java.util.Observer;
 import game.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -174,7 +178,17 @@ public class BoardUIController implements Observer {
 	}
 
 	private void openWinUI() {
-
+		WinControllerUI winCon = new WinControllerUI(game.currentPlayerName());
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("WinUI.fxml"));
+		loader.setController(winCon);
+		Parent root = null;
+		Scene scene = new Scene(root);
+		try {
+			root = (Parent) loader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

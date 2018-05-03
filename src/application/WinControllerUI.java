@@ -1,20 +1,49 @@
 package application;
 
+import java.util.Observable;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
-public class WinControllerUI {
+public class WinControllerUI extends Observable {
 	@FXML
 	private Label playerWin_label;
 	@FXML
 	private Button replay_button, restart_button, newGame_button;
-	
-	private boolean isReplay;
-	
-	public WinControllerUI() {
-		isReplay = false;
+
+	public WinControllerUI(String winPlayer) {
+		playerWin_label.setText(winPlayer);
 	}
-	
-	public void  
+
+	public void handleReplayButton(ActionEvent e) {
+
+		updateObserver("replay");
+		closeWinUI(e);
+	}
+
+	public void handleRestartButton(ActionEvent e) {
+		updateObserver("restart");
+		closeWinUI(e);
+	}
+
+	public void handleNewGameButton(ActionEvent e) {
+		updateObserver("new game");
+		closeWinUI(e);
+	}
+
+	private void closeWinUI(ActionEvent e) {
+		Node source = (Node) e.getSource();
+		Stage thisStage = (Stage) source.getScene().getWindow();
+		thisStage.close();
+	}
+
+	private void updateObserver(String result) {
+		setChanged();
+		notifyObservers(result);
+	}
+
 }
