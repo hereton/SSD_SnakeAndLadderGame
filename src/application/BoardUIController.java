@@ -161,13 +161,9 @@ public class BoardUIController implements Observer {
 			boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
 		}
 		diceImages = new ArrayList<>();
-		diceImages.add(new Image("Dice1.png"));
-		diceImages.add(new Image("Dice2.png"));
-		diceImages.add(new Image("Dice3.png"));
-		diceImages.add(new Image("Dice4.png"));
-		diceImages.add(new Image("Dice5.png"));
-		diceImages.add(new Image("Dice6.png"));
-
+		for (int i = 1; i <= 6; i++) {
+			diceImages.add(new Image("Dice" + i + ".png"));
+		}
 	}
 
 	private void setDiceFace(int face) {

@@ -24,6 +24,7 @@ public class AppServer extends Game {
 
 		server.getKryo().register(RoomData.class);
 		server.getKryo().register(PlayerJoin.class);
+		server.getKryo().register(RollDice.class);
 
 		server.start();
 		try {
@@ -62,6 +63,9 @@ public class AppServer extends Game {
 				PlayerJoin player = (PlayerJoin) o;
 				game.addPlayer(player.name);
 				roomStatus.numberOfPlayer = game.getPlayerSize();
+			}
+			if (o instanceof RollDice) {
+				game.currentPlayerRollDice();
 			}
 		}
 	}
