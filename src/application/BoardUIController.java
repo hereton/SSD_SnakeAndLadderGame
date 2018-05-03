@@ -144,7 +144,6 @@ public class BoardUIController implements Observer {
 		case 3:
 			playersUI.add(player3);
 			player3_label.setText(game.getPlayersName(2));
-
 		case 2:
 			playersUI.add(player1);
 			playersUI.add(player2);
@@ -168,6 +167,10 @@ public class BoardUIController implements Observer {
 
 	private void setDiceFace(int face) {
 		dice_imageView.setImage(diceImages.get(face - 1));
+	}
+
+	private void openWinUI() {
+
 	}
 
 	@Override

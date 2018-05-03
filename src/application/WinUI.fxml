@@ -6,14 +6,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity"
 	minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
 	prefWidth="626.0" xmlns="http://javafx.com/javafx/8.0.141"
 	xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<Label alignment="CENTER" layoutX="23.0" layoutY="14.0"
-			prefHeight="60.0" prefWidth="575.0"
+		<Label fx:id="playerWin_label" alignment="CENTER" layoutX="23.0"
+			layoutY="14.0" prefHeight="60.0" prefWidth="575.0"
 			style="-fx-background-color: orange; -fx-border-color: black;"
 			text="Win" textFill="WHITE">
 			<font>
@@ -23,24 +22,24 @@
 				<Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
 			</padding>
 		</Label>
-		<Button layoutX="23.0" layoutY="152.0" mnemonicParsing="false"
-			prefHeight="120.0" prefWidth="575.0"
+		<Button fx:id="replay_button" layoutX="23.0" layoutY="152.0"
+			mnemonicParsing="false" prefHeight="120.0" prefWidth="575.0"
 			style="-fx-background-color: dodgerblue; -fx-border-color: black;"
 			text="REPLAY" textFill="WHITE">
 			<font>
 				<Font size="48.0" />
 			</font>
 		</Button>
-		<Button layoutX="24.0" layoutY="298.0" mnemonicParsing="false"
-			prefHeight="82.0" prefWidth="260.0"
+		<Button fx:id="restart_button" layoutX="24.0" layoutY="298.0"
+			mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0"
 			style="-fx-background-color: dodgerblue;" text="RESTART"
 			textFill="WHITE">
 			<font>
 				<Font size="24.0" />
 			</font>
 		</Button>
-		<Button layoutX="338.0" layoutY="298.0" mnemonicParsing="false"
-			prefHeight="82.0" prefWidth="260.0"
+		<Button fx:id="newGame_button" layoutX="338.0" layoutY="298.0"
+			mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0"
 			style="-fx-background-color: dodgerblue;" text="NEW GAME"
 			textFill="WHITE">
 			<font>
