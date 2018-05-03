@@ -23,7 +23,7 @@ public class ConsoleUI {
 			game.addPlayer(name);
 		}
 		game.start();
-		while (!game.isEnd()) {
+		while (game.isPlaying()) {
 			System.out.println("-----------------");
 			System.out.println(game.currentPlayerName());
 			System.out.println("Position : " + game.currentPlayerPosition());

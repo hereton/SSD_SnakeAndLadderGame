@@ -12,7 +12,7 @@ public class Game {
 	private List<Player> players;
 	private Die die;
 	private Board board;
-	private boolean ended;
+	private boolean isPlaying;
 	private int currentPlayerIndex;
 
 	// replay part
@@ -31,7 +31,7 @@ public class Game {
 			board.addPiece(player.getPiece(), 0);
 		}
 		currentPlayerIndex = 0;
-		ended = false;
+		isPlaying = true;
 	}
 
 	public void addObserver(Observer o) {
@@ -77,12 +77,12 @@ public class Game {
 		players.add(new Player(name));
 	}
 
-	public boolean isEnd() {
-		return ended;
+	public boolean isPlaying() {
+		return isPlaying;
 	}
 
 	public void end() {
-		ended = true;
+		isPlaying = false;
 	}
 
 	public Player currentPlayer() {
