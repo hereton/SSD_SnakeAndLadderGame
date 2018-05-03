@@ -1,6 +1,5 @@
 package application;
 
-
 import game.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

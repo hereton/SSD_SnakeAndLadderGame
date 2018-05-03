@@ -125,4 +125,9 @@ public class Game {
 	public int getPlayerSize() {
 		return this.players.size();
 	}
+
+	public String getPlayersName(int index) {
+		return players.get(index).getName();
+
+	}
 }

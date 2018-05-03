@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -21,7 +22,7 @@ public class BoardUIController implements Observer {
 	@FXML
 	private Button rollButton;
 	@FXML
-	private Label turnPlayer_label, statusPlayer_label;
+	private Label turnPlayer_label, statusPlayer_label, player1_label, player2_label, player3_label, player4_label;
 	@FXML
 	private ImageView dice_imageView;
 	@FXML
@@ -33,6 +34,7 @@ public class BoardUIController implements Observer {
 	private List<Boolean> reachTheGoalButFaceNotRight = new ArrayList<>();
 	private List<Boolean> playersBackward = new ArrayList<>();
 	private int playersIndexUI = 0;
+	private List<Image> diceImages;
 
 	public BoardUIController(Game game) {
 		this.game = game;
@@ -49,6 +51,7 @@ public class BoardUIController implements Observer {
 	public void handleRollButton(ActionEvent e) {
 		int nextMove = game.currentPlayerPosition();
 		int face = game.currentPlayerRollDice();
+		setDiceFace(face);
 		game.currentPlayerMove(face);
 		nextMove = game.currentPlayerPosition() - nextMove;
 		if (playersBackward.get(playersIndexUI)) {
@@ -136,11 +139,18 @@ public class BoardUIController implements Observer {
 		switch (game.getPlayerSize()) {
 		case 4:
 			playersUI.add(player4);
+			player4_label.setText(game.getPlayersName(3));
+
 		case 3:
 			playersUI.add(player3);
+			player3_label.setText(game.getPlayersName(2));
+
 		case 2:
 			playersUI.add(player1);
 			playersUI.add(player2);
+			player1_label.setText(game.getPlayersName(0));
+			player2_label.setText(game.getPlayersName(1));
+
 		}
 		for (int i = 0; i < playersUI.size(); i++) {
 			directionPlayers.add(true);
@@ -150,6 +160,18 @@ public class BoardUIController implements Observer {
 			boardAndPiece.getChildren().get(i + 1).setLayoutX((i) * 20);
 			boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
 		}
+		diceImages = new ArrayList<>();
+		diceImages.add(new Image("Dice1.png"));
+		diceImages.add(new Image("Dice2.png"));
+		diceImages.add(new Image("Dice3.png"));
+		diceImages.add(new Image("Dice4.png"));
+		diceImages.add(new Image("Dice5.png"));
+		diceImages.add(new Image("Dice6.png"));
+
+	}
+
+	private void setDiceFace(int face) {
+		dice_imageView.setImage(diceImages.get(face - 1));
 	}
 
 	@Override

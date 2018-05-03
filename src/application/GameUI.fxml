@@ -21,11 +21,12 @@
 				<Font size="29.0" />
 			</font>
 		</Button>
-		<CheckBox fx:id="checkBoxPlayer1" layoutX="128.0"
-			layoutY="98.0" mnemonicParsing="false" prefHeight="31.0"
-			prefWidth="20.0" selected="true" />
-		<CheckBox fx:id="checkBoxPlayer2" layoutX="128.0"
-			layoutY="141.0" mnemonicParsing="false" selected="true" />
+		<CheckBox fx:id="checkBoxPlayer1" disable="true"
+			layoutX="128.0" layoutY="98.0" mnemonicParsing="false"
+			prefHeight="31.0" prefWidth="20.0" selected="true" />
+		<CheckBox fx:id="checkBoxPlayer2" disable="true"
+			layoutX="128.0" layoutY="141.0" mnemonicParsing="false"
+			selected="true" />
 		<CheckBox fx:id="checkBoxPlayer3" layoutX="128.0"
 			layoutY="180.0" mnemonicParsing="false" />
 		<CheckBox fx:id="checkBoxPlayer4" layoutX="128.0"
