@@ -27,6 +27,7 @@ public class AppServer extends Game {
 		server.getKryo().register(RollDice.class);
 		server.getKryo().register(PlayerTurn.class);
 		server.getKryo().register(RollData.class);
+		server.getKryo().register(ArrayList.class);
 
 		server.start();
 		try {
@@ -62,8 +63,10 @@ public class AppServer extends Game {
 			super.received(arg0, o);
 			if (o instanceof PlayerJoin) {
 				PlayerJoin player = (PlayerJoin) o;
+				System.out.println("Player " + player.name + " is joining the server");
 				game.addPlayer(player.name);
 				roomStatus.players.add(player.name);
+				sendRoomStatus();
 				sendCurrentPlayerTurn();
 			}
 			if (o instanceof RollDice) {
@@ -81,6 +84,12 @@ public class AppServer extends Game {
 					sendCurrentPlayerTurn();
 				}
 			}
+		}
+	}
+
+	private void sendRoomStatus() {
+		for (Connection c : connections) {
+			c.sendTCP(roomStatus);
 		}
 	}
 
