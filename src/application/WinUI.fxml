@@ -23,7 +23,8 @@
 			</padding>
 		</Label>
 		<Button fx:id="replay_button" layoutX="23.0" layoutY="152.0"
-			mnemonicParsing="false" prefHeight="120.0" prefWidth="575.0"
+			mnemonicParsing="false" onAction="#handleReplayButton"
+			prefHeight="120.0" prefWidth="575.0"
 			style="-fx-background-color: dodgerblue; -fx-border-color: black;"
 			text="REPLAY" textFill="WHITE">
 			<font>
@@ -31,7 +32,8 @@
 			</font>
 		</Button>
 		<Button fx:id="restart_button" layoutX="24.0" layoutY="298.0"
-			mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0"
+			mnemonicParsing="false" onAction="#handleRestartButton"
+			prefHeight="82.0" prefWidth="260.0"
 			style="-fx-background-color: dodgerblue;" text="RESTART"
 			textFill="WHITE">
 			<font>
@@ -39,7 +41,8 @@
 			</font>
 		</Button>
 		<Button fx:id="newGame_button" layoutX="338.0" layoutY="298.0"
-			mnemonicParsing="false" prefHeight="82.0" prefWidth="260.0"
+			mnemonicParsing="false" onAction="#handleNewGameButton"
+			prefHeight="82.0" prefWidth="260.0"
 			style="-fx-background-color: dodgerblue;" text="NEW GAME"
 			textFill="WHITE">
 			<font>
