@@ -1,5 +1,6 @@
 package application;
 
+import game.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +18,12 @@ public class GameUIController {
 	@FXML
 	private Button playButton;
 
-	@FXML
+	private Game game;
+
+	public GameUIController() {
+		this.game = new Game();
+	}
+
 	public void initialize() {
 		for (int i = 2; i <= 4; i++) {
 			choiseBox.getItems().add(i);
@@ -26,10 +32,12 @@ public class GameUIController {
 	}
 
 	public void handlePlay(ActionEvent e) {
+		// add player
+
 		int numberPlayer = choiseBox.getValue();
 		Stage newStage = new Stage();
 		try {
-			BoardUIController bCon = new BoardUIController();
+			BoardUIController bCon = new BoardUIController(this.game);
 			bCon.setPlayer(numberPlayer);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("BoardUI.fxml"));
 			loader.setController(bCon);

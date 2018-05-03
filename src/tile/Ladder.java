@@ -14,4 +14,8 @@ public class Ladder extends Square {
 	public int moveAccordingToSpecialEffect() {
 		return nextMove(stepforwards);
 	}
+
+	public int desination() {
+		return super.getNumber() + stepforwards;
+	}
 }

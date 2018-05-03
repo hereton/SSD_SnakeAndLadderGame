@@ -15,19 +15,19 @@
 				<Font size="50.0" />
 			</font>
 		</Button>
-		<Label fx:id="rolledNumLabel" layoutX="319.0" layoutY="630.0" text="Player x walk: ">
+		<Label fx:id="rolledNumLabel" layoutX="50.0" layoutY="650.0">
 			<font>
-				<Font size="39.0" />
+				<Font size="34.0" />
 			</font>
 		</Label>
-		<Label fx:id="dieFace" layoutX="319.0" layoutY="680.0"
+		<Label fx:id="dieFace" layoutX="603.0" layoutY="650.0"
 			text="Roll dice to start">
 			<font>
 				<Font size="24" />
 			</font>
 		</Label>
 		
-		<Label fx:id="status" layoutX="100.0" layoutY="680.0"
+		<Label fx:id="status" layoutX="50.0" layoutY="700.0"
 			text="Roll dice to start">
 			<font>
 				<Font size="16" />

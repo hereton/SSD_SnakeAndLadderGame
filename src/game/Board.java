@@ -74,8 +74,7 @@ public class Board extends Observable {
 			fs.move(piece);
 			if (fs.getTurnLeft(piece) > 0) {
 				setChanged();
-				notifyObservers("You are still freezed");
-				System.out.println("You are freezed : " + fs.getTurnLeft(piece) + " turn left");
+				notifyObservers("You are freezed");
 				return;
 			}
 		}
@@ -87,27 +86,39 @@ public class Board extends Observable {
 		if (nextPosition > SIZE - 1) {
 			int overlap = nextPosition % (SIZE - 1);
 			nextPosition = (SIZE - 1) - overlap;
-			System.out.println(nextPosition);
 		}
 
 		Square nextSquare = squares[nextPosition];
 
-		setChanged();
-		if (nextSquare.getTileType() != TileType.SQUARE) {
-			notifyObservers("You move on to " + nextSquare.getTileType());
-		} else {
-			notifyObservers("");
+		String status = "";
+		switch (nextSquare.getTileType()) {
+		case LADDER:
+			Ladder ld = (Ladder) nextSquare;
+			status = "You fall in ladder from " + (nextSquare.getNumber() + 1) + " to " + (ld.desination() + 1);
+			break;
+		case BACKWARD:
+			status = "You fall in backward, you will move backward next turn";
+			break;
+		case FREEZE:
+			status = "You fall in skip, you will be skipped next turn";
+			break;
+		case SNAKE:
+			Snake s = (Snake) nextSquare;
+			status = "You fall in snake from " + (nextSquare.getNumber() + 1) + " to " + (s.desination() + 1);
+			break;
+		default:
 		}
-		
+		setChanged();
+		notifyObservers(status);
+
 		if (nextSquare.isSpecialEffect()) {
-			System.out.println("You move in " + nextSquare.getTileType().toString() + " Tile");
-			System.out.println("Move to " + nextSquare.moveAccordingToSpecialEffect() + " Position");
 			nextPosition += nextSquare.moveAccordingToSpecialEffect();
 		}
 
 		squares[nextPosition].addPiece(piece);
 		if (squares[nextPosition].getTileType() != TileType.SQUARE) {
-			System.out.println("You fall in " + squares[nextPosition].getTileType() + " Block");
+			// System.out.println("You fall in " + squares[nextPosition].getTileType() + "
+			// Block");
 		}
 
 		if (nextPosition == SIZE - 1) {

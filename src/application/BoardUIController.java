@@ -31,15 +31,15 @@ public class BoardUIController implements Observer {
 	private List<Boolean> playersBackward = new ArrayList<>();
 	private int playersIndexUI = 0;
 
-	public BoardUIController() {
-		this.game = new Game();
+	public BoardUIController(Game game) {
+		this.game = game;
 		game.addObserver(this);
 	}
 
 	@FXML
 	public void initialize() {
 		game.start();
-		rolledNumLabel.setText(game.currentPlayerName() + " Turn");
+		rolledNumLabel.setText("Turn : " + game.currentPlayerName());
 		switch (game.getPlayerSize()) {
 		case 4:
 			playersUI.add(player4);

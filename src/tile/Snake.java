@@ -14,4 +14,8 @@ public class Snake extends Square {
 	public int moveAccordingToSpecialEffect() {
 		return nextMove(stepbacks);
 	}
+
+	public int desination() {
+		return super.getNumber() + stepbacks;
+	}
 }
