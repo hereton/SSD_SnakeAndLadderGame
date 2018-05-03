@@ -20,54 +20,34 @@ public class BoardUIController implements Observer {
 	@FXML
 	private Button rollButton;
 	@FXML
-	private Label rolledNumLabel;
+	private Label rolledNumLabel, dieFace, status;
 	@FXML
-	private Label dieFace;
-	@FXML
-	private Label status;
-	@FXML
-	private AnchorPane player1;
-	@FXML
-	private AnchorPane player2;
-	@FXML
-	private AnchorPane player3;
-	@FXML
-	private AnchorPane player4;
-	@FXML
-	private AnchorPane boardAndPiece;
+	private AnchorPane player1, player2, player3, player4, boardAndPiece;
 
 	private Game game;
-	private List<AnchorPane> playersUI;
+	private List<AnchorPane> playersUI = new ArrayList<>();
+	private List<Boolean> directionPlayers = new ArrayList<>();
+	private List<Boolean> reachTheGoalButFaceNotRight = new ArrayList<>();
+	private List<Boolean> playersBackward = new ArrayList<>();
 	private int playersIndexUI = 0;
-	private List<Boolean> directionPlayers;
-	private List<Boolean> reachTheGoalButFaceNotRight;
-	private List<Boolean> playersBackward;
 
 	public BoardUIController() {
 		this.game = new Game();
 		game.addObserver(this);
-		playersUI = new ArrayList<>();
-		directionPlayers = new ArrayList<>();
-		reachTheGoalButFaceNotRight = new ArrayList<>();
-		playersBackward = new ArrayList<>();
 	}
 
 	@FXML
 	public void initialize() {
 		game.start();
 		rolledNumLabel.setText(game.currentPlayerName() + " Turn");
-		if (game.getPlayerSize() == 2) {
-			playersUI.add(player1);
-			playersUI.add(player2);
-		} else if (game.getPlayerSize() == 3) {
-			playersUI.add(player1);
-			playersUI.add(player2);
-			playersUI.add(player3);
-		} else {
-			playersUI.add(player1);
-			playersUI.add(player2);
-			playersUI.add(player3);
+		switch (game.getPlayerSize()) {
+		case 4:
 			playersUI.add(player4);
+		case 3:
+			playersUI.add(player3);
+		case 2:
+			playersUI.add(player1);
+			playersUI.add(player2);
 		}
 		for (int i = 0; i < playersUI.size(); i++) {
 			directionPlayers.add(true);
@@ -97,14 +77,11 @@ public class BoardUIController implements Observer {
 		if (playersBackward.get(playersIndexUI)) {
 			playersBackward.set(playersIndexUI, false);
 			directionPlayers.set(playersIndexUI, !directionPlayers.get(playersIndexUI));
-			System.out.println("change to nomal direction after hit speacial tile");
 		}
 		if (nextMove < 0) {
-			System.out.println("next move less that zero " + nextMove);
 			directionPlayers.set(playersIndexUI, !directionPlayers.get(playersIndexUI));
 			playersBackward.set(playersIndexUI, true);
-			nextMove = nextMove - (2 * nextMove);
-			System.out.println("this is going back ward " + nextMove);
+			nextMove *= -1;
 		}
 		playUIMove(nextMove);
 		if (game.currentPlayerWin()) {
@@ -118,12 +95,11 @@ public class BoardUIController implements Observer {
 
 	public void setPlayer(int numberPlayer) {
 		for (int i = 0; i < numberPlayer; i++) {
-			game.addPlayer("Player" + (i + 1));
+			game.addPlayer("Player " + (i + 1));
 		}
 	}
 
 	private void playUIMove(int face) {
-		System.out.println(face);
 		if (reachTheGoalButFaceNotRight.get(playersIndexUI))
 			directionPlayers.set(playersIndexUI, false);
 		for (int i = 1; i <= face; i++) {
