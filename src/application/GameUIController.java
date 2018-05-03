@@ -14,8 +14,6 @@ import javafx.stage.Stage;
 public class GameUIController {
 
 	@FXML
-	private ChoiceBox<Integer> choiseBox;
-	@FXML
 	private Button playButton;
 
 	private Game game;
@@ -25,20 +23,16 @@ public class GameUIController {
 	}
 
 	public void initialize() {
-		for (int i = 2; i <= 4; i++) {
-			choiseBox.getItems().add(i);
-		}
-		choiseBox.getSelectionModel().select(0);
+
 	}
 
 	public void handlePlay(ActionEvent e) {
 		// add player
 
-		int numberPlayer = choiseBox.getValue();
 		Stage newStage = new Stage();
 		try {
 			BoardUIController bCon = new BoardUIController(this.game);
-			bCon.setPlayer(numberPlayer);
+			bCon.setPlayer(2);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("BoardUI.fxml"));
 			loader.setController(bCon);
 			Parent root = (Parent) loader.load();

@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -20,7 +21,9 @@ public class BoardUIController implements Observer {
 	@FXML
 	private Button rollButton;
 	@FXML
-	private Label rolledNumLabel, dieFace, status;
+	private Label turnPlayer_label, statusPlayer_label;
+	@FXML
+	private ImageView dice_imageView;
 	@FXML
 	private AnchorPane player1, player2, player3, player4, boardAndPiece;
 
@@ -39,7 +42,7 @@ public class BoardUIController implements Observer {
 	@FXML
 	public void initialize() {
 		game.start();
-		rolledNumLabel.setText("Turn : " + game.currentPlayerName());
+		turnPlayer_label.setText("Turn : " + game.currentPlayerName());
 		switch (game.getPlayerSize()) {
 		case 4:
 			playersUI.add(player4);
@@ -71,7 +74,6 @@ public class BoardUIController implements Observer {
 	public void handleRollButton(ActionEvent e) {
 		int nextMove = game.currentPlayerPosition();
 		int face = game.currentPlayerRollDice();
-		dieFace.setText("roll : " + face);
 		game.currentPlayerMove(face);
 		nextMove = game.currentPlayerPosition() - nextMove;
 		if (playersBackward.get(playersIndexUI)) {
@@ -89,7 +91,7 @@ public class BoardUIController implements Observer {
 			rollButton.setDisable(true);
 		} else {
 			playersIndexUI = game.switchPlayer();
-			rolledNumLabel.setText(game.currentPlayerName() + " Turn");
+			turnPlayer_label.setText(game.currentPlayerName() + " Turn");
 		}
 	}
 
@@ -162,7 +164,7 @@ public class BoardUIController implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		status.setText(arg.toString());
+		statusPlayer_label.setText(arg.toString());
 	}
 
 }
