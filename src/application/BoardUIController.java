@@ -6,7 +6,10 @@ import java.util.Observable;
 import java.util.Observer;
 
 import game.Game;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class BoardUIController implements Observer {
 
@@ -97,7 +101,7 @@ public class BoardUIController implements Observer {
 					directionPlayers.set(playersIndexUI, false); // change direction to left.
 
 				}
-			} else if (!directionPlayers.get(playersIndexUI)) {
+			} else {
 				playerGoLeft(playersIndexUI);
 				if (getPlayerX(playersIndexUI) < 0) {
 					if (playersBackward.get(playersIndexUI)) {
@@ -109,6 +113,7 @@ public class BoardUIController implements Observer {
 					directionPlayers.set(playersIndexUI, true); // change direction to right.
 				}
 			}
+
 			if (getPlayerX(playersIndexUI) < 80 && getPlayerY(playersIndexUI) < 60) {
 				directionPlayers.set(playersIndexUI, true);
 				reachTheGoalButFaceNotRight.set(playersIndexUI, true);
@@ -211,10 +216,9 @@ public class BoardUIController implements Observer {
 			for (String name : playersName) {
 				this.game.addPlayer(name);
 			}
-			System.out.println(game.getPlayerSize());
-			System.out.println(game.currentPlayerPosition() + "position");
 			turnPlayer_label.setText(game.currentPlayerName());
 			setPlayersToStartPoint();
+			game.start();
 		}
 		if (arg.equals("new game")) {
 			System.out.println("new game");
