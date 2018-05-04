@@ -94,7 +94,7 @@ public class Board extends Observable {
 		switch (nextSquare.getTileType()) {
 		case LADDER:
 			Ladder ld = (Ladder) nextSquare;
-			status = "You fall in ladder \nfrom " + (nextSquare.getNumber() + 1) + " to " + (ld.desination() + 1);
+			status = "You fall in ladder \nfrom " + (ld.desination() + 1) + " to " + (nextSquare.getNumber() + 1);
 			break;
 		case BACKWARD:
 			status = "You fall in backward, \nyou will move backward next turn";

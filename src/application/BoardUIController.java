@@ -9,6 +9,7 @@ import game.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -39,10 +40,11 @@ public class BoardUIController implements Observer {
 	private List<Boolean> playersBackward = new ArrayList<>();
 	private int playersIndexUI = 0;
 	private List<Image> diceImages;
+	private ActionEvent event;
 
 	public BoardUIController(Game game) {
 		this.game = game;
-		game.addObserver(this);
+		this.game.addObserver(this);
 		openWinUI();
 
 	}
@@ -55,6 +57,7 @@ public class BoardUIController implements Observer {
 	}
 
 	public void handleRollButton(ActionEvent e) {
+		event = e;
 		int nextMove = game.currentPlayerPosition();
 		int face = game.currentPlayerRollDice();
 		setDiceFace(face);
@@ -180,6 +183,54 @@ public class BoardUIController implements Observer {
 		dice_imageView.setImage(diceImages.get(face - 1));
 	}
 
+	@Override
+	public void update(Observable o, Object arg) {
+		statusPlayer_label.setText(arg.toString());
+		if (arg.equals("restart")) {
+			restartGame();
+		}
+		if (arg.equals("new game")) {
+			newGame();
+		}
+		if (arg.equals("replay")) {
+			System.out.println("replay");
+		}
+	}
+
+	private void restartGame() {
+		List<String> playersName = new ArrayList<>();
+		for (int i = 0; i < game.getPlayerSize(); i++) {
+			playersName.add(game.getPlayersName(i));
+		}
+		this.game = new Game();
+		for (String player : playersName) {
+			game.addPlayer(player);
+		}
+		this.game.addObserver(this);
+		game.start();
+		turnPlayer_label.setText("Turn : " + game.currentPlayerName());
+		setPlayersToStartPoint();
+		rollButton.setDisable(false);
+	}
+
+	private void newGame() {
+		Stage newStage = new Stage();
+		try {
+			Parent root = (Parent) FXMLLoader.load(getClass().getResource("GameUI.fxml"));
+			Scene scene = new Scene(root);
+			newStage.setScene(scene);
+			newStage.sizeToScene();
+			newStage.setTitle("Snake and Ladder !");
+			newStage.show();
+			newStage.setResizable(false);
+		} catch (Exception e) {
+			System.out.println("Exception creating scene: " + e.getMessage());
+		}
+		Node source = (Node) event.getSource();
+		Stage thisStage = (Stage) source.getScene().getWindow();
+		thisStage.close();
+	}
+
 	private void openWinUI() {
 		Stage newStage = new Stage();
 		try {
@@ -199,29 +250,4 @@ public class BoardUIController implements Observer {
 			System.out.println("Exception creating scene: " + ex.getMessage());
 		}
 	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-		statusPlayer_label.setText(arg.toString());
-		if (arg.equals("restart")) {
-			List<String> playersName = new ArrayList<>();
-			for (int i = 0; i < game.getPlayerSize(); i++) {
-				playersName.add(game.getPlayersName(i));
-			}
-			game.restart();
-			for (String name : playersName) {
-				this.game.addPlayer(name);
-			}
-			turnPlayer_label.setText(game.currentPlayerName());
-			setPlayersToStartPoint();
-			game.start();
-		}
-		if (arg.equals("new game")) {
-			System.out.println("new game");
-		}
-		if (arg.equals("replay")) {
-			System.out.println("replay");
-		}
-	}
-
 }

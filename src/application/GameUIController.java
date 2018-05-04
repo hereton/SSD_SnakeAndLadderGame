@@ -27,10 +27,6 @@ public class GameUIController {
 		this.game = new Game();
 	}
 
-	public void initialize() {
-
-	}
-
 	public void handlePlay(ActionEvent e) {
 		CheckBox[] checkboxes = { checkBoxPlayer1, checkBoxPlayer2, checkBoxPlayer3, checkBoxPlayer4 };
 		TextField[] textfields = { textFieldPlayer1, textFieldPlayer2, textFieldPlayer3, textFieldPlayer4 };
