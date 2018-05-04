@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -16,6 +17,7 @@ public class AppServer extends Game {
 	private int SERVER_PORT = 3309;
 	private List<Connection> connections = new ArrayList<>();
 	private RoomData roomStatus = new RoomData();
+	private Map<Connection, String> playermap = new HashMap<>();
 
 	private Game game;
 
@@ -30,6 +32,7 @@ public class AppServer extends Game {
 		server.getKryo().register(RollData.class);
 		server.getKryo().register(ArrayList.class);
 		server.getKryo().register(HashMap.class);
+		server.getKryo().register(PlayerDisconnect.class);
 
 		server.start();
 		try {
@@ -57,7 +60,19 @@ public class AppServer extends Game {
 		@Override
 		public void disconnected(Connection arg0) {
 			super.disconnected(arg0);
+			System.out.println(arg0 + "Disconnected");
 			connections.remove(arg0);
+			if (playermap.get(arg0) != null) {
+				System.out.println("client in room");
+				PlayerDisconnect pd = new PlayerDisconnect();
+				pd.name = playermap.get(arg0);
+				roomStatus.players.remove(pd.name);
+				for (Connection c : connections) {
+					c.sendTCP(pd);
+				}
+				sendRoomStatus();
+				playermap.remove(arg0);
+			}
 		}
 
 		@Override
@@ -68,6 +83,7 @@ public class AppServer extends Game {
 				System.out.println("Player " + player.name + " is joining the server");
 				game.addPlayer(player.name);
 				roomStatus.players.add(player.name);
+				playermap.put(arg0, player.name);
 				sendRoomStatus();
 				sendCurrentPlayerTurn();
 			}
@@ -76,9 +92,11 @@ public class AppServer extends Game {
 					if (!game.isPlaying())
 						game.start();
 				}
+				int nextMove = game.currentPlayerPosition();
 				int face = game.currentPlayerRollDice();
 				game.currentPlayerMove(face);
-				sendPositionData();
+				nextMove = game.currentPlayerPosition() - nextMove;
+				sendRollData(game.currentPlayerName(), nextMove);
 				if (game.currentPlayerWin()) {
 					game.end();
 				} else {
@@ -100,36 +118,18 @@ public class AppServer extends Game {
 		pt.currentPlayerTurn = game.currentPlayerName();
 	}
 
-	private void sendPositionData() {
+	private void sendRollData(String currentPlayerName, int steps) {
 		RollData datas = new RollData();
-		datas.data.put(game.currentPlayerName(), game.currentPlayerPosition());
+		datas.playername = currentPlayerName;
+		datas.steps = steps;
+
 		for (Connection c : connections) {
 			c.sendTCP(datas);
 		}
 	}
 
-	private void pingClient() {
-		RollData data = new RollData();
-		System.out.println("Ping");
-		data.data.put("ADMIN", 6);
-		for (Connection c : connections) {
-			c.sendTCP(data);
-		}
-	}
-
 	public static void main(String[] args) {
-		AppServer ap = new AppServer();
-		new Thread(() -> {
-			while (true) {
-				ap.pingClient();
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}).start();
+		new AppServer();
 	}
 
 }

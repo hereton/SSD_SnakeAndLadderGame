@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import online.PlayerDisconnect;
 import online.PlayerJoin;
 import online.PlayerTurn;
 import online.RollData;
@@ -56,6 +57,7 @@ public class onlineGameControllerUI {
 		client.getKryo().register(RollData.class);
 		client.getKryo().register(ArrayList.class);
 		client.getKryo().register(HashMap.class);
+		client.getKryo().register(PlayerDisconnect.class);
 
 		client.start();
 		try {
@@ -73,8 +75,13 @@ public class onlineGameControllerUI {
 		public void received(Connection arg0, Object o) {
 			super.received(arg0, o);
 			if (o instanceof RoomData) {
-				System.out.println("Recieve room data");
+				System.out.println("Received room data");
 				RoomData roomStatus = (RoomData) o;
+
+				for (String s : roomStatus.players) {
+					System.out.println(s);
+				}
+				// controller.setRoomData(roomStatus);
 				Platform.runLater(() -> {
 					if (roomStatus.isPlaying) {
 						status_label.setText("Game is playing");
@@ -90,14 +97,20 @@ public class onlineGameControllerUI {
 			}
 
 			if (o instanceof PlayerTurn) {
-
+				System.out.println("Received player turn");
+				// controller.setPlayerTurn( ((PlayerTurn) o).currentPlayerTurn);
 			}
 
 			if (o instanceof RollData) {
-				System.out.println("Getting data");
+				System.out.println("Reveived Roll Data");
 				RollData rd = (RollData) o;
-				if (controller != null)
-					controller.handlePing(rd);
+				if (controller != null) {
+
+				}
+			}
+
+			if (o instanceof PlayerDisconnect) {
+				System.out.println("Whoops some player is disconnected");
 			}
 		}
 	}

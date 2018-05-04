@@ -23,11 +23,6 @@ public class onlineBoardControllerUI {
 
 	}
 
-	public void handlePing(RollData rd) {
-		for (String s : rd.data.keySet()) {
-			System.out.println(s + " : " + rd.data.get(s));
-		}
-	}
 
 	/**
 	 * 
