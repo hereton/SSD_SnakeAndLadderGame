@@ -3,6 +3,9 @@ package onlineui;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.esotericsoftware.kryonet.Client;
+
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import online.RollData;
+import online.RollDice;
 import online.RoomData;
 
 public class onlineBoardControllerUI {
@@ -32,20 +35,45 @@ public class onlineBoardControllerUI {
 	private int playersIndexUI = 0;
 	private List<Image> diceImages;
 
+	private Client client;
+	private String myName;
+
+	public onlineBoardControllerUI(Client client) {
+		this.client = client;
+	}
+
+	public void setMyName(String myName) {
+		this.myName = myName;
+	}
+
 	@FXML
 	public void handleRollButton(ActionEvent e) {
-
+		RollDice roll = new RollDice();
+		roll.name = myName;
+		System.out.println(client);
+		client.sendTCP(roll);
 	}
 
 	@FXML
 	public void initialize() {
-		for (String s : roomdata.players) {
-			this.addPlayerToBoard(s);
-		}
 	}
 
 	public void setRoomData(RoomData roomdata) {
 		this.roomdata = roomdata;
+	}
+
+	public void setPlayerTurn(String currentPlayerTurn) {
+		// set status turn
+		turnPlayer_label.setText("Turn : " + currentPlayerTurn);
+
+		if (currentPlayerTurn.equals(myName)) {
+			System.out.println("my turn");
+			// enable roll button
+			rollButton.setDisable(false);
+		} else {
+			// disable roll button
+			rollButton.setDisable(true);
+		}
 	}
 
 	/**
@@ -55,6 +83,7 @@ public class onlineBoardControllerUI {
 	 *            can be both positive and negative
 	 */
 	public void move(String playername, int steps) {
+		System.out.println(playername + " moves " + steps);
 		for (AnchorPane player : playersUI) {
 			if (player.getChildren().get(1).toString().equals(playername)) {
 				// move by step
@@ -81,18 +110,21 @@ public class onlineBoardControllerUI {
 			setPlayerUIToStartPoint(playerIndex);
 		}
 		if (playerIndex == 2) {
-			playersUI.add(1, this.player3);
+			playersUI.add(2, this.player3);
 			player3_name_label.setText(playername);
 			setPlayerUIToStartPoint(playerIndex);
 
 		}
 		if (playerIndex == 3) {
-			playersUI.add(1, this.player4);
+			playersUI.add(3, this.player4);
 			player4_name_label.setText(playername);
 			setPlayerUIToStartPoint(playerIndex);
 		}
 	}
 
+	/**
+	 * it's not working :(
+	 */
 	public void removePlayerFromBoard(String playername) {
 		playersUI.clear();
 		for (String name : roomdata.players) {

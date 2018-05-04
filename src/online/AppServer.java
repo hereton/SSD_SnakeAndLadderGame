@@ -72,6 +72,8 @@ public class AppServer extends Game {
 				}
 				sendRoomStatus();
 				playermap.remove(arg0);
+				// NOTE : MAYBE WE NEED TO CREATE NEW GAME IF GAME IS NOT STARTED
+				// game.removePlayer(pd.name);
 			}
 		}
 
@@ -116,6 +118,9 @@ public class AppServer extends Game {
 	private void sendCurrentPlayerTurn() {
 		PlayerTurn pt = new PlayerTurn();
 		pt.currentPlayerTurn = game.currentPlayerName();
+		for (Connection c : connections) {
+			c.sendTCP(pt);
+		}
 	}
 
 	private void sendRollData(String currentPlayerName, int steps) {

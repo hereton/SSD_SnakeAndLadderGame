@@ -39,7 +39,7 @@ public class onlineGameControllerUI {
 	private int SERVER_PORT = 3309;
 	private String SERVER_IP = "127.0.0.1";
 
-	private onlineBoardControllerUI controller = new onlineBoardControllerUI();;
+	private onlineBoardControllerUI controller;
 	private RoomData roomStatus;
 
 	@FXML
@@ -69,6 +69,7 @@ public class onlineGameControllerUI {
 		} finally {
 			System.out.println("Connected to " + SERVER_IP + ":" + SERVER_PORT);
 		}
+		controller = new onlineBoardControllerUI(client);
 	}
 
 	private class ClientListener extends Listener {
@@ -76,13 +77,15 @@ public class onlineGameControllerUI {
 		public void received(Connection arg0, Object o) {
 			super.received(arg0, o);
 			if (o instanceof RoomData) {
+				// TODO
+				// another client join game
+				// controller add new player piece
+
 				System.out.println("Received room data");
 				roomStatus = (RoomData) o;
-
-				for (String s : roomStatus.players) {
-					System.out.println(s);
-				}
 				controller.setRoomData(roomStatus);
+
+				// UPDATE HOME UI
 				Platform.runLater(() -> {
 					if (roomStatus.isPlaying) {
 						status_label.setText("Game is playing");
@@ -99,30 +102,42 @@ public class onlineGameControllerUI {
 
 			if (o instanceof PlayerTurn) {
 				System.out.println("Received player turn");
-				// controller.setPlayerTurn( ((PlayerTurn) o).currentPlayerTurn);
+				controller.setPlayerTurn(((PlayerTurn) o).currentPlayerTurn);
 			}
 
 			if (o instanceof RollData) {
 				System.out.println("Reveived Roll Data");
 				RollData rd = (RollData) o;
-				if (controller != null) {
-
-				}
+				controller.move(rd.playername, rd.steps);
 			}
 
 			if (o instanceof PlayerDisconnect) {
 				System.out.println("Whoops some player is disconnected");
+				// PlayerDisconnect pd = (PlayerDisconnect) o;
+				// controller.removePlayerFromBoard(pd.name);
+				// TODO
+				// HANDLE SOMETHING
+				// GAME CRASH?
+				// GAME END?
 			}
 		}
 	}
 
-	@FXML
-	public void handlePlayButton(ActionEvent e) {
-		String name = playerName_textField.getText();
+	public void joinServerGame(String name) {
 		PlayerJoin player = new PlayerJoin();
 		player.name = name;
 		client.sendTCP(player);
+	}
 
+	@FXML
+	public void handlePlayButton(ActionEvent e) {
+		// set controller name
+		String name = playerName_textField.getText();
+		controller.setMyName(name);
+		// join game on server
+		joinServerGame(name);
+
+		// new game scene
 		Stage newStage = new Stage();
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("BoardUI.fxml"));
