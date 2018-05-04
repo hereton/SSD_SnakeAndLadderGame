@@ -1,10 +1,12 @@
 package onlineui;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import online.RollData;
 
 public class onlineBoardControllerUI {
 	@FXML
@@ -16,4 +18,37 @@ public class onlineBoardControllerUI {
 	@FXML
 	private Button rollButton;
 
+	@FXML
+	public void handleRollButton(ActionEvent e) {
+
+	}
+
+	public void handlePing(RollData rd) {
+		for (String s : rd.data.keySet()) {
+			System.out.println(s + " : " + rd.data.get(s));
+		}
+	}
+
+	/**
+	 * 
+	 * @param playername
+	 * @param steps
+	 *            can be both positive and negative
+	 */
+	public void move(String playername, int steps) {
+
+	}
+
+	/**
+	 * maximum 4 players add picture and label to board
+	 * 
+	 * @param Playername
+	 */
+	public void addPlayerToBoard(String Playername) {
+
+	}
+
+	public void removePlayerFromBoard(String playername) {
+
+	}
 }

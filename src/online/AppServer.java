@@ -2,6 +2,7 @@ package online;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.esotericsoftware.kryonet.Connection;
@@ -28,6 +29,7 @@ public class AppServer extends Game {
 		server.getKryo().register(PlayerTurn.class);
 		server.getKryo().register(RollData.class);
 		server.getKryo().register(ArrayList.class);
+		server.getKryo().register(HashMap.class);
 
 		server.start();
 		try {
@@ -106,7 +108,28 @@ public class AppServer extends Game {
 		}
 	}
 
-	public static void main(String[] args) {
-		new AppServer();
+	private void pingClient() {
+		RollData data = new RollData();
+		System.out.println("Ping");
+		data.data.put("ADMIN", 6);
+		for (Connection c : connections) {
+			c.sendTCP(data);
+		}
 	}
+
+	public static void main(String[] args) {
+		AppServer ap = new AppServer();
+		new Thread(() -> {
+			while (true) {
+				ap.pingClient();
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+
 }

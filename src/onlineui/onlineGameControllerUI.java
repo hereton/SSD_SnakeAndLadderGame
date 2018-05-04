@@ -2,16 +2,24 @@ package onlineui;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
+import application.BoardUIController;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import online.PlayerJoin;
 import online.PlayerTurn;
 import online.RollData;
@@ -30,6 +38,8 @@ public class onlineGameControllerUI {
 	private int SERVER_PORT = 3309;
 	private String SERVER_IP = "127.0.0.1";
 
+	private onlineBoardControllerUI controller;
+
 	@FXML
 	public void initialize() {
 		createConnection();
@@ -45,13 +55,14 @@ public class onlineGameControllerUI {
 		client.getKryo().register(PlayerTurn.class);
 		client.getKryo().register(RollData.class);
 		client.getKryo().register(ArrayList.class);
+		client.getKryo().register(HashMap.class);
 
 		client.start();
 		try {
 			client.connect(5000, SERVER_IP, SERVER_PORT);
 		} catch (IOException e) {
 			System.out.println("Cannot connect to : " + SERVER_IP + ":" + SERVER_PORT);
-			// e.printStackTrace();
+			e.printStackTrace();
 		} finally {
 			System.out.println("Connected to " + SERVER_IP + ":" + SERVER_PORT);
 		}
@@ -64,28 +75,59 @@ public class onlineGameControllerUI {
 			if (o instanceof RoomData) {
 				System.out.println("Recieve room data");
 				RoomData roomStatus = (RoomData) o;
-				if (roomStatus.isPlaying) {
-					status_label.setText("Game is playing");
-					joinButton.setDisable(true);
-				} else {
-					int playersize = roomStatus.players.size();
-					// cannot update in main thread javafx convention
-					Platform.runLater(new Runnable() {
-						@Override
-						public void run() {
+				Platform.runLater(() -> {
+					if (roomStatus.isPlaying) {
+						status_label.setText("Game is playing");
+						joinButton.setDisable(true);
+					} else {
+						int playersize = roomStatus.players.size();
+						if (playersize == 4)
+							status_label.setText("Status : Full (4/4)");
+						else
 							status_label.setText("Status : waiting (" + playersize + "/4)");
-						}
-					});
-				}
+					}
+				});
+			}
+
+			if (o instanceof PlayerTurn) {
+
+			}
+
+			if (o instanceof RollData) {
+				System.out.println("Getting data");
+				RollData rd = (RollData) o;
+				if (controller != null)
+					controller.handlePing(rd);
 			}
 		}
 	}
 
 	@FXML
-	public void handlePlayButton() {
+	public void handlePlayButton(ActionEvent e) {
 		String name = playerName_textField.getText();
 		PlayerJoin player = new PlayerJoin();
 		player.name = name;
 		client.sendTCP(player);
+
+		Stage newStage = new Stage();
+		try {
+			controller = new onlineBoardControllerUI();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("BoardUI.fxml"));
+			loader.setController(controller);
+			Parent root = (Parent) loader.load();
+			Scene scene = new Scene(root);
+
+			newStage.setScene(scene);
+			newStage.sizeToScene();
+			newStage.setTitle("Snake and Ladder !");
+			newStage.show();
+			newStage.setResizable(false);
+
+			Node source = (Node) e.getSource();
+			Stage thisStage = (Stage) source.getScene().getWindow();
+			thisStage.close();
+		} catch (Exception ex) {
+			System.out.println("Exception creating scene: " + ex.getMessage());
+		}
 	}
 }
