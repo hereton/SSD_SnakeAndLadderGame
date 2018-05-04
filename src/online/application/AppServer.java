@@ -78,8 +78,10 @@ public class AppServer extends Game {
 				}
 				sendRoomStatus();
 				playermap.remove(arg0);
-				// NOTE : MAYBE WE NEED TO CREATE NEW GAME IF GAME IS NOT STARTED
-				// game.removePlayer(pd.name);
+				if (playermap.keySet().size() == 0) {
+					System.out.println("Restart game");
+					game.restart();
+				}
 			}
 		}
 
@@ -96,6 +98,7 @@ public class AppServer extends Game {
 				sendCurrentPlayerTurn();
 			}
 			if (o instanceof RollDice) {
+				System.out.println("Rolling dice");
 				if (arg0.equals(connections.get(0))) {
 					if (!game.isPlaying())
 						game.start();
@@ -107,6 +110,7 @@ public class AppServer extends Game {
 				sendRollData(game.currentPlayerName(), nextMove);
 				if (game.currentPlayerWin()) {
 					game.end();
+					// handle when someone win
 				} else {
 					game.switchPlayer();
 					sendCurrentPlayerTurn();

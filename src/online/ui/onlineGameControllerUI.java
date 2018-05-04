@@ -19,7 +19,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import offline.ui.BoardUIController;
 import online.data.PlayerDisconnect;
 import online.data.PlayerJoin;
 import online.data.PlayerTurn;
@@ -78,13 +77,10 @@ public class onlineGameControllerUI {
 		public void received(Connection arg0, Object o) {
 			super.received(arg0, o);
 			if (o instanceof RoomData) {
-				// TODO
-				// another client join game
-				// controller add new player piece
-
 				System.out.println("Received room data");
 				roomStatus = (RoomData) o;
 				controller.setRoomData(roomStatus);
+				controller.refreshPlayer();
 
 				// UPDATE HOME UI
 				Platform.runLater(() -> {

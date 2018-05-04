@@ -37,6 +37,7 @@ public class onlineBoardControllerUI {
 
 	private Client client;
 	private String myName;
+	private String currentTurn;
 
 	public onlineBoardControllerUI(Client client) {
 		this.client = client;
@@ -50,12 +51,13 @@ public class onlineBoardControllerUI {
 	public void handleRollButton(ActionEvent e) {
 		RollDice roll = new RollDice();
 		roll.name = myName;
-		System.out.println(client);
 		client.sendTCP(roll);
 	}
 
 	@FXML
 	public void initialize() {
+		setPlayerTurn(this.currentTurn);
+		refreshPlayer();
 	}
 
 	public void setRoomData(RoomData roomdata) {
@@ -63,16 +65,21 @@ public class onlineBoardControllerUI {
 	}
 
 	public void setPlayerTurn(String currentPlayerTurn) {
-		// set status turn
-		// turnPlayer_label.setText("Turn : " + currentPlayerTurn);
+		this.currentTurn = currentPlayerTurn;
+		try {
+			// set status turn
+			turnPlayer_label.setText("Turn : " + currentPlayerTurn);
 
-		if (currentPlayerTurn.equals(myName)) {
-			System.out.println("my turn");
-			// enable roll button
-			// rollButton.setDisable(false);
-		} else {
-			// disable roll button
-			// rollButton.setDisable(true);
+			if (currentPlayerTurn.equals(myName)) {
+				System.out.println("my turn");
+				// enable roll button
+				rollButton.setDisable(false);
+			} else {
+				// disable roll button
+				rollButton.setDisable(true);
+			}
+		} catch (NullPointerException npe) {
+			// do nothing
 		}
 	}
 
@@ -84,12 +91,17 @@ public class onlineBoardControllerUI {
 	 */
 	public void move(String playername, int steps) {
 		System.out.println(playername + " moves " + steps);
-		for (AnchorPane player : playersUI) {
-			if (player.getChildren().get(1).toString().equals(playername)) {
-				// move by step
-			}
+		if (playername.equals(player1_name_label.getText())) {
+			playersIndexUI = 0;
+		} else if (playername.equals(player2_name_label.getText())) {
+			playersIndexUI = 1;
+		} else if (playername.equals(player3_name_label.getText())) {
+			playersIndexUI = 2;
+		} else if (playername.equals(player4_name_label.getText())) {
+			playersIndexUI = 3;
 		}
 	}
+	
 
 	/**
 	 * maximum 4 players add picture and label to board
@@ -154,5 +166,15 @@ public class onlineBoardControllerUI {
 		playersUI.get(i).setVisible(true);
 		boardAndPiece.getChildren().get(i + 1).setLayoutX((i) * 20);
 		boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
+	}
+
+	public void refreshPlayer() {
+		try {
+			for (String s : roomdata.players) {
+				addPlayerToBoard(s);
+			}
+		} catch (NullPointerException npe) {
+
+		}
 	}
 }

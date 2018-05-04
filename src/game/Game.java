@@ -66,6 +66,8 @@ public class Game {
 		board = new Board();
 		players = new ArrayList<>();
 		replay = new ArrayList<>();
+		currentPlayerIndex = 0;
+		isPlaying = false;
 		initSpecialTile(board);
 	}
 
