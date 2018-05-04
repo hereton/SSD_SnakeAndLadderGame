@@ -1,16 +1,16 @@
 package game.replay;
 
-import game.Die;
 import game.Player;
 
-public class RollAction extends Action {
+public class MoveAction extends Action {
 	private Player currentPlayer;
-	private Die die;
+	private int stepmove;
 	private int dieFace;
 
-	public RollAction(Player currentPlayer, Die die) {
+	public MoveAction(Player currentPlayer, int stepmove, int dieFace) {
 		this.currentPlayer = currentPlayer;
-		this.die = die;
+		this.stepmove = stepmove;
+		this.dieFace = dieFace;
 	}
 
 	public int getDieFace() {
@@ -23,8 +23,7 @@ public class RollAction extends Action {
 	}
 
 	@Override
-	public void Execute() {
-		dieFace = currentPlayer.roll(die);
+	public int getStepMove() {
+		return this.stepmove;
 	}
-
 }

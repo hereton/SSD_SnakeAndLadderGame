@@ -4,5 +4,5 @@ public abstract class Action {
 
 	public abstract String getPlayerName();
 
-	public abstract void Execute();
+	public abstract int getStepMove();
 }

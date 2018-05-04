@@ -1,11 +1,14 @@
 package offline.ui;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import game.Game;
+import game.replay.Action;
+import game.replay.MoveAction;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +42,7 @@ public class BoardUIController implements Observer {
 	private List<Boolean> playersBackward = new ArrayList<>();
 	private int playersIndexUI = 0;
 	private List<Image> diceImages;
+	private Iterator<Action> replay;
 
 	public BoardUIController(Game game) {
 		this.game = game;
@@ -73,10 +77,24 @@ public class BoardUIController implements Observer {
 		if (game.currentPlayerWin()) {
 			game.end();
 			rollButton.setDisable(true);
-
+			replay = game.getLastReplay();
 		} else {
 			playersIndexUI = game.switchPlayer();
 			turnPlayer_label.setText(game.currentPlayerName() + " Turn");
+		}
+	}
+
+	// TODO : DO SOMETHING WITH THIS
+	public void runReplay() {
+		while (replay.hasNext()) {
+			MoveAction ac = (MoveAction) replay.next();
+			String playername = ac.getPlayerName();
+			int stepmoves = ac.getStepMove();
+			int dieFace = ac.getDieFace();
+
+			// Something like this
+			// move( playername , stepmoves )
+			// changedieFace( dieFace )
 		}
 	}
 
