@@ -9,6 +9,9 @@ import java.util.Observer;
 import game.Game;
 import game.replay.Action;
 import game.replay.MoveAction;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +24,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class BoardUIController implements Observer {
 
@@ -48,7 +52,6 @@ public class BoardUIController implements Observer {
 		this.game = game;
 		game.addObserver(this);
 		openWinUI();
-
 	}
 
 	@FXML
@@ -86,16 +89,47 @@ public class BoardUIController implements Observer {
 
 	// TODO : DO SOMETHING WITH THIS
 	public void runReplay() {
-		while (replay.hasNext()) {
-			MoveAction ac = (MoveAction) replay.next();
-			String playername = ac.getPlayerName();
-			int stepmoves = ac.getStepMove();
-			int dieFace = ac.getDieFace();
+		setPlayersToStartPoint();
+		new Thread(() -> {
+			while (replay.hasNext()) {
+				MoveAction ac = (MoveAction) replay.next();
+				String playername = ac.getPlayerName();
 
-			// Something like this
-			// move( playername , stepmoves )
-			// changedieFace( dieFace )
-		}
+				if (playername.equals(player1_label.getText())) {
+					playersIndexUI = 0;
+				} else if (playername.equals(player2_label.getText())) {
+					playersIndexUI = 1;
+				} else if (playername.equals(player3_label.getText())) {
+					playersIndexUI = 2;
+				} else if (playername.equals(player4_label.getText())) {
+					playersIndexUI = 3;
+				}
+
+				int stepmoves = ac.getStepMove();
+				int dieFace = ac.getDieFace();
+				if (playersBackward.get(playersIndexUI)) {
+					playersBackward.set(playersIndexUI, false);
+					directionPlayers.set(playersIndexUI, !directionPlayers.get(playersIndexUI));
+				}
+				if (stepmoves < 0) {
+					directionPlayers.set(playersIndexUI, !directionPlayers.get(playersIndexUI));
+					playersBackward.set(playersIndexUI, true);
+					stepmoves *= -1;
+				}
+				final int uimove = stepmoves;
+				Platform.runLater(() -> {
+					turnPlayer_label.setText(playername);
+					playUIMove(uimove);
+					setDiceFace(dieFace);
+				});
+				System.out.println(dieFace);
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 
 	private void playUIMove(int face) {
@@ -157,7 +191,6 @@ public class BoardUIController implements Observer {
 
 	private void setPlayerDown(int playersIndexUI) {
 		boardAndPiece.getChildren().get(playersIndexUI + 1).setLayoutY(getPlayerY(playersIndexUI) + 60);
-
 	}
 
 	private void setPlayersToStartPoint() {
@@ -169,7 +202,6 @@ public class BoardUIController implements Observer {
 		case 4:
 			playersUI.add(player4);
 			player4_label.setText(game.getPlayersName(3));
-
 		case 3:
 			playersUI.add(player3);
 			player3_label.setText(game.getPlayersName(2));
@@ -178,7 +210,6 @@ public class BoardUIController implements Observer {
 			playersUI.add(player2);
 			player1_label.setText(game.getPlayersName(0));
 			player2_label.setText(game.getPlayersName(1));
-
 		}
 		for (int i = 0; i < playersUI.size(); i++) {
 			directionPlayers.add(true);
@@ -239,6 +270,7 @@ public class BoardUIController implements Observer {
 		}
 		if (arg.equals("replay")) {
 			System.out.println("replay");
+			this.runReplay();
 		}
 	}
 

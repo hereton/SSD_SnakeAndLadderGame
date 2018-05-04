@@ -118,7 +118,7 @@ public class Game {
 
 			@Override
 			public boolean hasNext() {
-				return pointer != (lastReplay.size() - 1);
+				return pointer != (lastReplay.size());
 			}
 
 			@Override
