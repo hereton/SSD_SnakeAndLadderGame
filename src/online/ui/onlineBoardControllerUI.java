@@ -1,0 +1,158 @@
+package online.ui;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.esotericsoftware.kryonet.Client;
+
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import online.data.RollDice;
+import online.data.RoomData;
+
+public class onlineBoardControllerUI {
+	@FXML
+	private AnchorPane boardAndPiece, player1, player2, player3, player4;
+	@FXML
+	private Label turnPlayer_label, statusPlayer_label, player1_name_label, player2_name_label, player3_name_label,
+			player4_name_label;
+	@FXML
+	private ImageView dice_imageView;
+	@FXML
+	private Button rollButton;
+
+	private RoomData roomdata;
+	private List<AnchorPane> playersUI = new ArrayList<>();
+	private List<Boolean> directionPlayers = new ArrayList<>();
+	private List<Boolean> reachTheGoalButFaceNotRight = new ArrayList<>();
+	private List<Boolean> playersBackward = new ArrayList<>();
+	private int playersIndexUI = 0;
+	private List<Image> diceImages;
+
+	private Client client;
+	private String myName;
+
+	public onlineBoardControllerUI(Client client) {
+		this.client = client;
+	}
+
+	public void setMyName(String myName) {
+		this.myName = myName;
+	}
+
+	@FXML
+	public void handleRollButton(ActionEvent e) {
+		RollDice roll = new RollDice();
+		roll.name = myName;
+		System.out.println(client);
+		client.sendTCP(roll);
+	}
+
+	@FXML
+	public void initialize() {
+	}
+
+	public void setRoomData(RoomData roomdata) {
+		this.roomdata = roomdata;
+	}
+
+	public void setPlayerTurn(String currentPlayerTurn) {
+		// set status turn
+		// turnPlayer_label.setText("Turn : " + currentPlayerTurn);
+
+		if (currentPlayerTurn.equals(myName)) {
+			System.out.println("my turn");
+			// enable roll button
+			// rollButton.setDisable(false);
+		} else {
+			// disable roll button
+			// rollButton.setDisable(true);
+		}
+	}
+
+	/**
+	 * 
+	 * @param playername
+	 * @param steps
+	 *            can be both positive and negative
+	 */
+	public void move(String playername, int steps) {
+		System.out.println(playername + " moves " + steps);
+		for (AnchorPane player : playersUI) {
+			if (player.getChildren().get(1).toString().equals(playername)) {
+				// move by step
+			}
+		}
+	}
+
+	/**
+	 * maximum 4 players add picture and label to board
+	 * 
+	 * @param playername
+	 */
+	public void addPlayerToBoard(String playername) {
+		int playerIndex = roomdata.players.indexOf(playername);
+		System.out.println(playerIndex);
+		if (playerIndex == 0) {
+			playersUI.add(0, this.player1);
+			player1_name_label.setText(playername);
+			setPlayerUIToStartPoint(playerIndex);
+		}
+		if (playerIndex == 1) {
+			playersUI.add(1, this.player2);
+			player2_name_label.setText(playername);
+			setPlayerUIToStartPoint(playerIndex);
+		}
+		if (playerIndex == 2) {
+			playersUI.add(2, this.player3);
+			player3_name_label.setText(playername);
+			setPlayerUIToStartPoint(playerIndex);
+
+		}
+		if (playerIndex == 3) {
+			playersUI.add(3, this.player4);
+			player4_name_label.setText(playername);
+			setPlayerUIToStartPoint(playerIndex);
+		}
+	}
+
+	/**
+	 * it's not working :(
+	 */
+	public void removePlayerFromBoard(String playername) {
+		playersUI.clear();
+		for (String name : roomdata.players) {
+
+			if (name.equals(player1_name_label.getText())) {
+				playersUI.add(player1);
+			}
+
+			if (name.equals(player2_name_label.getText())) {
+				playersUI.add(player2);
+			}
+
+			if (name.equals(player3_name_label.getText())) {
+				playersUI.add(player3);
+			}
+
+			if (name.equals(player4_name_label.getText())) {
+				playersUI.add(player4);
+			}
+		}
+	}
+
+	private void setPlayerUIToStartPoint(int i) {
+		directionPlayers.add(true);
+		reachTheGoalButFaceNotRight.add(false);
+		playersBackward.add(false);
+		playersUI.get(i).setVisible(true);
+		boardAndPiece.getChildren().get(i + 1).setLayoutX((i) * 20);
+		boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
+	}
+}

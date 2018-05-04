@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observer;
 
-import replay.*;
-import tile.TileType;
+import game.replay.*;
+import game.tile.TileType;
 
 public class Game {
 
@@ -94,7 +94,10 @@ public class Game {
 	}
 
 	public void currentPlayerMove(int steps) {
+		int nextMove = currentPlayerPosition();
 		this.board.movePiece(currentPlayer().getPiece(), steps);
+		nextMove = currentPlayerPosition() - nextMove;
+		replay.add(new MoveAction(currentPlayer(), nextMove, die.getFace()));
 	}
 
 	public String currentPlayerName() {
@@ -106,10 +109,7 @@ public class Game {
 	}
 
 	public int currentPlayerRollDice() {
-		RollAction action = new RollAction(currentPlayer(), die);
-		action.Execute();
-		replay.add(action);
-		return action.getDieFace();
+		return currentPlayer().roll(die);
 	}
 
 	public Iterator<Action> getLastReplay() {
@@ -118,7 +118,7 @@ public class Game {
 
 			@Override
 			public boolean hasNext() {
-				return pointer != (lastReplay.size() - 1);
+				return pointer != (lastReplay.size());
 			}
 
 			@Override
@@ -140,6 +140,5 @@ public class Game {
 
 	public String getPlayersName(int index) {
 		return players.get(index).getName();
-
 	}
 }
