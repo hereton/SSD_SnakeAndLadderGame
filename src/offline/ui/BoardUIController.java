@@ -9,8 +9,6 @@ import java.util.Observer;
 import game.Game;
 import game.replay.Action;
 import game.replay.MoveAction;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,7 +23,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class BoardUIController implements Observer {
 
@@ -53,7 +50,6 @@ public class BoardUIController implements Observer {
 	public BoardUIController(Game game) {
 		this.game = game;
 		this.game.addObserver(this);
-		openWinUI();
 	}
 
 	@FXML
@@ -84,6 +80,8 @@ public class BoardUIController implements Observer {
 			game.end();
 			rollButton.setDisable(true);
 			replay = game.getLastReplay();
+			openWinUI();
+
 		} else {
 			playersIndexUI = game.switchPlayer();
 			turnPlayer_label.setText(game.currentPlayerName() + " Turn");
@@ -124,13 +122,15 @@ public class BoardUIController implements Observer {
 					playUIMove(uimove);
 					setDiceFace(dieFace);
 				});
-				System.out.println(dieFace);
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 			}
+			Platform.runLater(() -> {
+				openWinUI();
+			});
 		}).start();
 	}
 

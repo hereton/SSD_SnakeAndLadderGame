@@ -29,17 +29,17 @@ public class WinControllerUI extends Observable {
 	public void handleReplayButton(ActionEvent e) {
 
 		updateObserver("replay");
-		// closeWinUI(e);
+		closeWinUI(e);
 	}
 
 	public void handleRestartButton(ActionEvent e) {
 		updateObserver("restart");
-		// closeWinUI(e);
+		closeWinUI(e);
 	}
 
 	public void handleNewGameButton(ActionEvent e) {
 		updateObserver("new game");
-		// closeWinUI(e);
+		closeWinUI(e);
 	}
 
 	private void closeWinUI(ActionEvent e) {
