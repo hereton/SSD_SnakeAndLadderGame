@@ -37,8 +37,14 @@ public class onlineBoardControllerUI {
 
 	}
 
+	@FXML
+	public void initialize() {
+		for (String s : roomdata.players) {
+			this.addPlayerToBoard(s);
+		}
+	}
 
-	public void setRoomdata(RoomData roomdata) {
+	public void setRoomData(RoomData roomdata) {
 		this.roomdata = roomdata;
 	}
 
@@ -63,24 +69,25 @@ public class onlineBoardControllerUI {
 	 */
 	public void addPlayerToBoard(String playername) {
 		int playerIndex = roomdata.players.indexOf(playername);
+		System.out.println(playerIndex);
 		if (playerIndex == 0) {
-			playersUI.set(0, this.player1);
+			playersUI.add(0, this.player1);
 			player1_name_label.setText(playername);
 			setPlayerUIToStartPoint(playerIndex);
 		}
 		if (playerIndex == 1) {
-			playersUI.set(1, this.player2);
+			playersUI.add(1, this.player2);
 			player2_name_label.setText(playername);
 			setPlayerUIToStartPoint(playerIndex);
 		}
 		if (playerIndex == 2) {
-			playersUI.set(1, this.player3);
+			playersUI.add(1, this.player3);
 			player3_name_label.setText(playername);
 			setPlayerUIToStartPoint(playerIndex);
 
 		}
 		if (playerIndex == 3) {
-			playersUI.set(1, this.player4);
+			playersUI.add(1, this.player4);
 			player4_name_label.setText(playername);
 			setPlayerUIToStartPoint(playerIndex);
 		}

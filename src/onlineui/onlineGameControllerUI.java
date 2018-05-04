@@ -39,7 +39,8 @@ public class onlineGameControllerUI {
 	private int SERVER_PORT = 3309;
 	private String SERVER_IP = "127.0.0.1";
 
-	private onlineBoardControllerUI controller;
+	private onlineBoardControllerUI controller = new onlineBoardControllerUI();;
+	private RoomData roomStatus;
 
 	@FXML
 	public void initialize() {
@@ -76,12 +77,12 @@ public class onlineGameControllerUI {
 			super.received(arg0, o);
 			if (o instanceof RoomData) {
 				System.out.println("Received room data");
-				RoomData roomStatus = (RoomData) o;
+				roomStatus = (RoomData) o;
 
 				for (String s : roomStatus.players) {
 					System.out.println(s);
 				}
-				// controller.setRoomData(roomStatus);
+				controller.setRoomData(roomStatus);
 				Platform.runLater(() -> {
 					if (roomStatus.isPlaying) {
 						status_label.setText("Game is playing");
@@ -124,7 +125,6 @@ public class onlineGameControllerUI {
 
 		Stage newStage = new Stage();
 		try {
-			controller = new onlineBoardControllerUI();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("BoardUI.fxml"));
 			loader.setController(controller);
 			Parent root = (Parent) loader.load();
@@ -141,6 +141,8 @@ public class onlineGameControllerUI {
 			thisStage.close();
 		} catch (Exception ex) {
 			System.out.println("Exception creating scene: " + ex.getMessage());
+			ex.printStackTrace();
 		}
+
 	}
 }
