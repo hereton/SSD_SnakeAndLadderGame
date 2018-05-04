@@ -32,8 +32,8 @@
 								<Image url="@../trump.jpg" />
 							</image>
 						</ImageView>
-						<Label layoutY="50.0" style="-fx-background-color: white;"
-							text="player 1">
+						<Label fx:id="player1_name_label" layoutY="50.0"
+							style="-fx-background-color: white;" text="player 1">
 							<font>
 								<Font name="System Bold" size="13.0" />
 							</font>
@@ -49,8 +49,8 @@
 								<Image url="@../jackma.jpg" />
 							</image>
 						</ImageView>
-						<Label layoutY="50.0" style="-fx-background-color: white;"
-							text="player2">
+						<Label fx:id="player2_name_label" layoutY="50.0"
+							style="-fx-background-color: white;" text="player2">
 							<font>
 								<Font name="System Bold" size="13.0" />
 							</font>
@@ -66,8 +66,8 @@
 								<Image url="@../taksin.jpg" />
 							</image>
 						</ImageView>
-						<Label layoutY="50.0" style="-fx-background-color: white;"
-							text="player3" />
+						<Label fx:id="player3_name_label" layoutY="50.0"
+							style="-fx-background-color: white;" text="player3" />
 					</children>
 				</AnchorPane>
 				<AnchorPane fx:id="player4" layoutX="150.0"
@@ -79,8 +79,8 @@
 								<Image url="@../prayuth.jpg" />
 							</image>
 						</ImageView>
-						<Label layoutY="50.0" style="-fx-background-color: white;"
-							text="player4">
+						<Label fx:id="player4_name_label" layoutY="50.0"
+							style="-fx-background-color: white;" text="player4">
 							<font>
 								<Font name="System Bold" size="13.0" />
 							</font>
