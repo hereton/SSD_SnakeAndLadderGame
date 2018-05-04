@@ -14,7 +14,7 @@ public class AppCient extends Application {
 	@Override
 	public void start(Stage stage) {
 		try {
-			Parent root = (Parent) FXMLLoader.load(getClass().getResource("../onlineui/GameUi.fxml"));
+			Parent root = (Parent) FXMLLoader.load(getClass().getResource("../ui/GameUi.fxml"));
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
 			stage.sizeToScene();

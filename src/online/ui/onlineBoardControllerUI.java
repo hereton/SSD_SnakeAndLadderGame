@@ -64,15 +64,15 @@ public class onlineBoardControllerUI {
 
 	public void setPlayerTurn(String currentPlayerTurn) {
 		// set status turn
-		turnPlayer_label.setText("Turn : " + currentPlayerTurn);
+		// turnPlayer_label.setText("Turn : " + currentPlayerTurn);
 
 		if (currentPlayerTurn.equals(myName)) {
 			System.out.println("my turn");
 			// enable roll button
-			rollButton.setDisable(false);
+			// rollButton.setDisable(false);
 		} else {
 			// disable roll button
-			rollButton.setDisable(true);
+			// rollButton.setDisable(true);
 		}
 	}
 

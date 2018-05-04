@@ -60,6 +60,8 @@ public class onlineGameControllerUI {
 		client.getKryo().register(HashMap.class);
 		client.getKryo().register(PlayerDisconnect.class);
 
+		controller = new onlineBoardControllerUI(client);
+
 		client.start();
 		try {
 			client.connect(5000, SERVER_IP, SERVER_PORT);
@@ -69,7 +71,6 @@ public class onlineGameControllerUI {
 		} finally {
 			System.out.println("Connected to " + SERVER_IP + ":" + SERVER_PORT);
 		}
-		controller = new onlineBoardControllerUI(client);
 	}
 
 	private class ClientListener extends Listener {
