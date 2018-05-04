@@ -79,7 +79,6 @@ public class BoardUIController implements Observer {
 		if (game.currentPlayerWin()) {
 			game.end();
 			rollButton.setDisable(true);
-			replay = game.getLastReplay();
 			openWinUI();
 
 		} else {
@@ -241,7 +240,7 @@ public class BoardUIController implements Observer {
 			newGame();
 		}
 		if (arg.equals("replay")) {
-			System.out.println("replay");
+			this.replay = game.getLastReplay();
 			this.runReplay();
 		}
 	}
