@@ -1,4 +1,4 @@
-package onlineui;
+package online.ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,7 +8,6 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
-import application.BoardUIController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,12 +19,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import online.PlayerDisconnect;
-import online.PlayerJoin;
-import online.PlayerTurn;
-import online.RollData;
-import online.RollDice;
-import online.RoomData;
+import offline.ui.BoardUIController;
+import online.data.PlayerDisconnect;
+import online.data.PlayerJoin;
+import online.data.PlayerTurn;
+import online.data.RollData;
+import online.data.RollDice;
+import online.data.RoomData;
 
 public class onlineGameControllerUI {
 	@FXML

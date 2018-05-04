@@ -1,4 +1,4 @@
-package replay;
+package game.replay;
 
 import game.Die;
 import game.Player;

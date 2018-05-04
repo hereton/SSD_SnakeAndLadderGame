@@ -4,12 +4,12 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Observable;
 
-import tile.Backward;
-import tile.Freeze;
-import tile.Ladder;
-import tile.Snake;
-import tile.Square;
-import tile.TileType;
+import game.tile.Backward;
+import game.tile.Freeze;
+import game.tile.Ladder;
+import game.tile.Snake;
+import game.tile.Square;
+import game.tile.TileType;
 
 public class Board extends Observable {
 

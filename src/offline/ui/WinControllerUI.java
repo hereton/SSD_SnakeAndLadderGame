@@ -1,4 +1,4 @@
-package application;
+package offline.ui;
 
 import java.util.Observable;
 

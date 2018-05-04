@@ -1,4 +1,4 @@
-package replay;
+package game.replay;
 
 public abstract class Action {
 

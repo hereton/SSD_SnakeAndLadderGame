@@ -1,4 +1,4 @@
-package tile;
+package game.tile;
 
 public class Snake extends Square {
 	private int stepbacks;

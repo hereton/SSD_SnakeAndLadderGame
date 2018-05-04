@@ -1,4 +1,4 @@
-package onlineui;
+package online.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

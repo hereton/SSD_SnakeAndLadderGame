@@ -1,4 +1,4 @@
-package application;
+package offline.ui;
 
 import game.Game;
 import javafx.event.ActionEvent;

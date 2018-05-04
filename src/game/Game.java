@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observer;
 
-import replay.*;
-import tile.TileType;
+import game.replay.*;
+import game.tile.TileType;
 
 public class Game {
 

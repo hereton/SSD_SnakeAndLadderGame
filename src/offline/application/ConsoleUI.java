@@ -1,4 +1,4 @@
-package application;
+package offline.application;
 
 import java.util.Scanner;
 

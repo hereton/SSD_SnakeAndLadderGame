@@ -1,4 +1,4 @@
-package onlineui;
+package online.ui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import online.RollDice;
-import online.RoomData;
+import online.data.RollDice;
+import online.data.RoomData;
 
 public class onlineBoardControllerUI {
 	@FXML

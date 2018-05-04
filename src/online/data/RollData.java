@@ -1,4 +1,4 @@
-package online;
+package online.data;
 
 public class RollData {
 	public String playername;

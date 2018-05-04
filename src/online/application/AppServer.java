@@ -1,4 +1,4 @@
-package online;
+package online.application;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +11,12 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
 import game.Game;
+import online.data.PlayerDisconnect;
+import online.data.PlayerJoin;
+import online.data.PlayerTurn;
+import online.data.RollData;
+import online.data.RollDice;
+import online.data.RoomData;
 
 public class AppServer extends Game {
 	private Server server;

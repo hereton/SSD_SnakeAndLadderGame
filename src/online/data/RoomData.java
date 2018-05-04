@@ -1,4 +1,4 @@
-package online;
+package online.data;
 
 import java.util.ArrayList;
 import java.util.List;

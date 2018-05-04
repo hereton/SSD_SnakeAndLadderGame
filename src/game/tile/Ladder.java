@@ -1,4 +1,4 @@
-package tile;
+package game.tile;
 
 public class Ladder extends Square {
 	private int stepforwards;
