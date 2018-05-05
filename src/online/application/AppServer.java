@@ -121,8 +121,8 @@ public class AppServer extends Game {
 
 				if (game.currentPlayerWin()) {
 					game.end();
-					// handle when someone win
 					sendPlayerWin(game.currentPlayerName());
+					game.restart();
 
 				} else {
 					game.switchPlayer();

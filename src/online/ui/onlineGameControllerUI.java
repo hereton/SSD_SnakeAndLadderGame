@@ -3,14 +3,11 @@ package online.ui;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
-import game.replay.Action;
-import game.replay.MoveAction;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -129,14 +126,7 @@ public class onlineGameControllerUI {
 			if (o instanceof WinData) {
 				WinData wd = (WinData) o;
 				controller.setPlayerWin(wd.playername);
-
-				// Create new replay
-				List<Action> actions = new ArrayList<>();
-				for (Replay r : wd.replays) {
-					MoveAction ma = new MoveAction(r.name, r.steps, r.dieFace);
-					actions.add(ma);
-				}
-				controller.setReplay(actions.iterator());
+				controller.setReplay(wd.replays);
 			}
 
 		}
