@@ -109,12 +109,8 @@ public class AppServer extends Game {
 			}
 			if (o instanceof RollDice) {
 				System.out.println("Rolling dice");
-				RollDice roll = (RollDice) o;
 				if (!game.isPlaying()) {
-					if (roll.name.equals(game.getPlayersName(0)))
-						game.start();
-					else
-						return;
+					game.start();
 				}
 
 				int nextMove = game.currentPlayerPosition();

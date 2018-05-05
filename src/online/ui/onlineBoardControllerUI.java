@@ -174,28 +174,30 @@ public class onlineBoardControllerUI implements Observer {
 	 * @param playername
 	 */
 	public void addPlayerToBoard(String playername) {
-		int playerIndex = roomdata.players.indexOf(playername);
-		if (playerIndex == 0) {
-			playersUI.add(0, this.player1);
-			player1_name_label.setText(playername);
-			setPlayerUIToStartPoint(playerIndex);
-		}
-		if (playerIndex == 1) {
-			playersUI.add(1, this.player2);
-			player2_name_label.setText(playername);
-			setPlayerUIToStartPoint(playerIndex);
-		}
-		if (playerIndex == 2) {
-			playersUI.add(2, this.player3);
-			player3_name_label.setText(playername);
-			setPlayerUIToStartPoint(playerIndex);
+		Platform.runLater(() -> {
+			int playerIndex = roomdata.players.indexOf(playername);
+			if (playerIndex == 0) {
+				playersUI.add(0, this.player1);
+				player1_name_label.setText(playername);
+				setPlayerUIToStartPoint(playerIndex);
+			}
+			if (playerIndex == 1) {
+				playersUI.add(1, this.player2);
+				player2_name_label.setText(playername);
+				setPlayerUIToStartPoint(playerIndex);
+			}
+			if (playerIndex == 2) {
+				playersUI.add(2, this.player3);
+				player3_name_label.setText(playername);
+				setPlayerUIToStartPoint(playerIndex);
 
-		}
-		if (playerIndex == 3) {
-			playersUI.add(3, this.player4);
-			player4_name_label.setText(playername);
-			setPlayerUIToStartPoint(playerIndex);
-		}
+			}
+			if (playerIndex == 3) {
+				playersUI.add(3, this.player4);
+				player4_name_label.setText(playername);
+				setPlayerUIToStartPoint(playerIndex);
+			}
+		});
 	}
 
 	/**
