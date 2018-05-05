@@ -22,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import online.application.AppCient;
 import online.data.PlayerDisconnect;
 import online.data.PlayerJoin;
 import online.data.PlayerTurn;
@@ -41,10 +42,14 @@ public class onlineGameControllerUI {
 
 	private Client client;
 	private int SERVER_PORT = 3309;
-	private String SERVER_IP = "127.0.0.1";
+	private final String SERVER_IP;
 
 	private onlineBoardControllerUI controller;
 	private RoomData roomStatus;
+
+	public onlineGameControllerUI() {
+		SERVER_IP = AppCient.IP_ADDRESS;
+	}
 
 	@FXML
 	public void initialize() {
@@ -75,7 +80,6 @@ public class onlineGameControllerUI {
 			client.connect(5000, SERVER_IP, SERVER_PORT);
 		} catch (IOException e) {
 			System.out.println("Cannot connect to : " + SERVER_IP + ":" + SERVER_PORT);
-			e.printStackTrace();
 		} finally {
 			System.out.println("Connected to " + SERVER_IP + ":" + SERVER_PORT);
 		}
@@ -89,7 +93,6 @@ public class onlineGameControllerUI {
 				roomStatus = (RoomData) o;
 				controller.setRoomData(roomStatus);
 				controller.refreshPlayer();
-
 				// UPDATE HOME UI
 				Platform.runLater(() -> {
 					if (roomStatus.isPlaying) {
@@ -99,14 +102,16 @@ public class onlineGameControllerUI {
 						int playersize = roomStatus.players.size();
 						if (playersize == 4)
 							status_label.setText("Status : Full (4/4)");
-						else
+						else {
 							status_label.setText("Status : waiting (" + playersize + "/4)");
+							joinButton.setDisable(false);
+						}
 					}
 				});
 			}
 
 			if (o instanceof PlayerTurn) {
-				controller.setPlayerTurn(((PlayerTurn) o).currentPlayerTurn);
+				Platform.runLater(() -> controller.setPlayerTurn(((PlayerTurn) o).currentPlayerTurn));
 			}
 
 			if (o instanceof RollData) {

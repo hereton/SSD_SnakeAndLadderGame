@@ -138,29 +138,33 @@ public class onlineBoardControllerUI implements Observer {
 	 *            can be both positive and negative
 	 */
 	public void move(String playername, int dieFace, int steps) {
-		setDiceFace(dieFace);
-		if (playersBackward.get(playersIndexUI)) {
-			playersBackward.set(playersIndexUI, false);
-			directionPlayers.set(playersIndexUI, !directionPlayers.get(playersIndexUI));
-		}
-		if (steps < 0) {
-			directionPlayers.set(playersIndexUI, !directionPlayers.get(playersIndexUI));
-			playersBackward.set(playersIndexUI, true);
-			steps *= -1;
-		}
-		if (playername.equals(player1_name_label.getText())) {
-			playersIndexUI = 0;
-			playUIMove(steps);
+		try {
+			setDiceFace(dieFace);
+			if (playersBackward.get(playersIndexUI)) {
+				playersBackward.set(playersIndexUI, false);
+				directionPlayers.set(playersIndexUI, !directionPlayers.get(playersIndexUI));
+			}
+			if (steps < 0) {
+				directionPlayers.set(playersIndexUI, !directionPlayers.get(playersIndexUI));
+				playersBackward.set(playersIndexUI, true);
+				steps *= -1;
+			}
+			if (playername.equals(player1_name_label.getText())) {
+				playersIndexUI = 0;
+				playUIMove(steps);
 
-		} else if (playername.equals(player2_name_label.getText())) {
-			playersIndexUI = 1;
-			playUIMove(steps);
-		} else if (playername.equals(player3_name_label.getText())) {
-			playersIndexUI = 2;
-			playUIMove(steps);
-		} else if (playername.equals(player4_name_label.getText())) {
-			playersIndexUI = 3;
-			playUIMove(steps);
+			} else if (playername.equals(player2_name_label.getText())) {
+				playersIndexUI = 1;
+				playUIMove(steps);
+			} else if (playername.equals(player3_name_label.getText())) {
+				playersIndexUI = 2;
+				playUIMove(steps);
+			} else if (playername.equals(player4_name_label.getText())) {
+				playersIndexUI = 3;
+				playUIMove(steps);
+			}
+		} catch (IndexOutOfBoundsException o) {
+
 		}
 	}
 
@@ -329,7 +333,11 @@ public class onlineBoardControllerUI implements Observer {
 	}
 
 	private void setDiceFace(int face) {
-		dice_imageView.setImage(diceImages.get(face - 1));
+		try {
+			dice_imageView.setImage(diceImages.get(face - 1));
+		} catch (NullPointerException npe) {
+			// do nothing
+		}
 	}
 
 	@Override

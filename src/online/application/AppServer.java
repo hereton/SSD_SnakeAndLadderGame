@@ -69,6 +69,7 @@ public class AppServer extends Game {
 			super.connected(arg0);
 			System.out.println(arg0.getRemoteAddressTCP() + " connected");
 			connections.add(arg0);
+			roomStatus.isPlaying = game.isPlaying();
 			arg0.sendTCP(roomStatus);
 		}
 
@@ -84,12 +85,13 @@ public class AppServer extends Game {
 				for (Connection c : connections) {
 					c.sendTCP(pd);
 				}
-				sendRoomStatus();
 				playermap.remove(arg0);
 				if (playermap.keySet().size() == 0) {
 					System.out.println("Restart game");
 					game.restart();
 				}
+				roomStatus.isPlaying = game.isPlaying();
+				sendRoomStatus();
 			}
 		}
 
@@ -107,10 +109,14 @@ public class AppServer extends Game {
 			}
 			if (o instanceof RollDice) {
 				System.out.println("Rolling dice");
-				if (arg0.equals(connections.get(0))) {
-					if (!game.isPlaying())
+				RollDice roll = (RollDice) o;
+				if (!game.isPlaying()) {
+					if (roll.name.equals(game.getPlayersName(0)))
 						game.start();
+					else
+						return;
 				}
+
 				int nextMove = game.currentPlayerPosition();
 				int face = game.currentPlayerRollDice();
 				game.currentPlayerMove(face);
