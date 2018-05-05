@@ -3,8 +3,6 @@ package online.ui;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Observable;
-import java.util.Observer;
 
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -21,7 +19,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import offline.ui.WinControllerUI;
 import online.data.PlayerDisconnect;
 import online.data.PlayerJoin;
 import online.data.PlayerTurn;
@@ -29,6 +26,7 @@ import online.data.PlayerWin;
 import online.data.RollData;
 import online.data.RollDice;
 import online.data.RoomData;
+import online.data.WinData;
 
 public class onlineGameControllerUI {
 	@FXML
@@ -44,7 +42,6 @@ public class onlineGameControllerUI {
 
 	private onlineBoardControllerUI controller;
 	private RoomData roomStatus;
-	private PlayerWin pw;
 
 	@FXML
 	public void initialize() {
@@ -124,10 +121,11 @@ public class onlineGameControllerUI {
 				// GAME END? < this is the best idea.
 			}
 
-			if (o instanceof PlayerWin) {
+			if (o instanceof WinData) {
 				System.out.println("win");
-				pw = (PlayerWin) o;
-				controller.setPlayerWin(pw.playerWin);
+				WinData wd = (WinData) o;
+				controller.setPlayerWin(wd.playername);
+				controller.setReplay(wd.replay);
 			}
 
 		}

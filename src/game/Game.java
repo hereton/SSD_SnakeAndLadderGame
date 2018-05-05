@@ -129,6 +129,10 @@ public class Game {
 				pointer++;
 				return ac;
 			}
+
+			public void reset() {
+				this.pointer = 0;
+			}
 		};
 	}
 

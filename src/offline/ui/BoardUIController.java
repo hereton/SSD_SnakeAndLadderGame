@@ -246,11 +246,12 @@ public class BoardUIController implements Observer {
 	}
 
 	private void restartGame() {
+		playersIndexUI = 0;
 		List<String> playersName = new ArrayList<>();
 		for (int i = 0; i < game.getPlayerSize(); i++) {
 			playersName.add(game.getPlayersName(i));
 		}
-		this.game = new Game();
+		game.restart();
 		for (String player : playersName) {
 			game.addPlayer(player);
 		}

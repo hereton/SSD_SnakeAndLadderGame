@@ -1,6 +1,7 @@
 package online.ui;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -8,6 +9,7 @@ import java.util.Observer;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 
+import game.replay.Action;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,6 +48,7 @@ public class onlineBoardControllerUI implements Observer {
 	private Client client;
 	private String myName;
 	private String currentTurn;
+	private Iterator<Action> replay;
 
 	public onlineBoardControllerUI(Client client) {
 		this.client = client;
@@ -298,6 +301,10 @@ public class onlineBoardControllerUI implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		System.out.println("win ui click somthin");
+	}
+
+	public void setReplay(Iterator<Action> replay) {
+		this.replay = replay;
 	}
 
 }
