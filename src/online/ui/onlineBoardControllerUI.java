@@ -230,7 +230,7 @@ public class onlineBoardControllerUI implements Observer {
 		reachTheGoalButFaceNotRight.add(false);
 		playersBackward.add(false);
 		playersUI.get(i).setVisible(true);
-		boardAndPiece.getChildren().get(i + 1).setLayoutX((i) * 20);
+		boardAndPiece.getChildren().get(i + 1).setLayoutX((i) * 14);
 		boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
 
 	}
