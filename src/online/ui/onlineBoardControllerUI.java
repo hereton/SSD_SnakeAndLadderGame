@@ -41,6 +41,10 @@ public class onlineBoardControllerUI {
 
 	public onlineBoardControllerUI(Client client) {
 		this.client = client;
+		for (int i = 0; i < 6; i++) {
+			diceImages.add(new Image("../Dice" + (i + 1)));
+		}
+
 	}
 
 	public void setMyName(String myName) {
@@ -101,7 +105,6 @@ public class onlineBoardControllerUI {
 			playersIndexUI = 3;
 		}
 	}
-	
 
 	/**
 	 * maximum 4 players add picture and label to board
@@ -135,7 +138,7 @@ public class onlineBoardControllerUI {
 	}
 
 	/**
-	 * it's not working :(
+	 * it's not working :( so sad :(
 	 */
 	public void removePlayerFromBoard(String playername) {
 		playersUI.clear();
