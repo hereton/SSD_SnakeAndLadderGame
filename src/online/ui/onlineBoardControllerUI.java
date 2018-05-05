@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Connection;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -41,8 +42,9 @@ public class onlineBoardControllerUI {
 
 	public onlineBoardControllerUI(Client client) {
 		this.client = client;
-		for (int i = 0; i < 6; i++) {
-			diceImages.add(new Image("../Dice" + (i + 1)));
+		diceImages = new ArrayList<>();
+		for (int i = 1; i <= 6; i++) {
+			diceImages.add(new Image("Dice" + i + ".png"));
 		}
 
 	}
@@ -95,14 +97,28 @@ public class onlineBoardControllerUI {
 	 */
 	public void move(String playername, int steps) {
 		System.out.println(playername + " moves " + steps);
+		if (playersBackward.get(playersIndexUI)) {
+			playersBackward.set(playersIndexUI, false);
+			directionPlayers.set(playersIndexUI, !directionPlayers.get(playersIndexUI));
+		}
+		if (steps < 0) {
+			directionPlayers.set(playersIndexUI, !directionPlayers.get(playersIndexUI));
+			playersBackward.set(playersIndexUI, true);
+			steps *= -1;
+		}
 		if (playername.equals(player1_name_label.getText())) {
 			playersIndexUI = 0;
+			playUIMove(steps);
+
 		} else if (playername.equals(player2_name_label.getText())) {
 			playersIndexUI = 1;
+			playUIMove(steps);
 		} else if (playername.equals(player3_name_label.getText())) {
 			playersIndexUI = 2;
+			playUIMove(steps);
 		} else if (playername.equals(player4_name_label.getText())) {
 			playersIndexUI = 3;
+			playUIMove(steps);
 		}
 	}
 
@@ -180,4 +196,66 @@ public class onlineBoardControllerUI {
 
 		}
 	}
+
+	private void playUIMove(int face) {
+		if (reachTheGoalButFaceNotRight.get(playersIndexUI))
+			directionPlayers.set(playersIndexUI, false);
+		for (int i = 1; i <= face; i++) {
+			// direction right
+			if (directionPlayers.get(playersIndexUI)) {
+				playerGoRight(playersIndexUI);
+				if (getPlayerX(playersIndexUI) > 799) {
+					if (playersBackward.get(playersIndexUI)) {
+						setPlayerDown(playersIndexUI); // after move on to snake
+					} else {
+						setPlayerUp(playersIndexUI); // normal move
+					}
+					playerGoLeft(playersIndexUI);
+					directionPlayers.set(playersIndexUI, false); // change direction to left.
+
+				}
+			} else {
+				playerGoLeft(playersIndexUI);
+				if (getPlayerX(playersIndexUI) < 0) {
+					if (playersBackward.get(playersIndexUI)) {
+						setPlayerDown(playersIndexUI);
+					} else {
+						setPlayerUp(playersIndexUI);
+					}
+					playerGoRight(playersIndexUI);
+					directionPlayers.set(playersIndexUI, true); // change direction to right.
+				}
+			}
+
+			if (getPlayerX(playersIndexUI) < 80 && getPlayerY(playersIndexUI) < 60) {
+				directionPlayers.set(playersIndexUI, true);
+				reachTheGoalButFaceNotRight.set(playersIndexUI, true);
+			}
+		}
+	}
+
+	private double getPlayerX(int playerIndex) {
+		return boardAndPiece.getChildren().get(playerIndex + 1).getLayoutX();
+	}
+
+	private double getPlayerY(int playerIndex) {
+		return boardAndPiece.getChildren().get(playerIndex + 1).getLayoutY();
+	}
+
+	private void playerGoRight(int playersIndexUI) {
+		boardAndPiece.getChildren().get(playersIndexUI + 1).setLayoutX(getPlayerX(playersIndexUI) + 80);
+	}
+
+	private void playerGoLeft(int playersIndexUI) {
+		boardAndPiece.getChildren().get(playersIndexUI + 1).setLayoutX(getPlayerX(playersIndexUI) - 80);
+	}
+
+	private void setPlayerUp(int playersIndexUI) {
+		boardAndPiece.getChildren().get(playersIndexUI + 1).setLayoutY(getPlayerY(playersIndexUI) - 60);
+	}
+
+	private void setPlayerDown(int playersIndexUI) {
+		boardAndPiece.getChildren().get(playersIndexUI + 1).setLayoutY(getPlayerY(playersIndexUI) + 60);
+	}
+
 }

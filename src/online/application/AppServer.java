@@ -111,6 +111,8 @@ public class AppServer extends Game {
 				if (game.currentPlayerWin()) {
 					game.end();
 					// handle when someone win
+					sendPlayerWin(game.currentPlayerName());
+
 				} else {
 					game.switchPlayer();
 					sendCurrentPlayerTurn();
@@ -140,6 +142,12 @@ public class AppServer extends Game {
 
 		for (Connection c : connections) {
 			c.sendTCP(datas);
+		}
+	}
+
+	private void sendPlayerWin(String currentPlayerName) {
+		for (Connection c : connections) {
+			c.sendTCP(currentPlayerName);
 		}
 	}
 
