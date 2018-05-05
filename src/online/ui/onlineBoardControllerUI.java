@@ -6,9 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
 import com.esotericsoftware.kryonet.Client;
 
-import game.replay.Action;
 import game.replay.MoveAction;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -24,6 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import online.data.Replay;
 import online.data.RollDice;
 import online.data.RoomData;
 
@@ -49,7 +50,7 @@ public class onlineBoardControllerUI implements Observer {
 	private Client client;
 	private String myName;
 	private String currentTurn;
-	private Iterator<Action> replay;
+	private List<Replay> replays;
 	private Event event;
 
 	public onlineBoardControllerUI(Client client) {
@@ -103,7 +104,12 @@ public class onlineBoardControllerUI implements Observer {
 	}
 
 	public void runReplay() {
-		// TODO restart replay
+		List<MoveAction> replays = new ArrayList<>();
+		for (Replay r : this.replays) {
+			replays.add(new MoveAction(r.name, r.steps, r.dieFace));
+		}
+		Iterator<MoveAction> replay = replays.iterator();
+
 		directionPlayers.clear();
 		reachTheGoalButFaceNotRight.clear();
 		playersBackward.clear();
@@ -174,30 +180,34 @@ public class onlineBoardControllerUI implements Observer {
 	 * @param playername
 	 */
 	public void addPlayerToBoard(String playername) {
-		Platform.runLater(() -> {
-			int playerIndex = roomdata.players.indexOf(playername);
-			if (playerIndex == 0) {
-				playersUI.add(0, this.player1);
-				player1_name_label.setText(playername);
-				setPlayerUIToStartPoint(playerIndex);
-			}
-			if (playerIndex == 1) {
-				playersUI.add(1, this.player2);
-				player2_name_label.setText(playername);
-				setPlayerUIToStartPoint(playerIndex);
-			}
-			if (playerIndex == 2) {
-				playersUI.add(2, this.player3);
-				player3_name_label.setText(playername);
-				setPlayerUIToStartPoint(playerIndex);
+		try {
+			Platform.runLater(() -> {
+				int playerIndex = roomdata.players.indexOf(playername);
+				if (playerIndex == 0) {
+					playersUI.add(0, this.player1);
+					player1_name_label.setText(playername);
+					setPlayerUIToStartPoint(playerIndex);
+				}
+				if (playerIndex == 1) {
+					playersUI.add(1, this.player2);
+					player2_name_label.setText(playername);
+					setPlayerUIToStartPoint(playerIndex);
+				}
+				if (playerIndex == 2) {
+					playersUI.add(2, this.player3);
+					player3_name_label.setText(playername);
+					setPlayerUIToStartPoint(playerIndex);
 
-			}
-			if (playerIndex == 3) {
-				playersUI.add(3, this.player4);
-				player4_name_label.setText(playername);
-				setPlayerUIToStartPoint(playerIndex);
-			}
-		});
+				}
+				if (playerIndex == 3) {
+					playersUI.add(3, this.player4);
+					player4_name_label.setText(playername);
+					setPlayerUIToStartPoint(playerIndex);
+				}
+			});
+		} catch (NullPointerException npe) {
+
+		}
 	}
 
 	/**
@@ -362,8 +372,8 @@ public class onlineBoardControllerUI implements Observer {
 
 	}
 
-	public void setReplay(Iterator<Action> replay) {
-		this.replay = replay;
+	public void setReplay(List<Replay> replays) {
+		this.replays = replays;
 	}
 
 	private void newGame() {
