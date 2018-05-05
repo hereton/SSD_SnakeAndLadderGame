@@ -14,9 +14,11 @@ import game.Game;
 import online.data.PlayerDisconnect;
 import online.data.PlayerJoin;
 import online.data.PlayerTurn;
+import online.data.PlayerWin;
 import online.data.RollData;
 import online.data.RollDice;
 import online.data.RoomData;
+import sun.net.www.content.audio.wav;
 
 public class AppServer extends Game {
 	private Server server;
@@ -39,6 +41,7 @@ public class AppServer extends Game {
 		server.getKryo().register(ArrayList.class);
 		server.getKryo().register(HashMap.class);
 		server.getKryo().register(PlayerDisconnect.class);
+		server.getKryo().register(PlayerWin.class);
 
 		server.start();
 		try {
@@ -108,10 +111,11 @@ public class AppServer extends Game {
 				game.currentPlayerMove(face);
 				nextMove = game.currentPlayerPosition() - nextMove;
 				sendRollData(game.currentPlayerName(), nextMove);
+
 				if (game.currentPlayerWin()) {
-					game.end();
 					// handle when someone win
 					sendPlayerWin(game.currentPlayerName());
+					game.end();
 
 				} else {
 					game.switchPlayer();
@@ -142,12 +146,16 @@ public class AppServer extends Game {
 
 		for (Connection c : connections) {
 			c.sendTCP(datas);
+
 		}
+
 	}
 
 	private void sendPlayerWin(String currentPlayerName) {
+		PlayerWin pw = new PlayerWin();
+		pw.playerWin = currentPlayerName;
 		for (Connection c : connections) {
-			c.sendTCP(currentPlayerName);
+			c.sendTCP(pw);
 		}
 	}
 

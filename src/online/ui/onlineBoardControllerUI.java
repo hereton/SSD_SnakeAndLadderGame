@@ -2,6 +2,8 @@ package online.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -9,15 +11,20 @@ import com.esotericsoftware.kryonet.Connection;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import offline.ui.WinControllerUI;
 import online.data.RollDice;
 import online.data.RoomData;
 
-public class onlineBoardControllerUI {
+public class onlineBoardControllerUI implements Observer {
 	@FXML
 	private AnchorPane boardAndPiece, player1, player2, player3, player4;
 	@FXML
@@ -64,6 +71,7 @@ public class onlineBoardControllerUI {
 	public void initialize() {
 		setPlayerTurn(this.currentTurn);
 		refreshPlayer();
+
 	}
 
 	public void setRoomData(RoomData roomdata) {
@@ -256,6 +264,40 @@ public class onlineBoardControllerUI {
 
 	private void setPlayerDown(int playersIndexUI) {
 		boardAndPiece.getChildren().get(playersIndexUI + 1).setLayoutY(getPlayerY(playersIndexUI) + 60);
+	}
+
+	public void setPlayerWin(String playerWin) {
+		System.out.println("someone win ");
+		rollButton.setDisable(true);
+		Platform.runLater(() -> {
+			openWinUI(playerWin);
+
+		});
+	}
+
+	private void openWinUI(String player) {
+		Stage newStage = new Stage();
+		try {
+			onlineWinControllerUI winCon = new onlineWinControllerUI(player);
+			winCon.addObserver(this);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("WinUI.fxml"));
+			loader.setController(winCon);
+			Parent root = (Parent) loader.load();
+			Scene scene = new Scene(root);
+
+			newStage.setScene(scene);
+			newStage.sizeToScene();
+			newStage.setTitle("Snake and Ladder !");
+			newStage.show();
+			newStage.setResizable(false);
+		} catch (Exception ex) {
+			System.out.println("Exception creating scene: " + ex.getMessage());
+		}
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println("win ui click somthin");
 	}
 
 }
