@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import com.esotericsoftware.kryonet.Client;
+
 import game.replay.Action;
 import game.replay.MoveAction;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -46,6 +49,7 @@ public class onlineBoardControllerUI implements Observer {
 	private String myName;
 	private String currentTurn;
 	private Iterator<Action> replay;
+	private Event event;
 
 	public onlineBoardControllerUI(Client client) {
 		this.client = client;
@@ -62,6 +66,7 @@ public class onlineBoardControllerUI implements Observer {
 
 	@FXML
 	public void handleRollButton(ActionEvent e) {
+		event = e;
 		RollDice roll = new RollDice();
 		roll.name = myName;
 		client.sendTCP(roll);
@@ -98,25 +103,34 @@ public class onlineBoardControllerUI implements Observer {
 	}
 
 	public void runReplay() {
-		for (int i = 0; i < 4; i++) {
+		// TODO restart replay
+		directionPlayers.clear();
+		reachTheGoalButFaceNotRight.clear();
+		playersBackward.clear();
+		for (int i = 0; i < playersUI.size(); i++) {
 			setPlayerUIToStartPoint(i);
 		}
-		playersIndexUI = 0;
+
+		System.out.println("this is sizeui" + playersUI.size());
 		new Thread(() -> {
 			System.out.println(replay.hasNext());
+			String currentPlayer = "";
 			while (replay.hasNext()) {
 				MoveAction a = (MoveAction) replay.next();
-				System.out.println(a.getStepMove());
+				currentPlayer = a.getPlayerName();
 				Platform.runLater(() -> {
 					move(a.getPlayerName(), a.getDieFace(), a.getStepMove());
 				});
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
+			final String playerWin = currentPlayer;
+			Platform.runLater(() -> {
+				openWinUI(playerWin);
+			});
 		}).start();
 	}
 
@@ -160,9 +174,10 @@ public class onlineBoardControllerUI implements Observer {
 	 */
 	public void addPlayerToBoard(String playername) {
 		int playerIndex = roomdata.players.indexOf(playername);
-		System.out.println(playerIndex);
+		System.out.println("adddddddddddddddd plater " + playerIndex);
 		if (playerIndex == 0) {
 			playersUI.add(0, this.player1);
+			System.out.println("adddd Sixeeeee " + playersUI.size());
 			player1_name_label.setText(playername);
 			setPlayerUIToStartPoint(playerIndex);
 		}
@@ -210,20 +225,18 @@ public class onlineBoardControllerUI implements Observer {
 	}
 
 	private void setPlayerUIToStartPoint(int i) {
-		try {
-			directionPlayers.add(true);
-			reachTheGoalButFaceNotRight.add(false);
-			playersBackward.add(false);
-			playersUI.get(i).setVisible(true);
-			boardAndPiece.getChildren().get(i + 1).setLayoutX((i) * 20);
-			boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
-		} catch (Exception e) {
-			System.out.println("Trying to setPlayerUIToStartPoint " + e.getMessage());
-		}
+		directionPlayers.add(true);
+		reachTheGoalButFaceNotRight.add(false);
+		playersBackward.add(false);
+		playersUI.get(i).setVisible(true);
+		boardAndPiece.getChildren().get(i + 1).setLayoutX((i) * 20);
+		boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
+
 	}
 
 	public void refreshPlayer() {
 		try {
+			playersUI.clear();
 			for (String s : roomdata.players) {
 				addPlayerToBoard(s);
 			}
@@ -332,13 +345,34 @@ public class onlineBoardControllerUI implements Observer {
 			if (s.equals("replay")) {
 				this.runReplay();
 			}
+			if (s.equals("new game")) {
+				this.newGame();
+				// TODO
+			}
 		}
 
-		System.out.println("win ui click somthin");
 	}
 
 	public void setReplay(Iterator<Action> replay) {
 		this.replay = replay;
+	}
+
+	private void newGame() {
+		Stage newStage = new Stage();
+		try {
+			Parent root = (Parent) FXMLLoader.load(getClass().getResource("GameUI.fxml"));
+			Scene scene = new Scene(root);
+			newStage.setScene(scene);
+			newStage.sizeToScene();
+			newStage.setTitle("Snake and Ladder !");
+			newStage.show();
+			newStage.setResizable(false);
+		} catch (Exception e) {
+			System.out.println("Exception creating scene: " + e.getMessage());
+		}
+		Node source = (Node) event.getSource();
+		Stage thisStage = (Stage) source.getScene().getWindow();
+		thisStage.close();
 	}
 
 }
