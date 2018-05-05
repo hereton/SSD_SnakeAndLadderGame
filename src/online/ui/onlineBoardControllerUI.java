@@ -5,9 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
 import com.esotericsoftware.kryonet.Client;
-
 import game.replay.Action;
 import game.replay.MoveAction;
 import javafx.application.Platform;
@@ -103,12 +101,21 @@ public class onlineBoardControllerUI implements Observer {
 		for (int i = 0; i < 4; i++) {
 			setPlayerUIToStartPoint(i);
 		}
+		playersIndexUI = 0;
 		new Thread(() -> {
+			System.out.println(replay.hasNext());
 			while (replay.hasNext()) {
 				MoveAction a = (MoveAction) replay.next();
+				System.out.println(a.getStepMove());
 				Platform.runLater(() -> {
 					move(a.getPlayerName(), a.getDieFace(), a.getStepMove());
 				});
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}).start();
 	}
@@ -121,8 +128,6 @@ public class onlineBoardControllerUI implements Observer {
 	 */
 	public void move(String playername, int dieFace, int steps) {
 		setDiceFace(dieFace);
-
-		System.out.println(playername + " moves " + steps);
 		if (playersBackward.get(playersIndexUI)) {
 			playersBackward.set(playersIndexUI, false);
 			directionPlayers.set(playersIndexUI, !directionPlayers.get(playersIndexUI));
@@ -205,12 +210,16 @@ public class onlineBoardControllerUI implements Observer {
 	}
 
 	private void setPlayerUIToStartPoint(int i) {
-		directionPlayers.add(true);
-		reachTheGoalButFaceNotRight.add(false);
-		playersBackward.add(false);
-		playersUI.get(i).setVisible(true);
-		boardAndPiece.getChildren().get(i + 1).setLayoutX((i) * 20);
-		boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
+		try {
+			directionPlayers.add(true);
+			reachTheGoalButFaceNotRight.add(false);
+			playersBackward.add(false);
+			playersUI.get(i).setVisible(true);
+			boardAndPiece.getChildren().get(i + 1).setLayoutX((i) * 20);
+			boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
+		} catch (Exception e) {
+			System.out.println("Trying to setPlayerUIToStartPoint " + e.getMessage());
+		}
 	}
 
 	public void refreshPlayer() {
@@ -289,7 +298,6 @@ public class onlineBoardControllerUI implements Observer {
 		rollButton.setDisable(true);
 		Platform.runLater(() -> {
 			openWinUI(playerWin);
-
 		});
 	}
 
@@ -312,13 +320,20 @@ public class onlineBoardControllerUI implements Observer {
 			System.out.println("Exception creating scene: " + ex.getMessage());
 		}
 	}
-	
+
 	private void setDiceFace(int face) {
 		dice_imageView.setImage(diceImages.get(face - 1));
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
+		if (arg instanceof String) {
+			String s = (String) arg;
+			if (s.equals("replay")) {
+				this.runReplay();
+			}
+		}
+
 		System.out.println("win ui click somthin");
 	}
 

@@ -3,6 +3,7 @@ package online.application;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +12,12 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
 import game.Game;
+import game.replay.Action;
+import game.replay.MoveAction;
 import online.data.PlayerDisconnect;
 import online.data.PlayerJoin;
 import online.data.PlayerTurn;
+import online.data.Replay;
 import online.data.RollData;
 import online.data.RollDice;
 import online.data.RoomData;
@@ -40,7 +44,10 @@ public class AppServer extends Game {
 		server.getKryo().register(ArrayList.class);
 		server.getKryo().register(HashMap.class);
 		server.getKryo().register(PlayerDisconnect.class);
+
 		server.getKryo().register(WinData.class);
+		server.getKryo().register(Replay.class);
+		server.getKryo().register(ArrayList.class);
 
 		server.start();
 		try {
@@ -112,9 +119,10 @@ public class AppServer extends Game {
 				sendRollData(game.currentPlayerName(), face, nextMove);
 
 				if (game.currentPlayerWin()) {
-					// handle when someone win
-					sendPlayerWin(game.currentPlayerName());
 					game.end();
+					// handle when someone win
+					System.out.println("WIN ON SERVER");
+					sendPlayerWin(game.currentPlayerName());
 
 				} else {
 					game.switchPlayer();
@@ -144,6 +152,7 @@ public class AppServer extends Game {
 		datas.steps = steps;
 		datas.diceFace = face;
 
+		System.out.println("SENDING WIN DATA");
 		for (Connection c : connections) {
 			c.sendTCP(datas);
 		}
@@ -152,7 +161,20 @@ public class AppServer extends Game {
 	private void sendPlayerWin(String currentPlayerName) {
 		WinData wd = new WinData();
 		wd.playername = currentPlayerName;
-		wd.replay = game.getLastReplay();
+		// create new replay data;
+		List<Replay> replays = new ArrayList<>();
+		System.out.println("Requesting last replay");
+		Iterator<Action> r = game.getLastReplay();
+		while (r.hasNext()) {
+			MoveAction ma = (MoveAction) r.next();
+			Replay rs = new Replay();
+			rs.dieFace = ma.getDieFace();
+			rs.name = ma.getPlayerName();
+			rs.steps = ma.getStepMove();
+			replays.add(rs);
+		}
+		wd.replays = replays;
+		
 		for (Connection c : connections) {
 			c.sendTCP(wd);
 		}

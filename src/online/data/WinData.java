@@ -1,10 +1,8 @@
 package online.data;
 
-import java.util.Iterator;
-
-import game.replay.Action;
+import java.util.List;
 
 public class WinData {
 	public String playername;
-	public Iterator<Action> replay;
+	public List<Replay> replays;
 }

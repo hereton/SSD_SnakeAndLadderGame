@@ -3,11 +3,14 @@ package online.ui;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
+import game.replay.Action;
+import game.replay.MoveAction;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +25,7 @@ import javafx.stage.Stage;
 import online.data.PlayerDisconnect;
 import online.data.PlayerJoin;
 import online.data.PlayerTurn;
+import online.data.Replay;
 import online.data.RollData;
 import online.data.RollDice;
 import online.data.RoomData;
@@ -59,7 +63,10 @@ public class onlineGameControllerUI {
 		client.getKryo().register(ArrayList.class);
 		client.getKryo().register(HashMap.class);
 		client.getKryo().register(PlayerDisconnect.class);
+
 		client.getKryo().register(WinData.class);
+		client.getKryo().register(Replay.class);
+		client.getKryo().register(ArrayList.class);
 
 		controller = new onlineBoardControllerUI(client);
 
@@ -113,10 +120,7 @@ public class onlineGameControllerUI {
 			if (o instanceof PlayerDisconnect) {
 				System.out.println("Whoops some player is disconnected");
 				// PlayerDisconnect pd = (PlayerDisconnect) o;
-				// controller.removePlayerFromBoard(pd.name);
 				// TODO
-				// HANDLE SOMETHING
-				// GAME CRASH?
 				// GAME END? < this is the best idea.
 			}
 
@@ -124,7 +128,14 @@ public class onlineGameControllerUI {
 				System.out.println("win");
 				WinData wd = (WinData) o;
 				controller.setPlayerWin(wd.playername);
-				controller.setReplay(wd.replay);
+
+				// Create new replay
+				List<Action> actions = new ArrayList<>();
+				for (Replay r : wd.replays) {
+					MoveAction ma = new MoveAction(r.name, r.steps, r.dieFace);
+					actions.add(ma);
+				}
+				controller.setReplay(actions.iterator());
 			}
 
 		}

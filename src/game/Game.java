@@ -99,7 +99,7 @@ public class Game {
 		int nextMove = currentPlayerPosition();
 		this.board.movePiece(currentPlayer().getPiece(), steps);
 		nextMove = currentPlayerPosition() - nextMove;
-		replay.add(new MoveAction(currentPlayer(), nextMove, die.getFace()));
+		replay.add(new MoveAction(currentPlayer().getName(), nextMove, die.getFace()));
 	}
 
 	public String currentPlayerName() {
