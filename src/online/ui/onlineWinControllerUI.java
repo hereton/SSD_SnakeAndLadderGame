@@ -23,12 +23,10 @@ public class onlineWinControllerUI extends Observable {
 
 	@FXML
 	public void initialize() {
-		System.out.println(winPlayer);
 		player_win_label.setText(winPlayer + " WIN !!");
 	}
 
 	public void handleReplayButton(ActionEvent e) {
-
 		updateObserver("replay");
 		closeWinUI(e);
 	}

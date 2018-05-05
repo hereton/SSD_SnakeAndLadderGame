@@ -67,7 +67,7 @@ public class AppServer extends Game {
 		@Override
 		public void connected(Connection arg0) {
 			super.connected(arg0);
-			System.out.println("connected");
+			System.out.println(arg0.getRemoteAddressTCP() + " connected");
 			connections.add(arg0);
 			arg0.sendTCP(roomStatus);
 		}
@@ -75,10 +75,9 @@ public class AppServer extends Game {
 		@Override
 		public void disconnected(Connection arg0) {
 			super.disconnected(arg0);
-			System.out.println(arg0 + "Disconnected");
+			System.out.println(arg0.getRemoteAddressTCP() + "Disconnected");
 			connections.remove(arg0);
 			if (playermap.get(arg0) != null) {
-				System.out.println("client in room");
 				PlayerDisconnect pd = new PlayerDisconnect();
 				pd.name = playermap.get(arg0);
 				roomStatus.players.remove(pd.name);
@@ -99,7 +98,7 @@ public class AppServer extends Game {
 			super.received(arg0, o);
 			if (o instanceof PlayerJoin) {
 				PlayerJoin player = (PlayerJoin) o;
-				System.out.println("Player " + player.name + " is joining the server");
+				System.out.println("Player " + player.name + " is joining the game");
 				game.addPlayer(player.name);
 				roomStatus.players.add(player.name);
 				playermap.put(arg0, player.name);
@@ -121,7 +120,6 @@ public class AppServer extends Game {
 				if (game.currentPlayerWin()) {
 					game.end();
 					// handle when someone win
-					System.out.println("WIN ON SERVER");
 					sendPlayerWin(game.currentPlayerName());
 
 				} else {
@@ -152,7 +150,6 @@ public class AppServer extends Game {
 		datas.steps = steps;
 		datas.diceFace = face;
 
-		System.out.println("SENDING WIN DATA");
 		for (Connection c : connections) {
 			c.sendTCP(datas);
 		}
@@ -163,7 +160,6 @@ public class AppServer extends Game {
 		wd.playername = currentPlayerName;
 		// create new replay data;
 		List<Replay> replays = new ArrayList<>();
-		System.out.println("Requesting last replay");
 		Iterator<Action> r = game.getLastReplay();
 		while (r.hasNext()) {
 			MoveAction ma = (MoveAction) r.next();
@@ -174,7 +170,7 @@ public class AppServer extends Game {
 			replays.add(rs);
 		}
 		wd.replays = replays;
-		
+
 		for (Connection c : connections) {
 			c.sendTCP(wd);
 		}

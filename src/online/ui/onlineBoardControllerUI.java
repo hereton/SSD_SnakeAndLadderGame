@@ -1,5 +1,6 @@
 package online.ui;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -90,7 +91,6 @@ public class onlineBoardControllerUI implements Observer {
 			turnPlayer_label.setText("Turn : " + currentPlayerTurn);
 
 			if (currentPlayerTurn.equals(myName)) {
-				System.out.println("my turn");
 				// enable roll button
 				rollButton.setDisable(false);
 			} else {
@@ -110,10 +110,7 @@ public class onlineBoardControllerUI implements Observer {
 		for (int i = 0; i < playersUI.size(); i++) {
 			setPlayerUIToStartPoint(i);
 		}
-
-		System.out.println("this is sizeui" + playersUI.size());
 		new Thread(() -> {
-			System.out.println(replay.hasNext());
 			String currentPlayer = "";
 			while (replay.hasNext()) {
 				MoveAction a = (MoveAction) replay.next();
@@ -174,10 +171,8 @@ public class onlineBoardControllerUI implements Observer {
 	 */
 	public void addPlayerToBoard(String playername) {
 		int playerIndex = roomdata.players.indexOf(playername);
-		System.out.println("adddddddddddddddd plater " + playerIndex);
 		if (playerIndex == 0) {
 			playersUI.add(0, this.player1);
-			System.out.println("adddd Sixeeeee " + playersUI.size());
 			player1_name_label.setText(playername);
 			setPlayerUIToStartPoint(playerIndex);
 		}
@@ -307,7 +302,6 @@ public class onlineBoardControllerUI implements Observer {
 	}
 
 	public void setPlayerWin(String playerWin) {
-		System.out.println("someone win ");
 		rollButton.setDisable(true);
 		Platform.runLater(() -> {
 			openWinUI(playerWin);
@@ -348,6 +342,11 @@ public class onlineBoardControllerUI implements Observer {
 			if (s.equals("new game")) {
 				this.newGame();
 				// TODO
+				try {
+					client.reconnect();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 

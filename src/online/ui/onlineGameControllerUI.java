@@ -86,7 +86,6 @@ public class onlineGameControllerUI {
 		public void received(Connection arg0, Object o) {
 			super.received(arg0, o);
 			if (o instanceof RoomData) {
-				System.out.println("Received room data");
 				roomStatus = (RoomData) o;
 				controller.setRoomData(roomStatus);
 				controller.refreshPlayer();
@@ -107,12 +106,10 @@ public class onlineGameControllerUI {
 			}
 
 			if (o instanceof PlayerTurn) {
-				System.out.println("Received player turn");
 				controller.setPlayerTurn(((PlayerTurn) o).currentPlayerTurn);
 			}
 
 			if (o instanceof RollData) {
-				System.out.println("Reveived Roll Data");
 				RollData rd = (RollData) o;
 				controller.move(rd.playername, rd.diceFace, rd.steps);
 			}
@@ -125,7 +122,6 @@ public class onlineGameControllerUI {
 			}
 
 			if (o instanceof WinData) {
-				System.out.println("win");
 				WinData wd = (WinData) o;
 				controller.setPlayerWin(wd.playername);
 
