@@ -241,7 +241,7 @@ public class onlineBoardControllerUI implements Observer {
 		playersBackward.add(false);
 		playersUI.get(i).setVisible(true);
 		boardAndPiece.getChildren().get(i + 1).setLayoutX((i) * 14);
-		boardAndPiece.getChildren().get(i + 1).setLayoutY(560);
+		boardAndPiece.getChildren().get(i + 1).setLayoutY(530);
 
 	}
 

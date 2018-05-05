@@ -26,10 +26,10 @@
 				<AnchorPane fx:id="player1" layoutY="610.0"
 					visible="false">
 					<children>
-						<ImageView fitHeight="40.0" fitWidth="48.0"
+						<ImageView fitHeight="60.0" fitWidth="60.0"
 							pickOnBounds="true" preserveRatio="true">
 							<image>
-								<Image url="@../../trump.jpg" />
+								<Image url="@../../trump.png" />
 							</image>
 						</ImageView>
 						<Label fx:id="player1_name_label" layoutY="50.0"
@@ -43,10 +43,10 @@
 				<AnchorPane fx:id="player2" layoutX="50.0"
 					layoutY="610.0" visible="false">
 					<children>
-						<ImageView fitHeight="40.0" fitWidth="48.0"
+						<ImageView fitHeight="60.0" fitWidth="60.0"
 							pickOnBounds="true" preserveRatio="true">
 							<image>
-								<Image url="@../../jackma.jpg" />
+								<Image url="@../../jackma.png" />
 							</image>
 						</ImageView>
 						<Label fx:id="player2_name_label" layoutY="50.0"
@@ -60,10 +60,10 @@
 				<AnchorPane fx:id="player3" layoutX="100.0"
 					layoutY="610.0" visible="false">
 					<children>
-						<ImageView fitHeight="40.0" fitWidth="48.0"
+						<ImageView fitHeight="60.0" fitWidth="60.0"
 							pickOnBounds="true" preserveRatio="true">
 							<image>
-								<Image url="@../../taksin.jpg" />
+								<Image url="@../../taksin.png" />
 							</image>
 						</ImageView>
 						<Label fx:id="player3_name_label" layoutY="50.0"
@@ -73,10 +73,10 @@
 				<AnchorPane fx:id="player4" layoutX="150.0"
 					layoutY="610.0" visible="false">
 					<children>
-						<ImageView fitHeight="40.0" fitWidth="48.0"
+						<ImageView fitHeight="60.0" fitWidth="60.0"
 							pickOnBounds="true" preserveRatio="true">
 							<image>
-								<Image url="@../../prayuth.jpg" />
+								<Image url="@../../prayuth.png" />
 							</image>
 						</ImageView>
 						<Label fx:id="player4_name_label" layoutY="50.0"
