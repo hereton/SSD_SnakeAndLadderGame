@@ -109,7 +109,7 @@ public class AppServer extends Game {
 				int face = game.currentPlayerRollDice();
 				game.currentPlayerMove(face);
 				nextMove = game.currentPlayerPosition() - nextMove;
-				sendRollData(game.currentPlayerName(), nextMove);
+				sendRollData(game.currentPlayerName(), face, nextMove);
 
 				if (game.currentPlayerWin()) {
 					// handle when someone win
@@ -138,16 +138,15 @@ public class AppServer extends Game {
 		}
 	}
 
-	private void sendRollData(String currentPlayerName, int steps) {
+	private void sendRollData(String currentPlayerName, int face, int steps) {
 		RollData datas = new RollData();
 		datas.playername = currentPlayerName;
 		datas.steps = steps;
+		datas.diceFace = face;
 
 		for (Connection c : connections) {
 			c.sendTCP(datas);
-
 		}
-
 	}
 
 	private void sendPlayerWin(String currentPlayerName) {

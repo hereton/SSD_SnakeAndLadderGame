@@ -22,7 +22,6 @@ import javafx.stage.Stage;
 import online.data.PlayerDisconnect;
 import online.data.PlayerJoin;
 import online.data.PlayerTurn;
-import online.data.PlayerWin;
 import online.data.RollData;
 import online.data.RollDice;
 import online.data.RoomData;
@@ -60,7 +59,7 @@ public class onlineGameControllerUI {
 		client.getKryo().register(ArrayList.class);
 		client.getKryo().register(HashMap.class);
 		client.getKryo().register(PlayerDisconnect.class);
-		client.getKryo().register(PlayerWin.class);
+		client.getKryo().register(WinData.class);
 
 		controller = new onlineBoardControllerUI(client);
 
@@ -108,7 +107,7 @@ public class onlineGameControllerUI {
 			if (o instanceof RollData) {
 				System.out.println("Reveived Roll Data");
 				RollData rd = (RollData) o;
-				controller.move(rd.playername, rd.steps);
+				controller.move(rd.playername, rd.diceFace, rd.steps);
 			}
 
 			if (o instanceof PlayerDisconnect) {

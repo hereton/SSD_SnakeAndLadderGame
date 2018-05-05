@@ -7,9 +7,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import com.esotericsoftware.kryonet.Client;
-import com.esotericsoftware.kryonet.Connection;
 
 import game.replay.Action;
+import game.replay.MoveAction;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,7 +22,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import offline.ui.WinControllerUI;
 import online.data.RollDice;
 import online.data.RoomData;
 
@@ -100,13 +99,29 @@ public class onlineBoardControllerUI implements Observer {
 		}
 	}
 
+	public void runReplay() {
+		for (int i = 0; i < 4; i++) {
+			setPlayerUIToStartPoint(i);
+		}
+		new Thread(() -> {
+			while (replay.hasNext()) {
+				MoveAction a = (MoveAction) replay.next();
+				Platform.runLater(() -> {
+					move(a.getPlayerName(), a.getDieFace(), a.getStepMove());
+				});
+			}
+		}).start();
+	}
+
 	/**
 	 * 
 	 * @param playername
 	 * @param steps
 	 *            can be both positive and negative
 	 */
-	public void move(String playername, int steps) {
+	public void move(String playername, int dieFace, int steps) {
+		setDiceFace(dieFace);
+
 		System.out.println(playername + " moves " + steps);
 		if (playersBackward.get(playersIndexUI)) {
 			playersBackward.set(playersIndexUI, false);
@@ -296,6 +311,10 @@ public class onlineBoardControllerUI implements Observer {
 		} catch (Exception ex) {
 			System.out.println("Exception creating scene: " + ex.getMessage());
 		}
+	}
+	
+	private void setDiceFace(int face) {
+		dice_imageView.setImage(diceImages.get(face - 1));
 	}
 
 	@Override
