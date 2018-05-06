@@ -140,7 +140,7 @@ public class BoardUIController implements Observer {
 			// direction right
 			if (directionPlayers.get(playersIndexUI)) {
 				playerGoRight(playersIndexUI);
-				if (getPlayerX(playersIndexUI) > 799) {
+				if (getPlayerX(playersIndexUI) > 790) {
 					if (playersBackward.get(playersIndexUI)) {
 						setPlayerDown(playersIndexUI); // after move on to snake
 					} else {
@@ -163,7 +163,7 @@ public class BoardUIController implements Observer {
 				}
 			}
 
-			if (getPlayerX(playersIndexUI) < 80 && getPlayerY(playersIndexUI) < 60) {
+			if (getPlayerX(playersIndexUI) < 80 && getPlayerY(playersIndexUI) < 40) {
 				directionPlayers.set(playersIndexUI, true);
 				reachTheGoalButFaceNotRight.set(playersIndexUI, true);
 			}
@@ -217,7 +217,7 @@ public class BoardUIController implements Observer {
 			reachTheGoalButFaceNotRight.add(false);
 			playersBackward.add(false);
 			playersUI.get(i).setVisible(true);
-			boardAndPiece.getChildren().get(i + 1).setLayoutX((i) * 14);
+			boardAndPiece.getChildren().get(i + 1).setLayoutX((i) * 15);
 			boardAndPiece.getChildren().get(i + 1).setLayoutY(530);
 		}
 		diceImages = new ArrayList<>();

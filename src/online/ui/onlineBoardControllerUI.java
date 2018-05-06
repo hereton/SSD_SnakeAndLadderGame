@@ -263,7 +263,7 @@ public class onlineBoardControllerUI implements Observer {
 			// direction right
 			if (directionPlayers.get(playersIndexUI)) {
 				playerGoRight(playersIndexUI);
-				if (getPlayerX(playersIndexUI) > 799) {
+				if (getPlayerX(playersIndexUI) > 780) {
 					if (playersBackward.get(playersIndexUI)) {
 						setPlayerDown(playersIndexUI); // after move on to snake
 					} else {
@@ -286,7 +286,7 @@ public class onlineBoardControllerUI implements Observer {
 				}
 			}
 
-			if (getPlayerX(playersIndexUI) < 80 && getPlayerY(playersIndexUI) < 60) {
+			if (getPlayerX(playersIndexUI) < 80 && getPlayerY(playersIndexUI) < 40) {
 				directionPlayers.set(playersIndexUI, true);
 				reachTheGoalButFaceNotRight.set(playersIndexUI, true);
 			}
