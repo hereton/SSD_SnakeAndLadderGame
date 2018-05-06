@@ -78,7 +78,6 @@ public class onlineBoardControllerUI implements Observer {
 	public void initialize() {
 		setPlayerTurn(this.currentTurn);
 		refreshPlayer();
-
 	}
 
 	public void setRoomData(RoomData roomdata) {
@@ -392,6 +391,17 @@ public class onlineBoardControllerUI implements Observer {
 		Node source = (Node) event.getSource();
 		Stage thisStage = (Stage) source.getScene().getWindow();
 		thisStage.close();
+	}
+
+	public void setStatus(String status) {
+		// System.out.println("try to setting status");
+		try {
+			Platform.runLater(() -> {
+				statusPlayer_label.setText(status);
+			});
+		} catch (NullPointerException e) {
+			// Do nothing
+		}
 	}
 
 }

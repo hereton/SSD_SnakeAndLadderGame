@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -21,9 +23,10 @@ import online.data.Replay;
 import online.data.RollData;
 import online.data.RollDice;
 import online.data.RoomData;
+import online.data.GameStatus;
 import online.data.WinData;
 
-public class AppServer extends Game {
+public class AppServer extends Game implements Observer {
 	private Server server;
 	private int SERVER_PORT = 3309;
 	private List<Connection> connections = new ArrayList<>();
@@ -49,6 +52,8 @@ public class AppServer extends Game {
 		server.getKryo().register(Replay.class);
 		server.getKryo().register(ArrayList.class);
 
+		server.getKryo().register(GameStatus.class);
+
 		server.start();
 		try {
 			server.bind(SERVER_PORT);
@@ -60,6 +65,7 @@ public class AppServer extends Game {
 		}
 
 		this.game = new Game();
+		game.addObserver(this);
 		roomStatus.isPlaying = game.isPlaying();
 	}
 
@@ -180,6 +186,16 @@ public class AppServer extends Game {
 
 	public static void main(String[] args) {
 		new AppServer();
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		System.out.println(arg.toString());
+		GameStatus s = new GameStatus();
+		s.status = (String) arg;
+		for (Connection c : connections) {
+			c.sendTCP(s);
+		}
 	}
 
 }

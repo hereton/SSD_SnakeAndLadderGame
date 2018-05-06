@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import online.application.AppCient;
+import online.data.GameStatus;
 import online.data.PlayerDisconnect;
 import online.data.PlayerJoin;
 import online.data.PlayerTurn;
@@ -69,6 +70,8 @@ public class onlineGameControllerUI {
 		client.getKryo().register(WinData.class);
 		client.getKryo().register(Replay.class);
 		client.getKryo().register(ArrayList.class);
+
+		client.getKryo().register(GameStatus.class);
 
 		controller = new onlineBoardControllerUI(client);
 
@@ -127,6 +130,10 @@ public class onlineGameControllerUI {
 				WinData wd = (WinData) o;
 				controller.setPlayerWin(wd.playername);
 				controller.setReplay(wd.replays);
+			}
+
+			if (o instanceof GameStatus) {
+				controller.setStatus(((GameStatus) o).status.toString());
 			}
 
 		}
