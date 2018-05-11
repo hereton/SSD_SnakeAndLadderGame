@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="game.Piece" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/game/Piece.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="83" width="97" x="55" y="671"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="game.Die" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/game/Die.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="155" width="110" x="-95" y="404"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="game.Player" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/game/Player.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="173" width="167" x="55" y="404"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="game.Game" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/game/Game.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="215" y="136"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="game.Board" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/game/Board.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="227" width="232" x="262" y="404"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="game.replay.MoveAction" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/game/replay/MoveAction.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-3" y="205"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="game.replay.Action" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/game/replay/Action.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="-29" y="-15"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="game.tile.Square" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/game/tile/Square.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="914" y="488"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="game.tile.Freeze" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/game/tile/Freeze.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="419" y="773"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="game.tile.Ladder" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/game/tile/Ladder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="658" y="755"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="11" language="java" name="game.tile.TileType" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/game/tile/TileType.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="879" y="773"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="12" language="java" name="game.tile.Snake" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/game/tile/Snake.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1101" y="755"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="game.tile.Backward" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/game/tile/Backward.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1306" y="737"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="offline.application.Main" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/offline/application/Main.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="421" y="-10"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="offline.application.ConsoleUI" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/offline/application/ConsoleUI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="585" y="-1"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="offline.ui.WinControllerUI" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/offline/ui/WinControllerUI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1241" y="79"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="offline.ui.BoardUIController" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/offline/ui/BoardUIController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1545" y="322"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="offline.ui.GameUIController" project="SSD_SnakeAndLadderGame_final" 
+    file="/SSD_SnakeAndLadderGame_final/src/offline/ui/GameUIController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1815" y="70"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="19">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <association id="20">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="21" name="lastReplay"/>      
+      <multiplicity id="22" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="23">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="24" name="squares"/>      
+      <multiplicity id="25" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="26">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="27" name="game"/>      
+      <multiplicity id="28" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="29">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="30" name="die"/>      
+      <multiplicity id="31" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="32">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="33" name="game"/>      
+      <multiplicity id="34" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="35">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="36" name="tileType"/>      
+      <multiplicity id="37" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="38">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <association id="39">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="40" name="replay"/>      
+      <multiplicity id="41" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="42">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="43" name="board"/>      
+      <multiplicity id="44" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="45">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <association id="46">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="47" name="piece"/>      
+      <multiplicity id="48" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="49">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="50" name="players"/>      
+      <multiplicity id="51" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="52">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="7"/>  
+  </generalization>  
+  <association id="53">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="54" name="pieces"/>      
+      <multiplicity id="55" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="56">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
