@@ -1,3 +1,6 @@
+# Submission
+[https://github.com/hereton/SSD_SnakeAndLadderGame/tree/master/submit](https://github.com/hereton/SSD_SnakeAndLadderGame/tree/master/submit)
+
 # SSD_2018_Final
 Form a group of 2-3 people. Write a complete snake and ladder game (with additional features).
 
