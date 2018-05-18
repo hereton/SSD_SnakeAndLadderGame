@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class AppCient extends Application {
-	public static String IP_ADDRESS = "35.197.154.253";
-	// public static String IP_ADDRESS = "127.0.0.1";
+	// public static String IP_ADDRESS = "35.197.154.253";
+	public static String IP_ADDRESS = "127.0.0.1";
 
 	public static void main(String[] args) {
 		launch(args);

@@ -24,9 +24,9 @@ The project must be developed in Java.
 
 ## What to submit
 
-- [ ] Domain Model
+- [x] Domain Model
 - [x] UML Class Diagram
-- [ ] Source code (Runnable JAR file or APK.)
+- [x] Source code (Runnable JAR file or APK.)
 
 ## Grading
 
