@@ -4,6 +4,10 @@
 # SSD_2018_Final
 Form a group of 2-3 people. Write a complete snake and ladder game (with additional features).
 
+Thitiwat Thongbor 5910546384
+Totsapon menkul 5910545698
+Pimwalun Witchawanitchanun 5910546686
+
 ## Description
 
 We have worked with Snake and Ladder game before in our class. At that time, the project is incompleted (We didn't write actual Snake class and Ladder class but only demonstrate other concepts). This time, your job is to create a playable Snake and Ladder game that can supports upto 4 players.
